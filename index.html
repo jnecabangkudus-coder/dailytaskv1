@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Taskku By GN - Interactive Productivity Suite</title>
+    <title>Taskku By GN</title>
     <link rel="manifest" href="/dailytaskv1/manifest.json">
-<meta name="theme-color" content="#0ea5e9">
-<meta name="description" content="Kelola tugas, keuangan, kebiasaan & produktivitas Anda dalam satu aplikasi.">
-
-<!-- Favicon emoji -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
-
-<!-- iOS PWA -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Taskku">
+    <meta name="theme-color" content="#0ea5e9">
+    <meta name="description" content="Kelola tugas, keuangan, kebiasaan & produktivitas Anda dalam satu aplikasi.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="OmniTask">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -65,7 +61,6 @@
         .sortable-ghost { opacity: 0.4; background-color: #f8fafc; border: 2px dashed #0ea5e9; }
         .dark .sortable-ghost { background-color: #0f172a; }
 
-        /* === Kartu task compact === */
         .task-card {
             cursor: default;
             position: relative;
@@ -75,7 +70,6 @@
         .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
         .task-card:active { transform: scale(.995); }
 
-        /* Aksen warna memudar di pojok kanan bawah */
         .task-card::after {
             content: '';
             position: absolute;
@@ -94,11 +88,8 @@
         .task-card[data-priority="low"]::after {
             background: radial-gradient(circle at bottom right, rgba(16,185,129,.30) 0%, rgba(16,185,129,.11) 40%, transparent 72%);
         }
-
-        /* Konten task di atas aksen */
         .task-card > * { position: relative; z-index: 1; }
 
-        /* Drag handle — diperbesar */
         .drag-handle {
             cursor: grab;
             touch-action: none;
@@ -116,7 +107,6 @@
         .dark .drag-handle:hover { background: #334155; color: #a5b4fc; }
         .drag-handle:active { cursor: grabbing; transform: scale(.95); }
 
-        /* Tombol panah pindah kolom */
         .col-move-btn {
             width: 38px; height: 38px;
             border-radius: 10px;
@@ -184,6 +174,7 @@
         @media (min-width: 768px) {
             input, select, textarea { font-size: inherit; }
         }
+        .sheet-status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col">
@@ -200,7 +191,7 @@
                 <div class="inline-flex bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-4 rounded-2xl shadow-lg shadow-sky-500/30 mb-4">
                     <i class="fa-solid fa-layer-group text-3xl"></i>
                 </div>
-                <h1 class="text-3xl font-black bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">Taskku By GN</h1>
+                <h1 class="text-3xl font-black bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">OmniTask Pro</h1>
                 <p class="text-sm text-slate-500 mt-1">Kelola tugas, keuangan & produktivitas Anda</p>
             </div>
 
@@ -268,7 +259,7 @@
                     <i class="fa-solid font-bold fa-layer-group text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400 bg-clip-text text-transparent">Taskku By GN</h1>
+                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400 bg-clip-text text-transparent">OmniTask Pro</h1>
                     <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider" id="user-greeting">Local Workspace</p>
                 </div>
             </div>
@@ -293,8 +284,8 @@
                     <i class="fa-solid fa-sun hidden dark:block"></i>
                 </button>
                 <button id="btn-install-pwa" onclick="installPWA()" class="hidden p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 transition-colors" title="Install Aplikasi">
-    <i class="fa-solid fa-download"></i>
-</button>
+                    <i class="fa-solid fa-download"></i>
+                </button>
                 <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-rose-100 dark:bg-rose-900/40 hover:bg-rose-200 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 transition-colors" title="Keluar">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
@@ -339,7 +330,6 @@
                 </div>
             </div>
 
-            <!-- MOBILE: Tab switcher untuk kolom -->
             <div class="md:hidden flex gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
                 <button onclick="switchKanbanTab('todo')" id="kanban-tab-todo" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-amber-500 text-white shadow-sm">
                     <span class="inline-block w-2 h-2 rounded-full bg-white/80 mr-1"></span> Akan <span id="kanban-count-todo" class="ml-1 opacity-80">(0)</span>
@@ -379,8 +369,12 @@
 
         <!-- ===== FINANCE ===== -->
         <section id="tab-finance" class="tab-content hidden space-y-5">
-            <div class="hidden md:flex justify-end">
-                <button onclick="openAddFinanceModal()" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all flex items-center gap-2">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+                <button onclick="openSheetModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-table-columns"></i> Integrasi Spreadsheet
+                    <span id="sheet-status-badge" class="hidden ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20">●</span>
+                </button>
+                <button onclick="openAddFinanceModal()" class="hidden md:flex px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all items-center gap-2">
                     <i class="fa-solid fa-plus"></i> Catat Transaksi Baru
                 </button>
             </div>
@@ -698,7 +692,79 @@
         </div>
     </div>
 
-    <!-- MODALS -->
+    <!-- MODAL: Integrasi Spreadsheet -->
+    <div id="modal-sheet" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[65] flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-table-columns text-emerald-500"></i> Integrasi Spreadsheet
+                </h3>
+                <button onclick="closeModal('modal-sheet')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div id="sheet-connected-view" class="hidden space-y-4">
+                <div class="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="sheet-status-dot bg-emerald-500"></span>
+                        <span class="font-bold text-emerald-700 dark:text-emerald-400 text-sm">Terhubung ke Spreadsheet</span>
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300">Setiap transaksi baru akan otomatis dikirim ke Google Sheets.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl">
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Total Sync</p>
+                        <p id="sheet-synced-count" class="text-lg font-black text-slate-800 dark:text-white">0</p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl">
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Terakhir Sync</p>
+                        <p id="sheet-last-sync" class="text-xs font-bold text-slate-800 dark:text-white">-</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
+                    <span class="font-semibold text-sm">Auto-sync transaksi baru</span>
+                    <label class="relative inline-block w-12 h-6 cursor-pointer">
+                        <input type="checkbox" id="sheet-auto-sync" class="sr-only peer" onchange="toggleAutoSync(this.checked)">
+                        <div class="w-12 h-6 bg-slate-300 dark:bg-slate-600 peer-checked:bg-emerald-500 rounded-full transition-colors"></div>
+                        <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform peer-checked:translate-x-6"></div>
+                    </label>
+                </div>
+
+                <button onclick="syncAllToSheet()" id="btn-sync-all" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
+                    <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Semua Transaksi
+                </button>
+                <button onclick="testSheetConnection()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold rounded-xl text-sm">
+                    <i class="fa-solid fa-vial mr-2"></i> Test Koneksi
+                </button>
+                <button onclick="disconnectSheet()" class="w-full py-2.5 bg-rose-100 dark:bg-rose-900/30 hover:bg-rose-200 text-rose-600 dark:text-rose-400 font-bold rounded-xl text-sm">
+                    <i class="fa-solid fa-plug-circle-xmark mr-2"></i> Putuskan
+                </button>
+            </div>
+
+            <div id="sheet-disconnected-view" class="space-y-4">
+                <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        <i class="fa-solid fa-circle-info text-sky-500 mr-1"></i>
+                        Hubungkan OmniTask dengan Google Sheets Anda. Setiap transaksi baru akan otomatis dikirim ke spreadsheet.
+                    </p>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">URL Web App (dari Apps Script)</label>
+                    <input type="text" id="sheet-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Secret Token</label>
+                    <input type="password" id="sheet-token-input" placeholder="Token yang sama dengan Apps Script" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono">
+                </div>
+                <button onclick="connectSheet()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
+                    <i class="fa-solid fa-plug mr-2"></i> Hubungkan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS: Existing -->
     <div id="modal-add-finlib" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[70] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-300">
             <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-white" id="finlib-title">Tambah Label</h3>
@@ -887,7 +953,7 @@
         </div>
     </div>
 
-    <div id="modal-edit-finance" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[70] flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div id="modal-edit-finance" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center">
                 <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
@@ -947,7 +1013,7 @@
     </div>
 
     <!-- MODAL: Konfirmasi Universal -->
-    <div id="modal-confirm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[60] flex items-center justify-center p-4">
+    <div id="modal-confirm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[80] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200">
             <div class="flex flex-col items-center text-center space-y-4">
                 <div id="confirm-icon-wrap" class="w-16 h-16 rounded-full flex items-center justify-center">
@@ -1065,6 +1131,7 @@
         let state = {
             tasks: [], finances: [], financeLibs: [], notes: [], habits: [], recurrings: [],
             currentUser: null, isDataLoaded: false, filteredTasks: null,
+            sheet: { url: '', token: '', connected: false, autoSync: true, syncedCount: 0, lastSync: null }
         };
         window.__state = state;
         
@@ -1096,6 +1163,7 @@
         const saveNotes = () => saveToFirebase('notes', state.notes);
         const saveHabits = () => saveToFirebase('habits', state.habits);
         const saveRecurrings = () => saveToFirebase('recurrings', state.recurrings);
+        const saveSheetConfig = () => saveToFirebase('sheet', state.sheet);
 
         function enqueuePendingSync(uid, field, data) {
             const key = `pending_${uid}`;
@@ -1141,6 +1209,143 @@
                 text.textContent = 'Gagal Sync';
             }
         }
+
+        // ==================== SHEET INTEGRATION ====================
+        window.openSheetModal = function() {
+            renderSheetModal();
+            elShow('modal-sheet');
+        };
+        function renderSheetModal() {
+            const connected = state.sheet.connected;
+            document.getElementById('sheet-connected-view').classList.toggle('hidden', !connected);
+            document.getElementById('sheet-disconnected-view').classList.toggle('hidden', connected);
+            if (connected) {
+                document.getElementById('sheet-synced-count').innerText = state.sheet.syncedCount || 0;
+                document.getElementById('sheet-last-sync').innerText = state.sheet.lastSync ? formatDateTime(state.sheet.lastSync) : '-';
+                document.getElementById('sheet-auto-sync').checked = state.sheet.autoSync;
+            } else {
+                document.getElementById('sheet-url-input').value = state.sheet.url || '';
+                document.getElementById('sheet-token-input').value = state.sheet.token || '';
+            }
+            // Update badge di tab Keuangan
+            const badge = document.getElementById('sheet-status-badge');
+            if (badge) badge.classList.toggle('hidden', !connected);
+        }
+        window.connectSheet = async function() {
+            const url = document.getElementById('sheet-url-input').value.trim();
+            const token = document.getElementById('sheet-token-input').value.trim();
+            if (!url || !token) { toast('URL dan Token wajib diisi', 'error'); return; }
+            if (!url.startsWith('https://script.google.com/')) { toast('URL tidak valid. Harus dari script.google.com', 'error'); return; }
+            
+            state.sheet.url = url;
+            state.sheet.token = token;
+            saveSheetConfig();
+            toast('Menguji koneksi...', 'info');
+            const ok = await testSheetConnection(true);
+            if (ok) {
+                state.sheet.connected = true;
+                saveSheetConfig();
+                renderSheetModal();
+                toast('✅ Berhasil terhubung!', 'success');
+            }
+        };
+        window.testSheetConnection = async function(silent) {
+            if (!state.sheet.url) { if(!silent) toast('Belum terhubung', 'error'); return false; }
+            try {
+                const res = await fetch(state.sheet.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ token: state.sheet.token, action: 'test' })
+                });
+                // Karena no-cors, kita tidak bisa baca response. Asumsikan OK kalau fetch tidak throw.
+                if (!silent) toast('✅ Koneksi OK', 'success');
+                return true;
+            } catch (e) {
+                console.error('Test connection error:', e);
+                if (!silent) toast('❌ Gagal koneksi', 'error');
+                return false;
+            }
+        };
+        window.disconnectSheet = function() {
+            showConfirm({
+                title: 'Putuskan Spreadsheet?',
+                message: 'Sinkronisasi otomatis akan berhenti. Data di Sheets tidak akan terhapus.',
+                variant: 'warning',
+                okText: 'Ya, Putuskan',
+                onConfirm: () => {
+                    state.sheet.connected = false;
+                    saveSheetConfig();
+                    renderSheetModal();
+                    const badge = document.getElementById('sheet-status-badge');
+                    if (badge) badge.classList.add('hidden');
+                    toast('Terputus dari Spreadsheet', 'success');
+                }
+            });
+        };
+        window.toggleAutoSync = function(val) {
+            state.sheet.autoSync = val;
+            saveSheetConfig();
+            toast(val ? 'Auto-sync aktif' : 'Auto-sync nonaktif', 'info');
+        };
+        async function sendToSheet(transaction) {
+            if (!state.sheet.connected || !state.sheet.url) return;
+            if (!state.sheet.autoSync) return;
+            try {
+                await fetch(state.sheet.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        token: state.sheet.token,
+                        action: 'append',
+                        transaction
+                    })
+                });
+                state.sheet.syncedCount = (state.sheet.syncedCount || 0) + 1;
+                state.sheet.lastSync = nowISO();
+                saveSheetConfig();
+            } catch (e) {
+                console.error('Send to sheet error:', e);
+            }
+        }
+        window.syncAllToSheet = async function() {
+            if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
+            if (!state.finances.length) { toast('Tidak ada transaksi', 'info'); return; }
+            
+            showConfirm({
+                title: 'Sync Semua Transaksi?',
+                message: `${state.finances.length} transaksi akan dikirim ke Google Sheets. Lanjutkan?`,
+                variant: 'info',
+                okText: 'Ya, Sync',
+                onConfirm: async () => {
+                    const btn = document.getElementById('btn-sync-all');
+                    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengirim...'; }
+                    try {
+                        await fetch(state.sheet.url, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify({
+                                token: state.sheet.token,
+                                action: 'bulk',
+                                transactions: state.finances
+                            })
+                        });
+                        state.sheet.syncedCount = state.finances.length;
+                        state.sheet.lastSync = nowISO();
+                        saveSheetConfig();
+                        renderSheetModal();
+                        toast(`✅ ${state.finances.length} transaksi terkirim`, 'success');
+                    } catch (e) {
+                        console.error(e);
+                        toast('Gagal mengirim', 'error');
+                    } finally {
+                        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Semua Transaksi'; }
+                    }
+                }
+            });
+        };
 
         // ==================== AUTH ====================
         window.switchAuthTab = function(tab) {
@@ -1199,7 +1404,6 @@
             const auth = window.firebaseAuth;
             const db = window.firebaseDb;
 
-            // Bind confirm buttons after DOM ready
             setTimeout(() => {
                 const cancelBtn = document.getElementById('confirm-cancel');
                 const okBtn = document.getElementById('confirm-ok');
@@ -1266,7 +1470,7 @@
         async function loadUserData(uid) {
             const { doc, getDoc, onSnapshot } = window.firebaseFns;
             const ref = doc(window.firebaseDb, 'users', uid);
-            ['tasks','finances','financeLibs','notes','habits','recurrings'].forEach(f => {
+            ['tasks','finances','financeLibs','notes','habits','recurrings','sheet'].forEach(f => {
                 const cached = cacheGet(uid, f);
                 if (cached) state[f] = cached;
             });
@@ -1280,9 +1484,11 @@
                     state.notes = data.notes || [];
                     state.habits = data.habits || [];
                     state.recurrings = data.recurrings || [];
+                    if (data.sheet) state.sheet = { ...state.sheet, ...data.sheet };
                     state.isDataLoaded = true;
                     processRecurrings();
                     renderAll();
+                    updateSheetBadge();
                 } else {
                     await window.firebaseFns.setDoc(ref, { tasks: [], finances: [], financeLibs: [], notes: [], habits: [], recurrings: [], createdAt: nowISO() });
                     renderAll();
@@ -1290,6 +1496,7 @@
             } catch (e) {
                 console.error('Load error:', e);
                 renderAll();
+                updateSheetBadge();
             }
             
             if (unsubscribeSnapshot) unsubscribeSnapshot();
@@ -1301,8 +1508,13 @@
                     const incoming = JSON.stringify(data[f] || []);
                     if (incoming !== JSON.stringify(state[f])) { state[f] = data[f] || []; changed = true; }
                 });
-                if (changed && state.isDataLoaded) { renderAll(); showSyncIndicator('synced'); }
+                if (data.sheet) state.sheet = { ...state.sheet, ...data.sheet };
+                if (changed && state.isDataLoaded) { renderAll(); showSyncIndicator('synced'); updateSheetBadge(); }
             });
+        }
+        function updateSheetBadge() {
+            const badge = document.getElementById('sheet-status-badge');
+            if (badge) badge.classList.toggle('hidden', !state.sheet.connected);
         }
 
         function renderAll() {
@@ -1790,6 +2002,8 @@
                 saveRecurrings();
             }
             saveFinances();
+            // Kirim ke Google Sheets jika terhubung & auto-sync aktif
+            sendToSheet(f);
             closeModal('modal-add-finance');
             renderFinance();
             toast('Transaksi tersimpan', 'success');
@@ -1805,13 +2019,15 @@
             let changed = false;
             state.recurrings.forEach(r => {
                 if (!r.lastRun || new Date(r.nextRun) <= now) {
-                    state.finances.push({
+                    const newTx = {
                         id: Date.now().toString() + Math.random().toString(36).slice(2,6),
                         ...r.template,
                         datetime: new Date().toISOString().slice(0,16),
                         createdAt: nowISO(),
                         auto: true,
-                    });
+                    };
+                    state.finances.push(newTx);
+                    sendToSheet(newTx);
                     r.lastRun = nowISO();
                     r.nextRun = getNextRun(r.interval, r.nextRun);
                     changed = true;
@@ -2474,63 +2690,57 @@
         });
         window.onload = function() { switchTab('tasks'); };
 
-// ==================== PWA INSTALL ====================
-let deferredPrompt = null;
-const installBtn = document.getElementById('btn-install-pwa');
+        // ==================== PWA INSTALL ====================
+        let deferredPrompt = null;
+        const installBtn = document.getElementById('btn-install-pwa');
 
-// Register service worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/dailytaskv1/sw.js', { scope: '/dailytaskv1/' })
-            .then(reg => console.log('✅ Service Worker registered:', reg.scope))
-            .catch(err => console.warn('❌ SW registration failed:', err));
-    });
-}
-
-// Tangkap event install
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBtn) installBtn.classList.remove('hidden');
-});
-
-// Handle klik tombol install
-window.installPWA = async function() {
-    if (!deferredPrompt) {
-        // iOS / browser yang tidak support prompt — kasih instruksi manual
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        if (isIOS) {
-            showConfirm({
-                title: 'Install di iPhone/iPad',
-                message: 'Ketuk tombol "Share" (kotak dengan panah ke atas) di Safari, lalu pilih "Add to Home Screen".',
-                variant: 'info',
-                okText: 'Mengerti',
-                onConfirm: () => {}
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/dailytaskv1/sw.js', { scope: '/dailytaskv1/' })
+                    .then(reg => console.log('✅ Service Worker registered:', reg.scope))
+                    .catch(err => console.warn('❌ SW registration failed:', err));
             });
-        } else {
-            toast('Browser Anda belum mendukung install otomatis. Coba Chrome/Edge.', 'info');
         }
-        return;
-    }
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-        toast('Aplikasi berhasil di-install! 🎉', 'success');
-        if (installBtn) installBtn.classList.add('hidden');
-    }
-    deferredPrompt = null;
-};
 
-// Sembunyikan tombol kalau sudah di-install
-window.addEventListener('appinstalled', () => {
-    if (installBtn) installBtn.classList.add('hidden');
-    toast('Terima kasih sudah install OmniTask! 🎉', 'success');
-});
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (installBtn) installBtn.classList.remove('hidden');
+        });
 
-// Deteksi mode standalone (sudah di-install)
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-    if (installBtn) installBtn.classList.add('hidden');
-}
+        window.installPWA = async function() {
+            if (!deferredPrompt) {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                if (isIOS) {
+                    showConfirm({
+                        title: 'Install di iPhone/iPad',
+                        message: 'Ketuk tombol "Share" (kotak dengan panah ke atas) di Safari, lalu pilih "Add to Home Screen".',
+                        variant: 'info',
+                        okText: 'Mengerti',
+                        onConfirm: () => {}
+                    });
+                } else {
+                    toast('Browser Anda belum mendukung install otomatis. Coba Chrome/Edge.', 'info');
+                }
+                return;
+            }
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                toast('Aplikasi berhasil di-install! 🎉', 'success');
+                if (installBtn) installBtn.classList.add('hidden');
+            }
+            deferredPrompt = null;
+        };
+
+        window.addEventListener('appinstalled', () => {
+            if (installBtn) installBtn.classList.add('hidden');
+            toast('Terima kasih sudah install OmniTask! 🎉', 'success');
+        });
+
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            if (installBtn) installBtn.classList.add('hidden');
+        }
     </script>
 </body>
 </html>

@@ -61,63 +61,21 @@
         .sortable-ghost { opacity: 0.4; background-color: #f8fafc; border: 2px dashed #0ea5e9; }
         .dark .sortable-ghost { background-color: #0f172a; }
 
-        .task-card {
-            cursor: default;
-            position: relative;
-            overflow: hidden;
-            transition: transform .15s ease, box-shadow .15s ease;
-        }
+        .task-card { cursor: default; position: relative; overflow: hidden; transition: transform .15s ease, box-shadow .15s ease; }
         .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
         .task-card:active { transform: scale(.995); }
-
-        .task-card::after {
-            content: '';
-            position: absolute;
-            right: 0; bottom: 0;
-            width: 60%; height: 65%;
-            pointer-events: none;
-            z-index: 0;
-            border-radius: 0 0 12px 0;
-        }
-        .task-card[data-priority="high"]::after {
-            background: radial-gradient(circle at bottom right, rgba(244,63,94,.35) 0%, rgba(244,63,94,.13) 40%, transparent 72%);
-        }
-        .task-card[data-priority="medium"]::after {
-            background: radial-gradient(circle at bottom right, rgba(245,158,11,.32) 0%, rgba(245,158,11,.12) 40%, transparent 72%);
-        }
-        .task-card[data-priority="low"]::after {
-            background: radial-gradient(circle at bottom right, rgba(16,185,129,.30) 0%, rgba(16,185,129,.11) 40%, transparent 72%);
-        }
+        .task-card::after { content: ''; position: absolute; right: 0; bottom: 0; width: 60%; height: 65%; pointer-events: none; z-index: 0; border-radius: 0 0 12px 0; }
+        .task-card[data-priority="high"]::after { background: radial-gradient(circle at bottom right, rgba(244,63,94,.35) 0%, rgba(244,63,94,.13) 40%, transparent 72%); }
+        .task-card[data-priority="medium"]::after { background: radial-gradient(circle at bottom right, rgba(245,158,11,.32) 0%, rgba(245,158,11,.12) 40%, transparent 72%); }
+        .task-card[data-priority="low"]::after { background: radial-gradient(circle at bottom right, rgba(16,185,129,.30) 0%, rgba(16,185,129,.11) 40%, transparent 72%); }
         .task-card > * { position: relative; z-index: 1; }
 
-        .drag-handle {
-            cursor: grab;
-            touch-action: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px; height: 34px;
-            border-radius: 10px;
-            color: #94a3b8;
-            transition: all .15s ease;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
+        .drag-handle { cursor: grab; touch-action: none; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; color: #94a3b8; transition: all .15s ease; font-size: 18px; flex-shrink: 0; }
         .drag-handle:hover { background: #eef2ff; color: #6366f1; }
         .dark .drag-handle:hover { background: #334155; color: #a5b4fc; }
         .drag-handle:active { cursor: grabbing; transform: scale(.95); }
 
-        .col-move-btn {
-            width: 38px; height: 38px;
-            border-radius: 10px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            transition: all .15s ease;
-            border: none;
-            cursor: pointer;
-        }
+        .col-move-btn { width: 38px; height: 38px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; transition: all .15s ease; border: none; cursor: pointer; }
         .col-move-btn:active { transform: scale(.9); }
         .col-move-btn.prev { background: #fee2e2; color: #dc2626; }
         .col-move-btn.prev:hover { background: #fecaca; }
@@ -155,37 +113,23 @@
 
         @media (max-width: 767px) {
             .kanban-col { min-width: 88vw; }
-            .fab {
-                position: fixed; bottom: 24px; right: 24px; z-index: 45;
-                width: 56px; height: 56px; border-radius: 50%;
-                background: linear-gradient(135deg, #0ea5e9, #6366f1);
-                color: white; font-size: 24px;
-                box-shadow: 0 8px 24px rgba(14,165,233,.45), 0 4px 12px rgba(0,0,0,.15);
-                display: flex; align-items: center; justify-content: center;
-                transition: transform .2s, box-shadow .2s;
-                border: none; cursor: pointer;
-            }
+            .fab { position: fixed; bottom: 24px; right: 24px; z-index: 45; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #0ea5e9, #6366f1); color: white; font-size: 24px; box-shadow: 0 8px 24px rgba(14,165,233,.45), 0 4px 12px rgba(0,0,0,.15); display: flex; align-items: center; justify-content: center; transition: transform .2s, box-shadow .2s; border: none; cursor: pointer; }
             .fab:active { transform: scale(.92); }
         }
-        @media (min-width: 768px) {
-            .fab { display: none !important; }
-        }
+        @media (min-width: 768px) { .fab { display: none !important; } }
         input, select, textarea { font-size: 16px; }
-        @media (min-width: 768px) {
-            input, select, textarea { font-size: inherit; }
-        }
+        @media (min-width: 768px) { input, select, textarea { font-size: inherit; } }
         .sheet-status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col">
 
-    <!-- ==================== AUTH SCREEN ==================== -->
+    <!-- AUTH SCREEN -->
     <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-sky-500 via-indigo-600 to-purple-700">
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
         </div>
-        
         <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md p-8 fade-in max-h-[95vh] overflow-y-auto">
             <div class="text-center mb-8">
                 <div class="inline-flex bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-4 rounded-2xl shadow-lg shadow-sky-500/30 mb-4">
@@ -194,12 +138,10 @@
                 <h1 class="text-3xl font-black bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">OmniTask Pro</h1>
                 <p class="text-sm text-slate-500 mt-1">Kelola tugas, keuangan & produktivitas Anda</p>
             </div>
-
             <div class="flex p-1 bg-slate-100 dark:bg-slate-700 rounded-xl mb-6">
                 <button onclick="switchAuthTab('login')" id="auth-tab-login" class="flex-1 py-2.5 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-sky-600">Masuk</button>
                 <button onclick="switchAuthTab('register')" id="auth-tab-register" class="flex-1 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-500">Daftar</button>
             </div>
-
             <form id="login-form" class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label>
@@ -218,7 +160,6 @@
                 <button type="button" onclick="handleForgotPassword()" class="text-xs text-sky-500 hover:text-sky-600 font-semibold">Lupa password?</button>
                 <button type="submit" id="login-btn" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md shadow-sky-500/30 transition-all uppercase tracking-wide text-sm">Masuk</button>
             </form>
-
             <form id="register-form" class="space-y-4 hidden">
                 <div>
                     <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Nama Lengkap</label>
@@ -243,15 +184,13 @@
                 </div>
                 <button type="submit" id="register-btn" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md shadow-emerald-500/30 transition-all uppercase tracking-wide text-sm">Daftar Sekarang</button>
             </form>
-
             <div id="auth-message" class="mt-4 text-sm text-center hidden"></div>
             <p class="text-[10px] text-slate-400 text-center mt-6">Data Anda aman & terenkripsi. Setiap akun memiliki workspace terpisah.</p>
         </div>
     </div>
 
-    <!-- ==================== MAIN APP ==================== -->
+    <!-- MAIN APP -->
     <div id="app-container" class="hidden flex flex-col min-h-screen">
-
     <header class="sticky top-0 z-40 glass-panel border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -263,7 +202,6 @@
                     <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider" id="user-greeting">Local Workspace</p>
                 </div>
             </div>
-
             <nav class="hidden lg:flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
                 <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Tugas</button>
                 <button onclick="switchTab('finance')" data-tab="finance" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-wallet"></i> Keuangan</button>
@@ -273,7 +211,6 @@
                 <button onclick="switchTab('habits')" data-tab="habits" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-calendar-check"></i> Kebiasaan</button>
                 <button onclick="switchTab('gemini')" data-tab="gemini" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-indigo-600 dark:text-indigo-400"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</button>
             </nav>
-
             <div class="flex items-center space-x-3">
                 <div class="hidden sm:block text-right leading-tight">
                     <div id="live-clock" class="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">--:--:--</div>
@@ -291,7 +228,6 @@
                 </button>
             </div>
         </div>
-
         <div class="lg:hidden flex overflow-x-auto gap-2 mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] pb-2 hide-scrollbar">
             <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-tab min-w-[70px] p-2 flex flex-col items-center gap-1 shrink-0"><i class="fa-solid fa-list-check text-base"></i> Tugas</button>
             <button onclick="switchTab('finance')" data-tab="finance" class="mob-tab min-w-[70px] p-2 flex flex-col items-center gap-1 shrink-0"><i class="fa-solid fa-wallet text-base"></i> Keuangan</button>
@@ -304,8 +240,6 @@
     </header>
 
     <main class="flex-grow max-w-[1400px] w-full mx-auto p-4 sm:p-6 lg:p-8 pb-24 md:pb-8">
-
-        <!-- ===== TASKS ===== -->
         <section id="tab-tasks" class="tab-content space-y-4 md:space-y-6">
             <div class="bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-3">
                 <div class="flex gap-2">
@@ -329,19 +263,11 @@
                     <button onclick="clearTaskFilters()" class="px-3 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300"><i class="fa-solid fa-filter-circle-xmark mr-1"></i> Reset</button>
                 </div>
             </div>
-
             <div class="md:hidden flex gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-                <button onclick="switchKanbanTab('todo')" id="kanban-tab-todo" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-amber-500 text-white shadow-sm">
-                    <span class="inline-block w-2 h-2 rounded-full bg-white/80 mr-1"></span> Akan <span id="kanban-count-todo" class="ml-1 opacity-80">(0)</span>
-                </button>
-                <button onclick="switchKanbanTab('inprogress')" id="kanban-tab-inprogress" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-slate-500">
-                    <span class="inline-block w-2 h-2 rounded-full bg-sky-500 mr-1"></span> Proses <span id="kanban-count-inprogress" class="ml-1 opacity-80">(0)</span>
-                </button>
-                <button onclick="switchKanbanTab('done')" id="kanban-tab-done" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-slate-500">
-                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> Selesai <span id="kanban-count-done" class="ml-1 opacity-80">(0)</span>
-                </button>
+                <button onclick="switchKanbanTab('todo')" id="kanban-tab-todo" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-amber-500 text-white shadow-sm"><span class="inline-block w-2 h-2 rounded-full bg-white/80 mr-1"></span> Akan <span id="kanban-count-todo" class="ml-1 opacity-80">(0)</span></button>
+                <button onclick="switchKanbanTab('inprogress')" id="kanban-tab-inprogress" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-slate-500"><span class="inline-block w-2 h-2 rounded-full bg-sky-500 mr-1"></span> Proses <span id="kanban-count-inprogress" class="ml-1 opacity-80">(0)</span></button>
+                <button onclick="switchKanbanTab('done')" id="kanban-tab-done" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-slate-500"><span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> Selesai <span id="kanban-count-done" class="ml-1 opacity-80">(0)</span></button>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div id="kanban-col-todo" class="kanban-col bg-slate-100/70 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 flex-col h-[calc(100vh-320px)] md:h-[850px] md:flex">
                     <div class="flex items-center justify-between mb-4 px-2">
@@ -367,7 +293,6 @@
             </div>
         </section>
 
-        <!-- ===== FINANCE ===== -->
         <section id="tab-finance" class="tab-content hidden space-y-5">
             <div class="flex flex-wrap justify-between items-center gap-2">
                 <button onclick="openSheetModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all flex items-center gap-2">
@@ -378,7 +303,6 @@
                     <i class="fa-solid fa-plus"></i> Catat Transaksi Baru
                 </button>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 <div class="space-y-5">
                     <div class="grid grid-cols-2 gap-4">
@@ -401,15 +325,11 @@
                         </div>
                     </div>
                     <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
-                        <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana
-                        </h3>
+                        <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana</h3>
                         <div id="fin-sources-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
                     </div>
                     <div id="fin-budget-panel" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm hidden">
-                        <h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-bullseye"></i> Budget Bulan Ini
-                        </h3>
+                        <h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Budget Bulan Ini</h3>
                         <div id="fin-budgets"></div>
                     </div>
                 </div>
@@ -446,7 +366,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div id="finance-history-panel" class="lg:col-span-3 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col h-[700px]">
                     <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
@@ -467,7 +386,6 @@
             </div>
         </section>
 
-        <!-- ===== PERFORMANCE ===== -->
         <section id="tab-performance" class="tab-content hidden space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
@@ -490,7 +408,6 @@
                     <p class="text-[10px] text-slate-400 mt-1">Belum selesai & tenggat terlewati</p>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
                     <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-6">Persentase Status Tugas</h3>
@@ -501,29 +418,19 @@
                     </div>
                     <div class="space-y-4">
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</span>
-                                <span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</span><span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div>
                             <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-todo" class="h-full bg-amber-500" style="width:0%"></div></div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</span>
-                                <span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</span><span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div>
                             <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-inprogress" class="h-full bg-sky-500" style="width:0%"></div></div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</span>
-                                <span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div>
                             <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-emerald-500" style="width:0%"></div></div>
                         </div>
                     </div>
                 </div>
-
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col items-center justify-center">
                     <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-4">Tingkat Penyelesaian</h3>
                     <div class="relative w-40 h-40">
@@ -531,40 +438,23 @@
                             <path class="text-slate-100 dark:text-slate-700" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                             <path id="donut-chart-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                         </svg>
-                        <div class="absolute inset-0 flex items-center justify-center flex-col">
-                            <span id="perf-done-pct" class="text-3xl font-black text-slate-800 dark:text-white">0%</span>
-                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center flex-col"><span id="perf-done-pct" class="text-3xl font-black text-slate-800 dark:text-white">0%</span></div>
                     </div>
                     <p class="text-xs text-slate-500 text-center mt-4">Tugas selesai dibanding total tugas</p>
                 </div>
             </div>
-
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                 <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-6">Rata-rata Waktu Pengerjaan per Prioritas</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-rose-50/50 dark:bg-rose-900/10 p-5 rounded-xl border border-rose-100 dark:border-rose-900/30">
-                        <p class="text-xs font-bold text-rose-500 uppercase tracking-wider mb-3">Prioritas Tinggi</p>
-                        <p id="avg-prio-high" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p>
-                        <p id="count-prio-high" class="text-xs text-slate-500 font-medium">0 tugas selesai</p>
-                    </div>
-                    <div class="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-xl border border-amber-100 dark:border-amber-900/30">
-                        <p class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-3">Prioritas Sedang</p>
-                        <p id="avg-prio-medium" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p>
-                        <p id="count-prio-medium" class="text-xs text-slate-500 font-medium">0 tugas selesai</p>
-                    </div>
-                    <div class="bg-emerald-50/50 dark:bg-emerald-900/10 p-5 rounded-xl border border-emerald-100 dark:border-emerald-900/30">
-                        <p class="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-3">Prioritas Rendah</p>
-                        <p id="avg-prio-low" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p>
-                        <p id="count-prio-low" class="text-xs text-slate-500 font-medium">0 tugas selesai</p>
-                    </div>
+                    <div class="bg-rose-50/50 dark:bg-rose-900/10 p-5 rounded-xl border border-rose-100 dark:border-rose-900/30"><p class="text-xs font-bold text-rose-500 uppercase tracking-wider mb-3">Prioritas Tinggi</p><p id="avg-prio-high" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-high" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
+                    <div class="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-xl border border-amber-100 dark:border-amber-900/30"><p class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-3">Prioritas Sedang</p><p id="avg-prio-medium" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-medium" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
+                    <div class="bg-emerald-50/50 dark:bg-emerald-900/10 p-5 rounded-xl border border-emerald-100 dark:border-emerald-900/30"><p class="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-3">Prioritas Rendah</p><p id="avg-prio-low" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-low" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
                 </div>
             </div>
-
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                 <h3 class="font-bold text-lg mb-4">Produktivitas 30 Hari Terakhir</h3>
                 <canvas id="chart-productivity" height="100"></canvas>
             </div>
-
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
                 <h3 class="font-bold text-lg mb-4">Heatmap Aktivitas (6 Bulan Terakhir)</h3>
                 <div id="heatmap-container" class="overflow-x-auto pb-2"></div>
@@ -572,7 +462,6 @@
             </div>
         </section>
 
-        <!-- ===== POMODORO ===== -->
         <section id="tab-pomodoro" class="tab-content hidden space-y-6">
             <div class="max-w-2xl mx-auto bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-700/60 shadow-xl text-center space-y-8 mt-10">
                 <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-inner">
@@ -590,7 +479,6 @@
             </div>
         </section>
 
-        <!-- ===== NOTES ===== -->
         <section id="tab-notes" class="tab-content hidden space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:h-[700px]">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col max-h-[400px] md:max-h-full">
@@ -624,7 +512,6 @@
             </div>
         </section>
 
-        <!-- ===== HABITS ===== -->
         <section id="tab-habits" class="tab-content hidden space-y-6">
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-4">
                  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -650,12 +537,9 @@
             </div>
         </section>
 
-        <!-- ===== GEMINI ===== -->
         <section id="tab-gemini" class="tab-content hidden space-y-6">
             <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
-                <h3 class="font-black text-xl sm:text-2xl text-slate-800 dark:text-white mb-2 flex items-center gap-3">
-                    <i class="fa-solid fa-wand-magic-sparkles text-indigo-500"></i> Asisten Gemini AI
-                </h3>
+                <h3 class="font-black text-xl sm:text-2xl text-slate-800 dark:text-white mb-2 flex items-center gap-3"><i class="fa-solid fa-wand-magic-sparkles text-indigo-500"></i> Asisten Gemini AI</h3>
                 <p class="text-sm text-slate-500 mb-6">Masukkan API Key Anda untuk menganalisis produktivitas dan keuangan Anda secara otomatis.</p>
                 <div class="space-y-4 mb-6">
                     <div>
@@ -663,28 +547,18 @@
                         <input type="password" id="gemini-api-key" placeholder="AIzaSy..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm">
                         <p class="text-[10px] text-slate-400 mt-1">Dapatkan kunci gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-indigo-500 underline">Google AI Studio</a>. Key hanya disimpan di memori browser (hilang saat refresh).</p>
                     </div>
-                    <button onclick="runGemini()" id="btn-run-gemini" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md transition-all uppercase tracking-wide">
-                        Analisis Data Saya Sekarang
-                    </button>
+                    <button onclick="runGemini()" id="btn-run-gemini" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md transition-all uppercase tracking-wide">Analisis Data Saya Sekarang</button>
                 </div>
                 <div id="gemini-output" class="ai-output text-sm leading-relaxed text-slate-700 dark:text-slate-200 p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-700 min-h-[250px] shadow-inner">
-                    <div class="h-full flex flex-col items-center justify-center text-slate-400 text-center opacity-60">
-                        <i class="fa-regular fa-comments text-5xl mb-3"></i>
-                        <p>Hasil analisis AI akan muncul di sini.</p>
-                    </div>
+                    <div class="h-full flex flex-col items-center justify-center text-slate-400 text-center opacity-60"><i class="fa-regular fa-comments text-5xl mb-3"></i><p>Hasil analisis AI akan muncul di sini.</p></div>
                 </div>
             </div>
         </section>
     </main>
-
     </div>
 
-    <!-- FAB -->
-    <button id="fab-add-task" onclick="handleFabClick()" class="fab" title="Tambah Tugas">
-        <i class="fa-solid fa-plus"></i>
-    </button>
+    <button id="fab-add-task" onclick="handleFabClick()" class="fab" title="Tambah Tugas"><i class="fa-solid fa-plus"></i></button>
 
-    <!-- Sync Indicator -->
     <div id="sync-indicator" class="sync-indicator hidden">
         <div class="bg-slate-800 dark:bg-slate-700 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 text-xs font-bold">
             <i id="sync-icon" class="fa-solid fa-cloud-arrow-up text-emerald-400"></i>
@@ -696,32 +570,19 @@
     <div id="modal-sheet" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[65] flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-table-columns text-emerald-500"></i> Integrasi Spreadsheet
-                </h3>
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-table-columns text-emerald-500"></i> Integrasi Spreadsheet</h3>
                 <button onclick="closeModal('modal-sheet')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-
             <div id="sheet-connected-view" class="hidden space-y-4">
                 <div class="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="sheet-status-dot bg-emerald-500"></span>
-                        <span class="font-bold text-emerald-700 dark:text-emerald-400 text-sm">Terhubung ke Spreadsheet</span>
-                    </div>
+                    <div class="flex items-center gap-2 mb-2"><span class="sheet-status-dot bg-emerald-500"></span><span class="font-bold text-emerald-700 dark:text-emerald-400 text-sm">Terhubung ke Spreadsheet</span></div>
                     <p class="text-xs text-slate-600 dark:text-slate-300">Setiap transaksi baru akan otomatis dikirim ke Google Sheets.</p>
                 </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl">
-                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Total Sync</p>
-                        <p id="sheet-synced-count" class="text-lg font-black text-slate-800 dark:text-white">0</p>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl">
-                        <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Terakhir Sync</p>
-                        <p id="sheet-last-sync" class="text-xs font-bold text-slate-800 dark:text-white">-</p>
-                    </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl"><p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Tersync</p><p id="sheet-synced-count" class="text-lg font-black text-slate-800 dark:text-white">0</p></div>
+                    <div class="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-xl"><p class="text-[10px] text-amber-600 dark:text-amber-400 font-bold uppercase">Antrian</p><p id="sheet-pending-count" class="text-lg font-black text-amber-600 dark:text-amber-400">0</p></div>
+                    <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl"><p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase">Terakhir</p><p id="sheet-last-sync" class="text-[10px] font-bold text-slate-800 dark:text-white">-</p></div>
                 </div>
-
                 <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
                     <span class="font-semibold text-sm">Auto-sync transaksi baru</span>
                     <label class="relative inline-block w-12 h-6 cursor-pointer">
@@ -730,27 +591,14 @@
                         <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform peer-checked:translate-x-6"></div>
                     </label>
                 </div>
-
-                <button onclick="syncAllToSheet()" id="btn-sync-all" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-all text-sm">
-    <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Transaksi Baru
-</button>
-                <button onclick="testSheetConnection()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold rounded-xl text-sm">
-                    <i class="fa-solid fa-vial mr-2"></i> Test Koneksi
-                </button>
-                <button onclick="cleanupSheetDuplicates()" class="w-full py-2.5 bg-amber-100 dark:bg-amber-900/30 hover:bg-amber-200 text-amber-700 dark:text-amber-400 font-bold rounded-xl text-sm">
-    <i class="fa-solid fa-broom mr-2"></i> Bersihkan Duplikat di Sheets
-</button>
-                <button onclick="disconnectSheet()" class="w-full py-2.5 bg-rose-100 dark:bg-rose-900/30 hover:bg-rose-200 text-rose-600 dark:text-rose-400 font-bold rounded-xl text-sm">
-                    <i class="fa-solid fa-plug-circle-xmark mr-2"></i> Putuskan
-                </button>
+                <button onclick="syncAllToSheet()" id="btn-sync-all" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-all text-sm"><i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Transaksi Baru</button>
+                <button onclick="testSheetConnection()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold rounded-xl text-sm"><i class="fa-solid fa-vial mr-2"></i> Test Koneksi</button>
+                <button onclick="cleanupSheetDuplicates()" class="w-full py-2.5 bg-amber-100 dark:bg-amber-900/30 hover:bg-amber-200 text-amber-700 dark:text-amber-400 font-bold rounded-xl text-sm"><i class="fa-solid fa-broom mr-2"></i> Bersihkan Duplikat di Sheets</button>
+                <button onclick="disconnectSheet()" class="w-full py-2.5 bg-rose-100 dark:bg-rose-900/30 hover:bg-rose-200 text-rose-600 dark:text-rose-400 font-bold rounded-xl text-sm"><i class="fa-solid fa-plug-circle-xmark mr-2"></i> Putuskan</button>
             </div>
-
             <div id="sheet-disconnected-view" class="space-y-4">
                 <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                        <i class="fa-solid fa-circle-info text-sky-500 mr-1"></i>
-                        Hubungkan OmniTask dengan Google Sheets Anda. Setiap transaksi baru akan otomatis dikirim ke spreadsheet.
-                    </p>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"><i class="fa-solid fa-circle-info text-sky-500 mr-1"></i> Hubungkan OmniTask dengan Google Sheets Anda. Setiap transaksi baru akan otomatis dikirim ke spreadsheet.</p>
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">URL Web App (dari Apps Script)</label>
@@ -760,14 +608,12 @@
                     <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Secret Token</label>
                     <input type="password" id="sheet-token-input" placeholder="Token yang sama dengan Apps Script" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono">
                 </div>
-                <button onclick="connectSheet()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
-                    <i class="fa-solid fa-plug mr-2"></i> Hubungkan
-                </button>
+                <button onclick="connectSheet()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition-all text-sm"><i class="fa-solid fa-plug mr-2"></i> Hubungkan</button>
             </div>
         </div>
     </div>
 
-    <!-- MODALS: Existing -->
+    <!-- MODAL: Add Finlib -->
     <div id="modal-add-finlib" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[70] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-300">
             <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-white" id="finlib-title">Tambah Label</h3>
@@ -780,43 +626,23 @@
         </div>
     </div>
 
+    <!-- MODAL: Add Task -->
     <div id="modal-add-task" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-circle-plus text-sky-500"></i> Tambah Tugas Baru
-                </h3>
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-circle-plus text-sky-500"></i> Tambah Tugas Baru</h3>
                 <button onclick="closeAddTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label>
-                <input type="text" id="new-task-title" maxlength="200" placeholder="Contoh: Menyusun Laporan" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold">
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label>
-                <textarea id="new-task-desc" maxlength="2000" placeholder="Rincian tugas..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea>
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="new-task-title" maxlength="200" placeholder="Contoh: Menyusun Laporan" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="new-task-desc" maxlength="2000" placeholder="Rincian tugas..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
             <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label>
-                    <select id="new-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium">
-                        <option value="low">🟢 Rendah</option>
-                        <option value="medium" selected>🟡 Sedang</option>
-                        <option value="high">🔴 Tinggi</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label>
-                    <input type="date" id="new-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium">
-                </div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label><select id="new-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"><option value="low">🟢 Rendah</option><option value="medium" selected>🟡 Sedang</option><option value="high">🔴 Tinggi</option></select></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label><input type="date" id="new-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"></div>
             </div>
             <div>
                 <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask (Opsional)</label>
                 <div id="new-subtask-list" class="space-y-2 mb-2"></div>
-                <div class="flex gap-2">
-                    <input id="new-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('new');}">
-                    <button type="button" onclick="addSubtaskDraft('new')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button>
-                </div>
+                <div class="flex gap-2"><input id="new-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('new');}"><button type="button" onclick="addSubtaskDraft('new')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div>
             </div>
             <div>
                 <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags (Opsional)</label>
@@ -825,10 +651,7 @@
             </div>
             <div>
                 <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder (Opsional)</label>
-                <div class="flex gap-2">
-                    <input type="datetime-local" id="new-task-reminder" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-                    <button type="button" onclick="requestNotifPermission()" class="px-3 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold" title="Izinkan Notifikasi"><i class="fa-solid fa-bell"></i></button>
-                </div>
+                <div class="flex gap-2"><input type="datetime-local" id="new-task-reminder" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><button type="button" onclick="requestNotifPermission()" class="px-3 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold" title="Izinkan Notifikasi"><i class="fa-solid fa-bell"></i></button></div>
             </div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
                 <button onclick="closeAddTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm transition-colors">Batal</button>
@@ -837,54 +660,31 @@
         </div>
     </div>
 
+    <!-- MODAL: Edit Task -->
     <div id="modal-edit-task" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Tugas
-                </h3>
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Tugas</h3>
                 <button onclick="closeEditTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <input type="hidden" id="edit-task-id">
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label>
-                <input type="text" id="edit-task-title" maxlength="200" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold">
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label>
-                <textarea id="edit-task-desc" maxlength="2000" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea>
-            </div>
-             <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label>
-                    <select id="edit-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium">
-                        <option value="low">🟢 Rendah</option>
-                        <option value="medium">🟡 Sedang</option>
-                        <option value="high">🔴 Tinggi</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label>
-                    <input type="date" id="edit-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium">
-                </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="edit-task-title" maxlength="200" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="edit-task-desc" maxlength="2000" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
+            <div class="grid grid-cols-2 gap-4">
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label><select id="edit-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"><option value="low">🟢 Rendah</option><option value="medium">🟡 Sedang</option><option value="high">🔴 Tinggi</option></select></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label><input type="date" id="edit-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"></div>
             </div>
             <div>
                 <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask</label>
                 <div id="edit-subtask-list" class="space-y-2 mb-2"></div>
-                <div class="flex gap-2">
-                    <input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}">
-                    <button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button>
-                </div>
+                <div class="flex gap-2"><input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}"><button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div>
             </div>
             <div>
                 <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags</label>
                 <div id="edit-tags-container" class="flex flex-wrap gap-2 mb-2"></div>
                 <input id="edit-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('edit');}">
             </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder</label>
-                <input type="datetime-local" id="edit-task-reminder" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder</label><input type="datetime-local" id="edit-task-reminder" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
                 <button onclick="closeEditTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Batal</button>
                 <button onclick="submitEditTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button>
@@ -892,108 +692,58 @@
         </div>
     </div>
 
+    <!-- MODAL: Add Finance -->
     <div id="modal-add-finance" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-money-bill-transfer text-sky-500"></i> Catat Transaksi
-                </h3>
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-sky-500"></i> Catat Transaksi</h3>
                 <button onclick="closeModal('modal-add-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <div class="grid grid-cols-2 gap-3">
-                <label class="cursor-pointer group">
-                    <input type="radio" name="fin-type" value="Pemasukan" class="peer hidden" checked onchange="toggleCategoryType()">
-                    <div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 peer-checked:border-emerald-500 dark:peer-checked:bg-emerald-900/30 dark:peer-checked:text-emerald-400 font-semibold transition-all">Pemasukan</div>
-                </label>
-                <label class="cursor-pointer group">
-                    <input type="radio" name="fin-type" value="Pengeluaran" class="peer hidden" onchange="toggleCategoryType()">
-                    <div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-rose-50 peer-checked:text-rose-700 peer-checked:border-rose-500 dark:peer-checked:bg-rose-900/30 dark:peer-checked:text-rose-400 font-semibold transition-all">Pengeluaran</div>
-                </label>
+                <label class="cursor-pointer group"><input type="radio" name="fin-type" value="Pemasukan" class="peer hidden" checked onchange="toggleCategoryType()"><div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 peer-checked:border-emerald-500 dark:peer-checked:bg-emerald-900/30 dark:peer-checked:text-emerald-400 font-semibold transition-all">Pemasukan</div></label>
+                <label class="cursor-pointer group"><input type="radio" name="fin-type" value="Pengeluaran" class="peer hidden" onchange="toggleCategoryType()"><div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-rose-50 peer-checked:text-rose-700 peer-checked:border-rose-500 dark:peer-checked:bg-rose-900/30 dark:peer-checked:text-rose-400 font-semibold transition-all">Pengeluaran</div></label>
             </div>
             <div>
                 <label class="text-xs font-semibold text-slate-500 mb-2 block uppercase tracking-wider">Sumber Dana</label>
-                <div class="flex flex-wrap items-center gap-2">
-                    <div id="fin-source-container" class="flex flex-wrap gap-2"></div>
-                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); openFinanceLibModal('source');" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button>
-                </div>
+                <div class="flex flex-wrap items-center gap-2"><div id="fin-source-container" class="flex flex-wrap gap-2"></div><button type="button" onclick="event.preventDefault(); event.stopPropagation(); openFinanceLibModal('source');" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button></div>
             </div>
             <div>
                 <label class="text-xs font-semibold text-slate-500 mb-2 block uppercase tracking-wider">Kategori</label>
-                <div class="flex flex-wrap items-center gap-2">
-                    <div id="fin-category-container" class="flex flex-wrap gap-2"></div>
-                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); openFinanceLibModal('category');" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button>
-                </div>
+                <div class="flex flex-wrap items-center gap-2"><div id="fin-category-container" class="flex flex-wrap gap-2"></div><button type="button" onclick="event.preventDefault(); event.stopPropagation(); openFinanceLibModal('category');" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button></div>
             </div>
             <div>
                 <label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label>
-                <div class="relative">
-                    <span class="absolute left-4 top-3 text-slate-400 font-bold">Rp</span>
-                    <input type="text" inputmode="numeric" pattern="[0-9.,]*" id="fin-amount" oninput="formatNominal(this)" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" placeholder="0">
-                </div>
+                <div class="relative"><span class="absolute left-4 top-3 text-slate-400 font-bold">Rp</span><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="fin-amount" oninput="formatNominal(this)" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" placeholder="0"></div>
             </div>
             <div>
                 <label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Tanggal & Waktu</label>
-                <div class="flex gap-2">
-                    <input type="datetime-local" id="fin-datetime" class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium">
-                    <button onclick="setNow()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200 text-sm font-bold whitespace-nowrap shadow-sm"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Sekarang</button>
-                </div>
+                <div class="flex gap-2"><input type="datetime-local" id="fin-datetime" class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium"><button onclick="setNow()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200 text-sm font-bold whitespace-nowrap shadow-sm"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Sekarang</button></div>
             </div>
-            <div>
-                <label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Catatan (Opsional)</label>
-                <input type="text" id="fin-note" maxlength="300" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm" placeholder="Contoh: Makan siang">
-            </div>
+            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Catatan (Opsional)</label><input type="text" id="fin-note" maxlength="300" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm" placeholder="Contoh: Makan siang"></div>
             <div class="space-y-2">
-                <label class="flex items-center gap-2 text-sm cursor-pointer">
-                    <input type="checkbox" id="fin-recurring" onchange="document.getElementById('fin-recurring-interval').classList.toggle('hidden', !this.checked)" class="rounded">
-                    <span class="font-semibold">Jadikan transaksi berulang</span>
-                </label>
-                <select id="fin-recurring-interval" class="hidden w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-                    <option value="weekly">🔁 Mingguan</option>
-                    <option value="monthly">🔁 Bulanan</option>
-                </select>
+                <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" id="fin-recurring" onchange="document.getElementById('fin-recurring-interval').classList.toggle('hidden', !this.checked)" class="rounded"><span class="font-semibold">Jadikan transaksi berulang</span></label>
+                <select id="fin-recurring-interval" class="hidden w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="weekly">🔁 Mingguan</option><option value="monthly">🔁 Bulanan</option></select>
             </div>
             <button onclick="submitFinance()" class="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-md transition-all text-sm uppercase tracking-wide">Simpan Transaksi</button>
         </div>
     </div>
 
+    <!-- MODAL: Edit Finance -->
     <div id="modal-edit-finance" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2">
-                    <i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Transaksi
-                </h3>
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Transaksi</h3>
                 <button onclick="closeModal('modal-edit-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <input type="hidden" id="edit-fin-id">
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tipe</label>
-                <select id="edit-fin-type" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-                    <option value="Pemasukan">Pemasukan</option>
-                    <option value="Pengeluaran">Pengeluaran</option>
-                </select>
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tipe</label><select id="edit-fin-type" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div>
             <div class="grid grid-cols-2 gap-3">
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Sumber</label>
-                    <input type="text" id="edit-fin-source" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Kategori</label>
-                    <input type="text" id="edit-fin-category" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-                </div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Sumber</label><input type="text" id="edit-fin-source" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Kategori</label><input type="text" id="edit-fin-category" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
             </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Nominal</label>
-                <input type="text" inputmode="numeric" pattern="[0-9.,]*" id="edit-fin-amount" oninput="formatNominal(this)" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-bold">
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tanggal & Waktu</label>
-                <input type="datetime-local" id="edit-fin-datetime" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Catatan</label>
-                <input type="text" id="edit-fin-note" maxlength="300" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Nominal</label><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="edit-fin-amount" oninput="formatNominal(this)" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-bold"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tanggal & Waktu</label><input type="datetime-local" id="edit-fin-datetime" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Catatan</label><input type="text" id="edit-fin-note" maxlength="300" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
                 <button onclick="closeModal('modal-edit-finance')" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Batal</button>
                 <button onclick="submitEditFinance()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md">Simpan</button>
@@ -1001,6 +751,7 @@
         </div>
     </div>
 
+    <!-- MODAL: Add Habit -->
     <div id="modal-add-habit" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
             <div class="flex justify-between items-center">
@@ -1015,13 +766,11 @@
         </div>
     </div>
 
-    <!-- MODAL: Konfirmasi Universal -->
+    <!-- MODAL: Confirm -->
     <div id="modal-confirm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[80] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200">
             <div class="flex flex-col items-center text-center space-y-4">
-                <div id="confirm-icon-wrap" class="w-16 h-16 rounded-full flex items-center justify-center">
-                    <i id="confirm-icon" class="fa-solid fa-triangle-exclamation text-3xl"></i>
-                </div>
+                <div id="confirm-icon-wrap" class="w-16 h-16 rounded-full flex items-center justify-center"><i id="confirm-icon" class="fa-solid fa-triangle-exclamation text-3xl"></i></div>
                 <div>
                     <h3 id="confirm-title" class="text-lg font-black text-slate-800 dark:text-white">Konfirmasi</h3>
                     <p id="confirm-message" class="text-sm text-slate-500 dark:text-slate-400 mt-1">Apakah Anda yakin?</p>
@@ -1098,10 +847,8 @@
             const iconWrap = document.getElementById('confirm-icon-wrap');
             const icon = document.getElementById('confirm-icon');
             const okBtn = document.getElementById('confirm-ok');
-            
             document.getElementById('confirm-title').innerText = opts.title || 'Konfirmasi';
             document.getElementById('confirm-message').innerText = opts.message || 'Apakah Anda yakin?';
-            
             const variant = opts.variant || 'danger';
             if (variant === 'danger') {
                 iconWrap.className = 'w-16 h-16 rounded-full flex items-center justify-center bg-rose-100 dark:bg-rose-900/40';
@@ -1119,7 +866,6 @@
                 okBtn.className = 'flex-1 py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all bg-sky-500 hover:bg-sky-600 shadow-sky-500/30';
                 okBtn.innerText = opts.okText || 'Ya';
             }
-            
             confirmCallback = opts.onConfirm;
             modal.classList.remove('hidden');
             setTimeout(() => modal.children[0].classList.remove('scale-95'), 10);
@@ -1134,7 +880,7 @@
         let state = {
             tasks: [], finances: [], financeLibs: [], notes: [], habits: [], recurrings: [],
             currentUser: null, isDataLoaded: false, filteredTasks: null,
-            sheet: { url: '', token: '', connected: false, autoSync: true, syncedCount: 0, lastSync: null }
+            sheet: { url: '', token: '', connected: false, autoSync: true, syncedCount: 0, lastSync: null, syncedIds: [], pendingDeletes: [], pendingUpdates: [] }
         };
         window.__state = state;
         
@@ -1192,45 +938,32 @@
         window.addEventListener('offline', () => showSyncIndicator('offline'));
 
         function showSyncIndicator(stateName) {
-    const ind = document.getElementById('sync-indicator');
-    const icon = document.getElementById('sync-icon');
-    const text = document.getElementById('sync-text');
-    if (!ind) return;
-    ind.classList.remove('hidden');
-    if (stateName === 'syncing') {
-        icon.className = 'fa-solid fa-cloud-arrow-up text-amber-400 fa-spin';
-        text.textContent = 'Menyimpan...';
-    } else if (stateName === 'synced') {
-        icon.className = 'fa-solid fa-cloud-arrow-up text-emerald-400';
-        text.textContent = 'Tersimpan ke Cloud';
-        setTimeout(() => ind.classList.add('hidden'), 2000);
-    } else if (stateName === 'offline') {
-        icon.className = 'fa-solid fa-wifi text-slate-400';
-        text.textContent = 'Mode Offline';
-    } else {
-        icon.className = 'fa-solid fa-triangle-exclamation text-rose-400';
-        text.textContent = 'Gagal Simpan ke Cloud';
-    }
-}
+            const ind = document.getElementById('sync-indicator');
+            const icon = document.getElementById('sync-icon');
+            const text = document.getElementById('sync-text');
+            if (!ind) return;
+            ind.classList.remove('hidden');
+            if (stateName === 'syncing') { icon.className = 'fa-solid fa-cloud-arrow-up text-amber-400 fa-spin'; text.textContent = 'Menyimpan...'; }
+            else if (stateName === 'synced') { icon.className = 'fa-solid fa-cloud-arrow-up text-emerald-400'; text.textContent = 'Tersimpan ke Cloud'; setTimeout(() => ind.classList.add('hidden'), 2000); }
+            else if (stateName === 'offline') { icon.className = 'fa-solid fa-wifi text-slate-400'; text.textContent = 'Mode Offline'; }
+            else { icon.className = 'fa-solid fa-triangle-exclamation text-rose-400'; text.textContent = 'Gagal Simpan ke Cloud'; }
+        }
 
         // ==================== SHEET INTEGRATION ====================
-        window.openSheetModal = function() {
-            renderSheetModal();
-            elShow('modal-sheet');
-        };
+        window.openSheetModal = function() { renderSheetModal(); elShow('modal-sheet'); };
         function renderSheetModal() {
             const connected = state.sheet.connected;
             document.getElementById('sheet-connected-view').classList.toggle('hidden', !connected);
             document.getElementById('sheet-disconnected-view').classList.toggle('hidden', connected);
             if (connected) {
                 document.getElementById('sheet-synced-count').innerText = state.sheet.syncedCount || 0;
+                document.getElementById('sheet-pending-count').innerText = (state.sheet.pendingDeletes?.length || 0) + (state.sheet.pendingUpdates?.length || 0);
                 document.getElementById('sheet-last-sync').innerText = state.sheet.lastSync ? formatDateTime(state.sheet.lastSync) : '-';
                 document.getElementById('sheet-auto-sync').checked = state.sheet.autoSync;
             } else {
                 document.getElementById('sheet-url-input').value = state.sheet.url || '';
                 document.getElementById('sheet-token-input').value = state.sheet.token || '';
             }
-            // Update badge di tab Keuangan
             const badge = document.getElementById('sheet-status-badge');
             if (badge) badge.classList.toggle('hidden', !connected);
         }
@@ -1239,7 +972,6 @@
             const token = document.getElementById('sheet-token-input').value.trim();
             if (!url || !token) { toast('URL dan Token wajib diisi', 'error'); return; }
             if (!url.startsWith('https://script.google.com/')) { toast('URL tidak valid. Harus dari script.google.com', 'error'); return; }
-            
             state.sheet.url = url;
             state.sheet.token = token;
             saveSheetConfig();
@@ -1253,27 +985,17 @@
             }
         };
         window.testSheetConnection = async function(silent) {
-    if (!state.sheet.url) {
-        if (!silent) toast('URL belum diisi', 'error');
-        return false;
-    }
-    try {
-        await fetch(state.sheet.url, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({ token: state.sheet.token, action: 'test' })
-        });
-        // Catatan: mode 'no-cors' tidak bisa baca response body,
-        // jadi kita anggap OK kalau fetch tidak throw (network aman).
-        if (!silent) toast('Koneksi ke Spreadsheet OK', 'success');
-        return true;
-    } catch (e) {
-        console.error('Test connection error:', e);
-        if (!silent) toast('Gagal koneksi ke Spreadsheet', 'error');
-        return false;
-    }
-};
+            if (!state.sheet.url) { if (!silent) toast('URL belum diisi', 'error'); return false; }
+            try {
+                await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'test' }) });
+                if (!silent) toast('Koneksi ke Spreadsheet OK', 'success');
+                return true;
+            } catch (e) {
+                console.error('Test connection error:', e);
+                if (!silent) toast('Gagal koneksi ke Spreadsheet', 'error');
+                return false;
+            }
+        };
         window.disconnectSheet = function() {
             showConfirm({
                 title: 'Putuskan Spreadsheet?',
@@ -1282,8 +1004,7 @@
                 okText: 'Ya, Putuskan',
                 onConfirm: () => {
                     state.sheet.connected = false;
-                    saveSheetConfig();
-                    renderSheetModal();
+                    saveSheetConfig(); renderSheetModal();
                     const badge = document.getElementById('sheet-status-badge');
                     if (badge) badge.classList.add('hidden');
                     toast('Terputus dari Spreadsheet', 'success');
@@ -1291,53 +1012,40 @@
             });
         };
         window.cleanupSheetDuplicates = function() {
-    if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
-    showConfirm({
-        title: 'Bersihkan Duplikat?',
-        message: 'Semua baris dengan ID yang sama akan dihapus dari Sheets, hanya 1 yang disimpan. Data di aplikasi tidak terpengaruh.',
-        variant: 'warning',
-        okText: 'Ya, Bersihkan',
-        onConfirm: async () => {
-            try {
-                await fetch(state.sheet.url, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        token: state.sheet.token,
-                        action: 'cleanup'
-                    })
-                });
-                toast('Duplikat di Sheets sudah dibersihkan', 'success');
-            } catch (e) {
-                console.error(e);
-                toast('Gagal membersihkan', 'error');
-            }
-        }
-    });
-};
+            if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
+            showConfirm({
+                title: 'Bersihkan Duplikat?',
+                message: 'Semua baris dengan ID yang sama akan dihapus dari Sheets, hanya 1 yang disimpan. Data di aplikasi tidak terpengaruh.',
+                variant: 'warning',
+                okText: 'Ya, Bersihkan',
+                onConfirm: async () => {
+                    try {
+                        await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'cleanup' }) });
+                        toast('Duplikat di Sheets sudah dibersihkan', 'success');
+                    } catch (e) { console.error(e); toast('Gagal membersihkan', 'error'); }
+                }
+            });
+        };
         window.toggleAutoSync = function(val) {
             state.sheet.autoSync = val;
             saveSheetConfig();
             toast(val ? 'Auto-sync aktif' : 'Auto-sync nonaktif', 'info');
         };
-                async function sendDeleteToSheet(id) {
+
+        async function sendDeleteToSheet(id) {
             if (!state.sheet.connected || !state.sheet.url) return;
-            // Cek apakah transaksi pernah disync
             const syncedIds = new Set(state.sheet.syncedIds || []);
-            if (!syncedIds.has(String(id))) return; // belum pernah sync, tidak perlu hapus di sheets
+            if (!syncedIds.has(String(id))) return;
+            if (!navigator.onLine) {
+                if (!state.sheet.pendingDeletes.includes(String(id))) state.sheet.pendingDeletes.push(String(id));
+                syncedIds.delete(String(id));
+                state.sheet.syncedIds = [...syncedIds];
+                state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
+                saveSheetConfig();
+                return;
+            }
             try {
-                await fetch(state.sheet.url, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        token: state.sheet.token,
-                        action: 'delete',
-                        id: String(id)
-                    })
-                });
-                // Hapus dari daftar syncedIds
+                await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'delete', id: String(id) }) });
                 syncedIds.delete(String(id));
                 state.sheet.syncedIds = [...syncedIds];
                 state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
@@ -1345,108 +1053,110 @@
                 saveSheetConfig();
             } catch (e) {
                 console.error('Delete from sheet error:', e);
+                if (!state.sheet.pendingDeletes.includes(String(id))) { state.sheet.pendingDeletes.push(String(id)); saveSheetConfig(); }
             }
         }
 
         async function sendUpdateToSheet(transaction) {
             if (!state.sheet.connected || !state.sheet.url) return;
             const syncedIds = new Set(state.sheet.syncedIds || []);
-            if (!syncedIds.has(String(transaction.id))) return; // belum pernah sync
+            if (!syncedIds.has(String(transaction.id))) return;
+            if (!navigator.onLine) {
+                const exists = state.sheet.pendingUpdates.findIndex(u => String(u.id) === String(transaction.id));
+                if (exists >= 0) state.sheet.pendingUpdates[exists] = transaction;
+                else state.sheet.pendingUpdates.push(transaction);
+                saveSheetConfig();
+                return;
+            }
             try {
-                await fetch(state.sheet.url, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        token: state.sheet.token,
-                        action: 'update',
-                        transaction
-                    })
-                });
+                await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'update', transaction }) });
                 state.sheet.lastSync = nowISO();
                 saveSheetConfig();
             } catch (e) {
                 console.error('Update sheet error:', e);
+                const exists = state.sheet.pendingUpdates.findIndex(u => String(u.id) === String(transaction.id));
+                if (exists >= 0) state.sheet.pendingUpdates[exists] = transaction;
+                else state.sheet.pendingUpdates.push(transaction);
+                saveSheetConfig();
             }
         }
 
         async function sendToSheet(transaction) {
-    if (!state.sheet.connected || !state.sheet.url) return;
-    if (!state.sheet.autoSync) return;
-    
-    // Cek apakah sudah pernah disync
-    const syncedIds = new Set(state.sheet.syncedIds || []);
-    if (syncedIds.has(String(transaction.id))) return;
-    
-    try {
-        await fetch(state.sheet.url, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({
-                token: state.sheet.token,
-                action: 'append',
-                transaction
-            })
-        });
-        syncedIds.add(String(transaction.id));
-        state.sheet.syncedIds = [...syncedIds];
-        state.sheet.syncedCount = (state.sheet.syncedCount || 0) + 1;
-        state.sheet.lastSync = nowISO();
-        saveSheetConfig();
-    } catch (e) {
-        console.error('Send to sheet error:', e);
-    }
-}
-        window.syncAllToSheet = async function() {
-    if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
-    if (!state.finances.length) { toast('Tidak ada transaksi', 'info'); return; }
-    
-    // Filter: hanya transaksi yang belum pernah di-sync
-    const syncedIds = new Set(state.sheet.syncedIds || []);
-    const pending = state.finances.filter(f => !syncedIds.has(String(f.id)));
-    
-    if (pending.length === 0) {
-        toast('Semua transaksi sudah tersinkron ✅', 'info');
-        return;
-    }
-    
-    showConfirm({
-        title: 'Sync ke Spreadsheet?',
-        message: `${pending.length} transaksi baru akan dikirim. ${state.finances.length - pending.length} sudah pernah disinkron dan akan dilewati.`,
-        variant: 'info',
-        okText: 'Ya, Sync',
-        onConfirm: async () => {
-            const btn = document.getElementById('btn-sync-all');
-            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengirim...'; }
+            if (!state.sheet.connected || !state.sheet.url) return;
+            if (!state.sheet.autoSync) return;
+            const syncedIds = new Set(state.sheet.syncedIds || []);
+            if (syncedIds.has(String(transaction.id))) return;
             try {
-                await fetch(state.sheet.url, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({
-                        token: state.sheet.token,
-                        action: 'bulk',
-                        transactions: pending
-                    })
-                });
-                // Tandai ID yang sudah terkirim
-                pending.forEach(f => syncedIds.add(String(f.id)));
+                await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'append', transaction }) });
+                syncedIds.add(String(transaction.id));
                 state.sheet.syncedIds = [...syncedIds];
-                state.sheet.syncedCount = (state.sheet.syncedCount || 0) + pending.length;
+                state.sheet.syncedCount = (state.sheet.syncedCount || 0) + 1;
                 state.sheet.lastSync = nowISO();
                 saveSheetConfig();
-                renderSheetModal();
-                toast(`${pending.length} transaksi terkirim ke Sheets`, 'success');
-            } catch (e) {
-                console.error(e);
-                toast('Gagal mengirim ke Sheets', 'error');
-            } finally {
-                if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Transaksi Baru'; }
-            }
+            } catch (e) { console.error('Send to sheet error:', e); }
         }
-    });
-};
+
+        async function flushSheetQueue() {
+            if (!state.sheet.connected || !state.sheet.url) return;
+            if (!navigator.onLine) return;
+            let processed = 0;
+            if (state.sheet.pendingDeletes.length > 0) {
+                const ids = [...state.sheet.pendingDeletes];
+                const remaining = [];
+                for (const id of ids) {
+                    try {
+                        await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'delete', id: String(id) }) });
+                        processed++;
+                    } catch (e) { console.error('Flush delete error:', e); remaining.push(id); }
+                }
+                state.sheet.pendingDeletes = remaining;
+            }
+            if (state.sheet.pendingUpdates.length > 0) {
+                const updates = [...state.sheet.pendingUpdates];
+                const remaining = [];
+                for (const tx of updates) {
+                    try {
+                        await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'update', transaction: tx }) });
+                        processed++;
+                    } catch (e) { console.error('Flush update error:', e); remaining.push(tx); }
+                }
+                state.sheet.pendingUpdates = remaining;
+            }
+            if (processed > 0) {
+                state.sheet.lastSync = nowISO();
+                saveSheetConfig(); renderSheetModal();
+                toast(`${processed} perubahan tersinkron ke Sheets`, 'success');
+            } else saveSheetConfig();
+        }
+        window.flushSheetQueue = flushSheetQueue;
+
+        window.syncAllToSheet = async function() {
+            if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
+            await flushSheetQueue();
+            if (!state.finances.length) { toast('Tidak ada transaksi', 'info'); return; }
+            const syncedIds = new Set(state.sheet.syncedIds || []);
+            const pending = state.finances.filter(f => !syncedIds.has(String(f.id)));
+            if (pending.length === 0) { toast('Semua transaksi sudah tersinkron ✅', 'info'); return; }
+            showConfirm({
+                title: 'Sync ke Spreadsheet?',
+                message: `${pending.length} transaksi baru akan dikirim. ${state.finances.length - pending.length} sudah pernah disinkron dan akan dilewati.`,
+                variant: 'info', okText: 'Ya, Sync',
+                onConfirm: async () => {
+                    const btn = document.getElementById('btn-sync-all');
+                    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengirim...'; }
+                    try {
+                        await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'bulk', transactions: pending }) });
+                        pending.forEach(f => syncedIds.add(String(f.id)));
+                        state.sheet.syncedIds = [...syncedIds];
+                        state.sheet.syncedCount = (state.sheet.syncedCount || 0) + pending.length;
+                        state.sheet.lastSync = nowISO();
+                        saveSheetConfig(); renderSheetModal();
+                        toast(`${pending.length} transaksi terkirim ke Sheets`, 'success');
+                    } catch (e) { console.error(e); toast('Gagal mengirim ke Sheets', 'error'); }
+                    finally { if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Transaksi Baru'; } }
+                }
+            });
+        };
 
         // ==================== AUTH ====================
         window.switchAuthTab = function(tab) {
@@ -1488,8 +1198,7 @@
             showConfirm({
                 title: 'Keluar Akun?',
                 message: 'Anda akan keluar dari sesi ini. Data Anda tetap aman di cloud.',
-                variant: 'warning',
-                okText: 'Ya, Keluar',
+                variant: 'warning', okText: 'Ya, Keluar',
                 onConfirm: async () => {
                     try {
                         if (unsubscribeSnapshot) { unsubscribeSnapshot(); unsubscribeSnapshot = null; }
@@ -1590,15 +1299,15 @@
                     processRecurrings();
                     renderAll();
                     updateSheetBadge();
+                    // Auto-flush queue kalau online
+                    if (navigator.onLine && state.sheet.connected) {
+                        setTimeout(flushSheetQueue, 1500);
+                    }
                 } else {
                     await window.firebaseFns.setDoc(ref, { tasks: [], finances: [], financeLibs: [], notes: [], habits: [], recurrings: [], createdAt: nowISO() });
                     renderAll();
                 }
-            } catch (e) {
-                console.error('Load error:', e);
-                renderAll();
-                updateSheetBadge();
-            }
+            } catch (e) { console.error('Load error:', e); renderAll(); updateSheetBadge(); }
             
             if (unsubscribeSnapshot) unsubscribeSnapshot();
             unsubscribeSnapshot = onSnapshot(ref, (docSnap) => {
@@ -1630,16 +1339,14 @@
                 const col = document.getElementById('kanban-col-' + t);
                 const btn = document.getElementById('kanban-tab-' + t);
                 if (t === tab) {
-                    col.classList.remove('hidden');
-                    col.classList.add('flex');
+                    col.classList.remove('hidden'); col.classList.add('flex');
                     btn.className = t === 'todo'
                         ? 'flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-amber-500 text-white shadow-sm'
                         : t === 'inprogress'
                         ? 'flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-sky-500 text-white shadow-sm'
                         : 'flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-white shadow-sm';
                 } else {
-                    col.classList.add('hidden');
-                    col.classList.remove('flex');
+                    col.classList.add('hidden'); col.classList.remove('flex');
                     btn.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-slate-500';
                 }
             });
@@ -1648,14 +1355,12 @@
             if (window.innerWidth >= 768) {
                 ['todo','inprogress','done'].forEach(t => {
                     const col = document.getElementById('kanban-col-' + t);
-                    col.classList.remove('hidden');
-                    col.classList.add('flex');
+                    col.classList.remove('hidden'); col.classList.add('flex');
                 });
             } else {
                 ['todo','inprogress','done'].forEach(t => {
                     const col = document.getElementById('kanban-col-' + t);
-                    col.classList.add('hidden');
-                    col.classList.remove('flex');
+                    col.classList.add('hidden'); col.classList.remove('flex');
                 });
                 const col = document.getElementById('kanban-col-' + activeKanbanTab);
                 if (col) { col.classList.remove('hidden'); col.classList.add('flex'); }
@@ -1671,11 +1376,8 @@
             sortableInstances = [];
             const options = {
                 group: 'shared', animation: 200, ghostClass: 'sortable-ghost',
-                handle: '.drag-handle',
-                delay: 150,
-                delayOnTouchOnly: true,
-                touchStartThreshold: 4,
-                fallbackOnBody: true,
+                handle: '.drag-handle', delay: 150, delayOnTouchOnly: true,
+                touchStartThreshold: 4, fallbackOnBody: true,
                 onEnd: function (evt) {
                     const itemEl = evt.item;
                     const taskId = itemEl.dataset.id;
@@ -1741,12 +1443,7 @@
                 const subtaskDone = task.subtasks?.filter(s => s.done).length || 0;
                 const subtaskTotal = task.subtasks?.length || 0;
                 const subtaskBar = subtaskTotal > 0
-                    ? `<div class="flex items-center gap-2 mb-1.5">
-                         <div class="flex-grow h-1 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
-                           <div class="h-full bg-sky-500 transition-all" style="width:${(subtaskDone / subtaskTotal * 100)}%"></div>
-                         </div>
-                         <span class="text-[10px] font-bold text-slate-500 whitespace-nowrap">${subtaskDone}/${subtaskTotal}</span>
-                       </div>`
+                    ? `<div class="flex items-center gap-2 mb-1.5"><div class="flex-grow h-1 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div class="h-full bg-sky-500 transition-all" style="width:${(subtaskDone / subtaskTotal * 100)}%"></div></div><span class="text-[10px] font-bold text-slate-500 whitespace-nowrap">${subtaskDone}/${subtaskTotal}</span></div>`
                     : '';
 
                 const tagsHTML = (task.tags||[]).length
@@ -1776,26 +1473,16 @@
                         <div class="flex items-center gap-0.5 shrink-0">
                             <button onclick="openEditTaskModal('${task.id}')" class="p-1 text-slate-400 hover:text-sky-500 rounded transition-colors" title="Edit"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
                             <button onclick="deleteTask('${task.id}')" class="p-1 text-slate-400 hover:text-rose-500 rounded transition-colors" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
-                            <div class="drag-handle" title="Tahan & geser untuk pindah kolom">
-                                <i class="fa-solid fa-grip-vertical"></i>
-                            </div>
+                            <div class="drag-handle" title="Tahan & geser untuk pindah kolom"><i class="fa-solid fa-grip-vertical"></i></div>
                         </div>
                     </div>
                     ${task.desc ? `<p class="text-[11px] text-slate-500 dark:text-slate-400 mb-1.5 line-clamp-2 leading-snug">${esc(task.desc)}</p>` : ''}
                     ${tagsHTML}
                     ${subtaskBar}
                     <div class="flex items-center justify-between gap-2 pt-2 mt-1 border-t border-slate-100 dark:border-slate-700/60">
-                        <div class="flex flex-col gap-1 min-w-0 flex-grow">
-                            ${dueHTML}
-                            ${createdHTML}
-                            ${reminderIcon}
-                        </div>
-                        <div class="flex items-center gap-1.5 shrink-0">
-                            ${prevBtn}
-                            ${nextBtn}
-                        </div>
-                    </div>
-                `;
+                        <div class="flex flex-col gap-1 min-w-0 flex-grow">${dueHTML}${createdHTML}${reminderIcon}</div>
+                        <div class="flex items-center gap-1.5 shrink-0">${prevBtn}${nextBtn}</div>
+                    </div>`;
                 cols[task.status].appendChild(card);
             });
             document.getElementById('count-todo').innerText = counts.todo;
@@ -1907,10 +1594,7 @@
             if (!el) return;
             el.innerHTML = draftTags[mode].map(t => {
                 const c = tagColor(t);
-                return `<span style="background:${c.bg};color:${c.fg}" class="px-2 py-1 rounded-md text-xs font-bold flex items-center gap-1">
-                    #${esc(t)}
-                    <button type="button" onclick="removeTagDraft('${mode}','${t}')" class="hover:text-rose-500">✕</button>
-                </span>`;
+                return `<span style="background:${c.bg};color:${c.fg}" class="px-2 py-1 rounded-md text-xs font-bold flex items-center gap-1">#${esc(t)}<button type="button" onclick="removeTagDraft('${mode}','${t}')" class="hover:text-rose-500">✕</button></span>`;
             }).join('');
         }
         window.addTagDraft = function(mode) {
@@ -1947,18 +1631,13 @@
             const title = sanitize(document.getElementById('new-task-title').value, LIMITS.TASK_TITLE);
             if(!title) { toast('Judul tugas wajib diisi', 'error'); return; }
             const task = {
-                id: Date.now().toString(),
-                title,
+                id: Date.now().toString(), title,
                 desc: sanitize(document.getElementById('new-task-desc').value, LIMITS.TASK_DESC),
                 priority: document.getElementById('new-task-priority').value,
                 date: document.getElementById('new-task-date').value,
-                status: 'todo',
-                createdAt: nowISO(),
-                completedAt: null,
-                subtasks: [...draftSubtasks.new],
-                tags: [...draftTags.new],
-                reminderAt: document.getElementById('new-task-reminder').value || null,
-                remindedAt: null,
+                status: 'todo', createdAt: nowISO(), completedAt: null,
+                subtasks: [...draftSubtasks.new], tags: [...draftTags.new],
+                reminderAt: document.getElementById('new-task-reminder').value || null, remindedAt: null,
             };
             state.tasks.unshift(task);
             saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
@@ -2003,8 +1682,7 @@
             showConfirm({
                 title: 'Hapus Tugas?',
                 message: `"${t ? t.title : 'Tugas'}" akan dihapus permanen dan tidak bisa dikembalikan.`,
-                variant: 'danger',
-                okText: 'Ya, Hapus',
+                variant: 'danger', okText: 'Ya, Hapus',
                 onConfirm: () => {
                     state.tasks = state.tasks.filter(x => x.id !== id);
                     saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
@@ -2096,14 +1774,11 @@
                 state.recurrings.push({
                     id: Date.now().toString() + '_r',
                     template: { type: f.type, source: f.source, category: f.category, amount: f.amount, note: f.note },
-                    interval,
-                    nextRun: getNextRun(interval, datetime),
-                    lastRun: null,
+                    interval, nextRun: getNextRun(interval, datetime), lastRun: null,
                 });
                 saveRecurrings();
             }
             saveFinances();
-            // Kirim ke Google Sheets jika terhubung & auto-sync aktif
             sendToSheet(f);
             closeModal('modal-add-finance');
             renderFinance();
@@ -2124,8 +1799,7 @@
                         id: Date.now().toString() + Math.random().toString(36).slice(2,6),
                         ...r.template,
                         datetime: new Date().toISOString().slice(0,16),
-                        createdAt: nowISO(),
-                        auto: true,
+                        createdAt: nowISO(), auto: true,
                     };
                     state.finances.push(newTx);
                     sendToSheet(newTx);
@@ -2164,26 +1838,23 @@
             f.note = sanitize(document.getElementById('edit-fin-note').value, LIMITS.FIN_NOTE);
             f.updatedAt = nowISO();
             saveFinances(); renderFinance(); elHide('modal-edit-finance');
-            // Update di Google Sheets juga
             sendUpdateToSheet(f);
             toast('Transaksi diperbarui', 'success');
         };
         window.deleteFinance = function(id) {
-    const f = state.finances.find(x => x.id === id);
-    showConfirm({
-        title: 'Hapus Transaksi?',
-        message: f ? `${f.type} sebesar ${fmtRupiah(f.amount)} (${f.category}) akan dihapus permanen. Data di Google Sheets juga akan dihapus.` : 'Transaksi akan dihapus permanen.',
-        variant: 'danger',
-        okText: 'Ya, Hapus',
-        onConfirm: async () => {
-            state.finances = state.finances.filter(x => x.id !== id);
-            saveFinances(); renderFinance();
-            // Hapus di Google Sheets juga
-            await sendDeleteToSheet(id);
-            toast('Transaksi dihapus dari app & Sheets', 'success');
-        }
-    });
-};
+            const f = state.finances.find(x => x.id === id);
+            showConfirm({
+                title: 'Hapus Transaksi?',
+                message: f ? `${f.type} sebesar ${fmtRupiah(f.amount)} (${f.category}) akan dihapus permanen. Data di Google Sheets juga akan dihapus.` : 'Transaksi akan dihapus permanen.',
+                variant: 'danger', okText: 'Ya, Hapus',
+                onConfirm: async () => {
+                    state.finances = state.finances.filter(x => x.id !== id);
+                    saveFinances(); renderFinance();
+                    await sendDeleteToSheet(id);
+                    toast('Transaksi dihapus dari app & Sheets', 'success');
+                }
+            });
+        };
 
         let finFilter = 'all';
         window.setFinFilter = function(range) {
@@ -2336,8 +2007,7 @@
                 svg.appendChild(circle);
                 cum += percent;
                 legend.innerHTML += `<div class="flex items-center justify-between text-[11px]">
-                    <div class="flex items-center gap-1.5 truncate"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${color}"></span>
-                    <span class="text-slate-600 dark:text-slate-300 font-medium truncate">${esc(label)}</span></div>
+                    <div class="flex items-center gap-1.5 truncate"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${color}"></span><span class="text-slate-600 dark:text-slate-300 font-medium truncate">${esc(label)}</span></div>
                     <span class="font-bold text-slate-700 dark:text-slate-200 ml-2 shrink-0">${percent.toFixed(1)}%</span>
                 </div>`;
             });
@@ -2406,11 +2076,7 @@
                 if (productivityChart) productivityChart.destroy();
                 productivityChart = new Chart(canvas.getContext('2d'), {
                     type: 'line',
-                    data: { labels: days, datasets: [{
-                        label: 'Tugas Selesai', data: counts,
-                        borderColor: '#0ea5e9', backgroundColor: 'rgba(14,165,233,.15)',
-                        fill: true, tension: 0.35, pointRadius: 3,
-                    }]},
+                    data: { labels: days, datasets: [{ label: 'Tugas Selesai', data: counts, borderColor: '#0ea5e9', backgroundColor: 'rgba(14,165,233,.15)', fill: true, tension: 0.35, pointRadius: 3 }] },
                     options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
                 });
             }
@@ -2536,8 +2202,7 @@
             showConfirm({
                 title: 'Hapus Catatan?',
                 message: `Catatan "${n ? n.title : 'ini'}" akan dihapus permanen.`,
-                variant: 'danger',
-                okText: 'Ya, Hapus',
+                variant: 'danger', okText: 'Ya, Hapus',
                 onConfirm: () => {
                     state.notes = state.notes.filter(x => x.id !== currentNoteId);
                     saveNotes(); currentNoteId = null;
@@ -2615,21 +2280,9 @@
                 const pct = total > 0 ? (done / total * 100).toFixed(0) : 0;
                 statsEl.innerHTML = `
                     <div class="grid grid-cols-3 gap-4 mb-4">
-                        <div class="bg-sky-50 dark:bg-sky-900/20 p-4 rounded-xl">
-                            <p class="text-xs font-bold text-sky-500 uppercase">Minggu Ini</p>
-                            <p class="text-2xl font-black">${pct}%</p>
-                            <p class="text-xs text-slate-500">${done}/${total} selesai</p>
-                        </div>
-                        <div class="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl">
-                            <p class="text-xs font-bold text-emerald-500 uppercase">Streak Terbaik</p>
-                            <p class="text-2xl font-black">${Math.max(0, ...state.habits.map(h => h.bestStreak || 0), 0)}</p>
-                            <p class="text-xs text-slate-500">hari</p>
-                        </div>
-                        <div class="bg-violet-50 dark:bg-violet-900/20 p-4 rounded-xl">
-                            <p class="text-xs font-bold text-violet-500 uppercase">Total Habit</p>
-                            <p class="text-2xl font-black">${state.habits.length}</p>
-                            <p class="text-xs text-slate-500">aktif</p>
-                        </div>
+                        <div class="bg-sky-50 dark:bg-sky-900/20 p-4 rounded-xl"><p class="text-xs font-bold text-sky-500 uppercase">Minggu Ini</p><p class="text-2xl font-black">${pct}%</p><p class="text-xs text-slate-500">${done}/${total} selesai</p></div>
+                        <div class="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl"><p class="text-xs font-bold text-emerald-500 uppercase">Streak Terbaik</p><p class="text-2xl font-black">${Math.max(0, ...state.habits.map(h => h.bestStreak || 0), 0)}</p><p class="text-xs text-slate-500">hari</p></div>
+                        <div class="bg-violet-50 dark:bg-violet-900/20 p-4 rounded-xl"><p class="text-xs font-bold text-violet-500 uppercase">Total Habit</p><p class="text-2xl font-black">${state.habits.length}</p><p class="text-xs text-slate-500">aktif</p></div>
                     </div>`;
             }
         }
@@ -2665,8 +2318,7 @@
             showConfirm({
                 title: 'Hapus Kebiasaan?',
                 message: `Kebiasaan "${h ? h.title : 'ini'}" akan dihapus beserta riwayatnya.`,
-                variant: 'danger',
-                okText: 'Ya, Hapus',
+                variant: 'danger', okText: 'Ya, Hapus',
                 onConfirm: () => {
                     state.habits = state.habits.filter(x => x.id !== id);
                     saveHabits(); renderHabits();
@@ -2679,10 +2331,7 @@
         window.runGemini = async function() {
             const key = document.getElementById('gemini-api-key').value.trim();
             const out = document.getElementById('gemini-output');
-            if(!key) {
-                out.innerHTML = `<div class="text-rose-500 p-4 font-bold bg-rose-50 dark:bg-rose-900/20 rounded-xl"><i class="fa-solid fa-circle-exclamation mr-2"></i>API Key tidak boleh kosong.</div>`;
-                return;
-            }
+            if(!key) { out.innerHTML = `<div class="text-rose-500 p-4 font-bold bg-rose-50 dark:bg-rose-900/20 rounded-xl"><i class="fa-solid fa-circle-exclamation mr-2"></i>API Key tidak boleh kosong.</div>`; return; }
             out.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-indigo-500"><i class="fa-solid fa-spinner fa-spin text-4xl mb-4"></i><p class="font-bold">Menganalisis data Anda...</p></div>';
             const tasksBrief = state.tasks.map(t => ({ judul: t.title, prioritas: t.priority, status: t.status, tags: t.tags || [] }));
             const inc = state.finances.filter(f => f.type === 'Pemasukan').reduce((a,b)=>a+b.amount,0);
@@ -2740,19 +2389,9 @@
             });
             const fab = document.getElementById('fab-add-task');
             if (fab) {
-                if (tabId === 'finance') {
-                    fab.title = 'Catat Transaksi';
-                    fab.innerHTML = '<i class="fa-solid fa-money-bill-transfer"></i>';
-                    fab.style.background = 'linear-gradient(135deg, #10b981, #14b8a6)';
-                    fab.style.display = 'flex';
-                } else if (tabId === 'tasks') {
-                    fab.title = 'Tambah Tugas';
-                    fab.innerHTML = '<i class="fa-solid fa-plus"></i>';
-                    fab.style.background = 'linear-gradient(135deg, #0ea5e9, #6366f1)';
-                    fab.style.display = 'flex';
-                } else {
-                    fab.style.display = 'none';
-                }
+                if (tabId === 'finance') { fab.title = 'Catat Transaksi'; fab.innerHTML = '<i class="fa-solid fa-money-bill-transfer"></i>'; fab.style.background = 'linear-gradient(135deg, #10b981, #14b8a6)'; fab.style.display = 'flex'; }
+                else if (tabId === 'tasks') { fab.title = 'Tambah Tugas'; fab.innerHTML = '<i class="fa-solid fa-plus"></i>'; fab.style.background = 'linear-gradient(135deg, #0ea5e9, #6366f1)'; fab.style.display = 'flex'; }
+                else fab.style.display = 'none';
             }
             if(tabId === 'performance') { renderPerformance(); renderPerformanceCharts(); }
             if(tabId === 'finance') renderFinance();
@@ -2817,13 +2456,7 @@
             if (!deferredPrompt) {
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
                 if (isIOS) {
-                    showConfirm({
-                        title: 'Install di iPhone/iPad',
-                        message: 'Ketuk tombol "Share" (kotak dengan panah ke atas) di Safari, lalu pilih "Add to Home Screen".',
-                        variant: 'info',
-                        okText: 'Mengerti',
-                        onConfirm: () => {}
-                    });
+                    showConfirm({ title: 'Install di iPhone/iPad', message: 'Ketuk tombol "Share" (kotak dengan panah ke atas) di Safari, lalu pilih "Add to Home Screen".', variant: 'info', okText: 'Mengerti', onConfirm: () => {} });
                 } else {
                     toast('Browser Anda belum mendukung install otomatis. Coba Chrome/Edge.', 'info');
                 }
@@ -2846,6 +2479,13 @@
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
             if (installBtn) installBtn.classList.add('hidden');
         }
+
+        // ==================== SHEET QUEUE FLUSH ON ONLINE ====================
+        window.addEventListener('online', () => {
+            if (state.sheet.connected) {
+                setTimeout(() => flushSheetQueue(), 500);
+            }
+        });
     </script>
 </body>
 </html>

@@ -1321,6 +1321,55 @@
             saveSheetConfig();
             toast(val ? 'Auto-sync aktif' : 'Auto-sync nonaktif', 'info');
         };
+                async function sendDeleteToSheet(id) {
+            if (!state.sheet.connected || !state.sheet.url) return;
+            // Cek apakah transaksi pernah disync
+            const syncedIds = new Set(state.sheet.syncedIds || []);
+            if (!syncedIds.has(String(id))) return; // belum pernah sync, tidak perlu hapus di sheets
+            try {
+                await fetch(state.sheet.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        token: state.sheet.token,
+                        action: 'delete',
+                        id: String(id)
+                    })
+                });
+                // Hapus dari daftar syncedIds
+                syncedIds.delete(String(id));
+                state.sheet.syncedIds = [...syncedIds];
+                state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
+                state.sheet.lastSync = nowISO();
+                saveSheetConfig();
+            } catch (e) {
+                console.error('Delete from sheet error:', e);
+            }
+        }
+
+        async function sendUpdateToSheet(transaction) {
+            if (!state.sheet.connected || !state.sheet.url) return;
+            const syncedIds = new Set(state.sheet.syncedIds || []);
+            if (!syncedIds.has(String(transaction.id))) return; // belum pernah sync
+            try {
+                await fetch(state.sheet.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        token: state.sheet.token,
+                        action: 'update',
+                        transaction
+                    })
+                });
+                state.sheet.lastSync = nowISO();
+                saveSheetConfig();
+            } catch (e) {
+                console.error('Update sheet error:', e);
+            }
+        }
+
         async function sendToSheet(transaction) {
     if (!state.sheet.connected || !state.sheet.url) return;
     if (!state.sheet.autoSync) return;
@@ -2115,22 +2164,26 @@
             f.note = sanitize(document.getElementById('edit-fin-note').value, LIMITS.FIN_NOTE);
             f.updatedAt = nowISO();
             saveFinances(); renderFinance(); elHide('modal-edit-finance');
+            // Update di Google Sheets juga
+            sendUpdateToSheet(f);
             toast('Transaksi diperbarui', 'success');
         };
         window.deleteFinance = function(id) {
-            const f = state.finances.find(x => x.id === id);
-            showConfirm({
-                title: 'Hapus Transaksi?',
-                message: f ? `${f.type} sebesar ${fmtRupiah(f.amount)} (${f.category}) akan dihapus permanen.` : 'Transaksi akan dihapus permanen.',
-                variant: 'danger',
-                okText: 'Ya, Hapus',
-                onConfirm: () => {
-                    state.finances = state.finances.filter(x => x.id !== id);
-                    saveFinances(); renderFinance();
-                    toast('Transaksi dihapus', 'success');
-                }
-            });
-        };
+    const f = state.finances.find(x => x.id === id);
+    showConfirm({
+        title: 'Hapus Transaksi?',
+        message: f ? `${f.type} sebesar ${fmtRupiah(f.amount)} (${f.category}) akan dihapus permanen. Data di Google Sheets juga akan dihapus.` : 'Transaksi akan dihapus permanen.',
+        variant: 'danger',
+        okText: 'Ya, Hapus',
+        onConfirm: async () => {
+            state.finances = state.finances.filter(x => x.id !== id);
+            saveFinances(); renderFinance();
+            // Hapus di Google Sheets juga
+            await sendDeleteToSheet(id);
+            toast('Transaksi dihapus dari app & Sheets', 'success');
+        }
+    });
+};
 
         let finFilter = 'all';
         window.setFinFilter = function(range) {

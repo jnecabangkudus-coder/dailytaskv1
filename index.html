@@ -98,12 +98,13 @@
             color: #94a3b8;
             transition: all .15s ease;
             font-size: 18px;
+            flex-shrink: 0;
         }
         .drag-handle:hover { background: #eef2ff; color: #6366f1; }
         .dark .drag-handle:hover { background: #334155; color: #a5b4fc; }
         .drag-handle:active { cursor: grabbing; transform: scale(.95); }
 
-        /* Tombol panah pindah kolom — sejajar dengan meta */
+        /* Tombol panah pindah kolom */
         .col-move-btn {
             width: 38px; height: 38px;
             border-radius: 10px;
@@ -930,6 +931,25 @@
         </div>
     </div>
 
+    <!-- MODAL: Konfirmasi Universal -->
+    <div id="modal-confirm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[60] flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200">
+            <div class="flex flex-col items-center text-center space-y-4">
+                <div id="confirm-icon-wrap" class="w-16 h-16 rounded-full flex items-center justify-center">
+                    <i id="confirm-icon" class="fa-solid fa-triangle-exclamation text-3xl"></i>
+                </div>
+                <div>
+                    <h3 id="confirm-title" class="text-lg font-black text-slate-800 dark:text-white">Konfirmasi</h3>
+                    <p id="confirm-message" class="text-sm text-slate-500 dark:text-slate-400 mt-1">Apakah Anda yakin?</p>
+                </div>
+                <div class="flex gap-3 w-full pt-2">
+                    <button id="confirm-cancel" class="flex-1 py-3 rounded-xl font-bold text-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition-all">Batal</button>
+                    <button id="confirm-ok" class="flex-1 py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all">Ya, Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ==================== UTILS ====================
         const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -986,6 +1006,45 @@
         const elHide = (id) => { const e = document.getElementById(id); e.children[0].classList.add('scale-95'); setTimeout(()=> { e.classList.add('hidden'); e.style.opacity = '0'; }, 300); };
         window.showModal = elShow;
         window.closeModal = elHide;
+
+        // ==================== CONFIRM MODAL ====================
+        let confirmCallback = null;
+        window.showConfirm = function(opts) {
+            const modal = document.getElementById('modal-confirm');
+            const iconWrap = document.getElementById('confirm-icon-wrap');
+            const icon = document.getElementById('confirm-icon');
+            const okBtn = document.getElementById('confirm-ok');
+            
+            document.getElementById('confirm-title').innerText = opts.title || 'Konfirmasi';
+            document.getElementById('confirm-message').innerText = opts.message || 'Apakah Anda yakin?';
+            
+            const variant = opts.variant || 'danger';
+            if (variant === 'danger') {
+                iconWrap.className = 'w-16 h-16 rounded-full flex items-center justify-center bg-rose-100 dark:bg-rose-900/40';
+                icon.className = 'fa-solid fa-triangle-exclamation text-3xl text-rose-500';
+                okBtn.className = 'flex-1 py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all bg-rose-500 hover:bg-rose-600 shadow-rose-500/30';
+                okBtn.innerText = opts.okText || 'Ya, Hapus';
+            } else if (variant === 'warning') {
+                iconWrap.className = 'w-16 h-16 rounded-full flex items-center justify-center bg-amber-100 dark:bg-amber-900/40';
+                icon.className = 'fa-solid fa-circle-question text-3xl text-amber-500';
+                okBtn.className = 'flex-1 py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all bg-amber-500 hover:bg-amber-600 shadow-amber-500/30';
+                okBtn.innerText = opts.okText || 'Ya, Lanjutkan';
+            } else if (variant === 'info') {
+                iconWrap.className = 'w-16 h-16 rounded-full flex items-center justify-center bg-sky-100 dark:bg-sky-900/40';
+                icon.className = 'fa-solid fa-circle-info text-3xl text-sky-500';
+                okBtn.className = 'flex-1 py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all bg-sky-500 hover:bg-sky-600 shadow-sky-500/30';
+                okBtn.innerText = opts.okText || 'Ya';
+            }
+            
+            confirmCallback = opts.onConfirm;
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.children[0].classList.remove('scale-95'), 10);
+        };
+        window.hideConfirm = function() {
+            const modal = document.getElementById('modal-confirm');
+            modal.children[0].classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); confirmCallback = null; }, 200);
+        };
 
         // ==================== STATE ====================
         let state = {
@@ -1104,12 +1163,19 @@
                 showAuthMessage(msg, 'error');
             }
         };
-        window.handleLogout = async function() {
-            if (!confirm('Yakin ingin keluar?')) return;
-            try {
-                if (unsubscribeSnapshot) { unsubscribeSnapshot(); unsubscribeSnapshot = null; }
-                await window.firebaseFns.signOut(window.firebaseAuth);
-            } catch(e) { console.error(e); }
+        window.handleLogout = function() {
+            showConfirm({
+                title: 'Keluar Akun?',
+                message: 'Anda akan keluar dari sesi ini. Data Anda tetap aman di cloud.',
+                variant: 'warning',
+                okText: 'Ya, Keluar',
+                onConfirm: async () => {
+                    try {
+                        if (unsubscribeSnapshot) { unsubscribeSnapshot(); unsubscribeSnapshot = null; }
+                        await window.firebaseFns.signOut(window.firebaseAuth);
+                    } catch(e) { console.error(e); }
+                }
+            });
         };
 
         let unsubscribeSnapshot = null;
@@ -1117,6 +1183,18 @@
             const { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, doc, setDoc, getDoc, onSnapshot } = window.firebaseFns;
             const auth = window.firebaseAuth;
             const db = window.firebaseDb;
+
+            // Bind confirm buttons after DOM ready
+            setTimeout(() => {
+                const cancelBtn = document.getElementById('confirm-cancel');
+                const okBtn = document.getElementById('confirm-ok');
+                if (cancelBtn) cancelBtn.onclick = hideConfirm;
+                if (okBtn) okBtn.onclick = function() {
+                    const cb = confirmCallback;
+                    hideConfirm();
+                    if (typeof cb === 'function') setTimeout(cb, 220);
+                };
+            }, 100);
 
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
@@ -1327,13 +1405,11 @@
                 if (fTag && !(task.tags||[]).some(x => x.toLowerCase().includes(fTag))) return;
                 counts[task.status]++;
 
-                // Buat kartu (compact + aksen warna)
                 const card = document.createElement('div');
                 card.className = 'task-card bg-white dark:bg-slate-800 px-3.5 pt-3 pb-2.5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700/80';
                 card.dataset.id = task.id;
                 card.dataset.priority = task.priority;
 
-                // Subtask progress
                 const subtaskDone = task.subtasks?.filter(s => s.done).length || 0;
                 const subtaskTotal = task.subtasks?.length || 0;
                 const subtaskBar = subtaskTotal > 0
@@ -1345,12 +1421,10 @@
                        </div>`
                     : '';
 
-                // Tags
                 const tagsHTML = (task.tags||[]).length
                     ? `<div class="flex flex-wrap gap-1 mb-1">${task.tags.slice(0, 3).map(t => { const c = tagColor(t); return `<span style="background:${c.bg};color:${c.fg}" class="px-1.5 py-0.5 rounded text-[9px] font-bold">#${esc(t)}</span>`; }).join('')}${task.tags.length > 3 ? `<span class="text-[9px] text-slate-400 font-bold">+${task.tags.length - 3}</span>` : ''}</div>`
                     : '';
 
-                // Info baris bawah (Tenggat + Dibuat)
                 const dueHTML = task.date
                     ? `<span class="flex items-center gap-1 text-[10px] text-slate-500 dark:text-slate-400"><i class="fa-regular fa-calendar"></i>${task.date}</span>`
                     : '';
@@ -1359,7 +1433,6 @@
                     ? `<span class="text-[10px] text-amber-500" title="Reminder: ${formatDateTime(task.reminderAt)}"><i class="fa-solid fa-bell"></i></span>`
                     : '';
 
-                // Tombol panah prev/next
                 const statusOrder = ['todo', 'inprogress', 'done'];
                 const idx = statusOrder.indexOf(task.status);
                 const prevBtn = idx > 0
@@ -1375,12 +1448,14 @@
                         <div class="flex items-center gap-0.5 shrink-0">
                             <button onclick="openEditTaskModal('${task.id}')" class="p-1 text-slate-400 hover:text-sky-500 rounded transition-colors" title="Edit"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
                             <button onclick="deleteTask('${task.id}')" class="p-1 text-slate-400 hover:text-rose-500 rounded transition-colors" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <div class="drag-handle" title="Tahan & geser untuk pindah kolom">
+                                <i class="fa-solid fa-grip-vertical"></i>
+                            </div>
                         </div>
                     </div>
                     ${task.desc ? `<p class="text-[11px] text-slate-500 dark:text-slate-400 mb-1.5 line-clamp-2 leading-snug">${esc(task.desc)}</p>` : ''}
                     ${tagsHTML}
                     ${subtaskBar}
-                    <!-- Baris meta + tombol panah sejajar -->
                     <div class="flex items-center justify-between gap-2 pt-2 mt-1 border-t border-slate-100 dark:border-slate-700/60">
                         <div class="flex flex-col gap-1 min-w-0 flex-grow">
                             ${dueHTML}
@@ -1408,7 +1483,6 @@
             ensureDesktopKanban();
         }
 
-        // Pindah task via tombol panah
         window.moveTask = function(taskId, direction) {
             const t = state.tasks.find(x => x.id === taskId);
             if (!t) return;
@@ -1597,9 +1671,18 @@
             toast('Perubahan tersimpan', 'success');
         };
         window.deleteTask = function(id) {
-            if (!confirm('Hapus tugas ini?')) return;
-            state.tasks = state.tasks.filter(t => t.id !== id);
-            saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
+            const t = state.tasks.find(x => x.id === id);
+            showConfirm({
+                title: 'Hapus Tugas?',
+                message: `"${t ? t.title : 'Tugas'}" akan dihapus permanen dan tidak bisa dikembalikan.`,
+                variant: 'danger',
+                okText: 'Ya, Hapus',
+                onConfirm: () => {
+                    state.tasks = state.tasks.filter(x => x.id !== id);
+                    saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
+                    toast('Tugas dihapus', 'success');
+                }
+            });
         };
 
         // ==================== FINANCE ====================
@@ -1752,9 +1835,18 @@
             toast('Transaksi diperbarui', 'success');
         };
         window.deleteFinance = function(id) {
-            if (!confirm('Hapus transaksi ini?')) return;
-            state.finances = state.finances.filter(f => f.id !== id);
-            saveFinances(); renderFinance();
+            const f = state.finances.find(x => x.id === id);
+            showConfirm({
+                title: 'Hapus Transaksi?',
+                message: f ? `${f.type} sebesar ${fmtRupiah(f.amount)} (${f.category}) akan dihapus permanen.` : 'Transaksi akan dihapus permanen.',
+                variant: 'danger',
+                okText: 'Ya, Hapus',
+                onConfirm: () => {
+                    state.finances = state.finances.filter(x => x.id !== id);
+                    saveFinances(); renderFinance();
+                    toast('Transaksi dihapus', 'success');
+                }
+            });
         };
 
         let finFilter = 'all';
@@ -2104,12 +2196,21 @@
         };
         window.deleteCurrentNote = function() {
             if(!currentNoteId) return;
-            if (!confirm('Hapus catatan ini?')) return;
-            state.notes = state.notes.filter(n => n.id !== currentNoteId);
-            saveNotes(); currentNoteId = null;
-            document.getElementById('note-title-input').value = '';
-            document.getElementById('note-body-input').value = '';
-            renderNotesList();
+            const n = state.notes.find(x => x.id === currentNoteId);
+            showConfirm({
+                title: 'Hapus Catatan?',
+                message: `Catatan "${n ? n.title : 'ini'}" akan dihapus permanen.`,
+                variant: 'danger',
+                okText: 'Ya, Hapus',
+                onConfirm: () => {
+                    state.notes = state.notes.filter(x => x.id !== currentNoteId);
+                    saveNotes(); currentNoteId = null;
+                    document.getElementById('note-title-input').value = '';
+                    document.getElementById('note-body-input').value = '';
+                    renderNotesList();
+                    toast('Catatan dihapus', 'success');
+                }
+            });
         };
         window.insertMd = function(before, after = '') {
             const ta = document.getElementById('note-body-input');
@@ -2224,9 +2325,18 @@
             saveHabits(); renderHabits(); elHide('modal-add-habit');
         };
         window.deleteHabit = function(id) {
-            if (!confirm('Hapus kebiasaan ini?')) return;
-            state.habits = state.habits.filter(h => h.id !== id);
-            saveHabits(); renderHabits();
+            const h = state.habits.find(x => x.id === id);
+            showConfirm({
+                title: 'Hapus Kebiasaan?',
+                message: `Kebiasaan "${h ? h.title : 'ini'}" akan dihapus beserta riwayatnya.`,
+                variant: 'danger',
+                okText: 'Ya, Hapus',
+                onConfirm: () => {
+                    state.habits = state.habits.filter(x => x.id !== id);
+                    saveHabits(); renderHabits();
+                    toast('Kebiasaan dihapus', 'success');
+                }
+            });
         };
 
         // ==================== GEMINI AI ====================

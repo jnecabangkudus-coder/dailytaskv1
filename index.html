@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Taskku By GN - Interactive Productivity Suite</title>
+    <link rel="manifest" href="/dailytaskv1/manifest.json">
+<meta name="theme-color" content="#0ea5e9">
+<meta name="description" content="Kelola tugas, keuangan, kebiasaan & produktivitas Anda dalam satu aplikasi.">
+
+<!-- Favicon emoji -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+
+<!-- iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Taskku">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -280,6 +292,9 @@
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:block"></i>
                 </button>
+                <button id="btn-install-pwa" onclick="installPWA()" class="hidden p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 transition-colors" title="Install Aplikasi">
+    <i class="fa-solid fa-download"></i>
+</button>
                 <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-rose-100 dark:bg-rose-900/40 hover:bg-rose-200 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 transition-colors" title="Keluar">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
@@ -2458,6 +2473,64 @@
             if (finlibInput) finlibInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { e.preventDefault(); submitFinanceLib(); } });
         });
         window.onload = function() { switchTab('tasks'); };
+
+// ==================== PWA INSTALL ====================
+let deferredPrompt = null;
+const installBtn = document.getElementById('btn-install-pwa');
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/dailytaskv1/sw.js', { scope: '/dailytaskv1/' })
+            .then(reg => console.log('✅ Service Worker registered:', reg.scope))
+            .catch(err => console.warn('❌ SW registration failed:', err));
+    });
+}
+
+// Tangkap event install
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) installBtn.classList.remove('hidden');
+});
+
+// Handle klik tombol install
+window.installPWA = async function() {
+    if (!deferredPrompt) {
+        // iOS / browser yang tidak support prompt — kasih instruksi manual
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS) {
+            showConfirm({
+                title: 'Install di iPhone/iPad',
+                message: 'Ketuk tombol "Share" (kotak dengan panah ke atas) di Safari, lalu pilih "Add to Home Screen".',
+                variant: 'info',
+                okText: 'Mengerti',
+                onConfirm: () => {}
+            });
+        } else {
+            toast('Browser Anda belum mendukung install otomatis. Coba Chrome/Edge.', 'info');
+        }
+        return;
+    }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+        toast('Aplikasi berhasil di-install! 🎉', 'success');
+        if (installBtn) installBtn.classList.add('hidden');
+    }
+    deferredPrompt = null;
+};
+
+// Sembunyikan tombol kalau sudah di-install
+window.addEventListener('appinstalled', () => {
+    if (installBtn) installBtn.classList.add('hidden');
+    toast('Terima kasih sudah install OmniTask! 🎉', 'success');
+});
+
+// Deteksi mode standalone (sudah di-install)
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+    if (installBtn) installBtn.classList.add('hidden');
+}
     </script>
 </body>
 </html>

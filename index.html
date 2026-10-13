@@ -70,6 +70,12 @@
             transition: background-color 5000s ease-in-out 0s;
         }
 
+        /* Fix v3.5: scroll fade untuk kategori */
+        .scroll-fade {
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        }
+
         .task-card { cursor: default; position: relative; overflow: hidden; transition: transform .15s ease, box-shadow .15s ease; }
         .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
         .task-card:active { transform: scale(.995); }
@@ -94,7 +100,6 @@
         .dark .col-move-btn.prev { background: rgba(220,38,38,.25); color: #fca5a5; }
         .dark .col-move-btn.next { background: rgba(37,99,235,.25); color: #93c5fd; }
 
-        /* Fix v3.3: warna durasi violet tua */
         .duration-text { color: #6d28d9; }
         .dark .duration-text { color: #c4b5fd; }
 
@@ -244,7 +249,6 @@
                     <button onclick="clearTaskFilters()" class="px-3 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300"><i class="fa-solid fa-filter-circle-xmark mr-1"></i> Reset</button>
                 </div>
             </div>
-            <!-- Tab mobile dengan gradasi biru -->
             <div class="md:hidden flex gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
                 <button onclick="switchKanbanTab('todo')" id="kanban-tab-todo" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all bg-gradient-to-br from-sky-400 to-sky-500 text-white shadow-sm"><span class="inline-block w-2 h-2 rounded-full bg-white/80 mr-1"></span> Akan <span id="kanban-count-todo" class="ml-1 opacity-80">(0)</span></button>
                 <button onclick="switchKanbanTab('inprogress')" id="kanban-tab-inprogress" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all text-slate-500"><span class="inline-block w-2 h-2 rounded-full bg-sky-500 mr-1"></span> Proses <span id="kanban-count-inprogress" class="ml-1 opacity-80">(0)</span></button>
@@ -266,60 +270,94 @@
             </div>
         </section>
 
-        <section id="tab-finance" class="tab-content hidden space-y-5">
-            <div class="flex flex-wrap justify-between items-center gap-2">
-                <button onclick="openSheetModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all flex items-center gap-2"><i class="fa-solid fa-table-columns"></i> Integrasi Spreadsheet<span id="sheet-status-badge" class="hidden ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20">●</span></button>
-                <button onclick="openAddFinanceModal()" class="hidden md:flex px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all items-center gap-2"><i class="fa-solid fa-plus"></i> Catat Transaksi Baru</button>
+        <section id="tab-finance" class="tab-content hidden space-y-4">
+            <div class="flex justify-end">
+                <span id="sheet-status-badge" class="hidden px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    <i class="fa-solid fa-circle text-[6px] mr-1"></i> Spreadsheet Terhubung
+                </span>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                <div class="space-y-5">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gradient-to-br from-emerald-500 to-teal-600 px-5 py-4 rounded-2xl shadow-sm text-white relative overflow-hidden"><div class="relative z-10"><p class="text-emerald-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Pemasukan</p><h3 id="fin-total-income" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3></div><i class="fa-solid fa-wallet absolute -right-4 -bottom-4 text-6xl text-white opacity-20 transform -rotate-12"></i></div>
-                        <div class="bg-gradient-to-br from-rose-500 to-pink-600 px-5 py-4 rounded-2xl shadow-sm text-white relative overflow-hidden"><div class="relative z-10"><div class="flex justify-between items-start"><p class="text-rose-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Pengeluaran</p><span id="fin-expense-ratio" class="text-[9px] font-bold bg-white/20 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/20">0%</span></div><h3 id="fin-total-expense" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3></div><i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-6xl text-white opacity-20"></i></div>
+
+            <!-- Saldo Total -->
+            <div class="bg-gradient-to-br from-sky-500 to-indigo-600 px-5 py-3 rounded-2xl shadow-sm text-white relative overflow-hidden">
+                <div class="relative z-10 flex justify-between items-center gap-3">
+                    <div>
+                        <p class="text-sky-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Sisa Saldo</p>
+                        <h3 id="fin-total-balance" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm"><h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana</h3><div id="fin-sources-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div></div>
-                    <div id="fin-budget-panel" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm hidden"><h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Budget Bulan Ini</h3><div id="fin-budgets"></div></div>
+                    <span id="fin-balance-pct" class="text-[10px] font-bold bg-white/20 px-2 py-1 rounded-lg backdrop-blur-sm border border-white/20 whitespace-nowrap">0%</span>
                 </div>
-                <div class="grid grid-cols-2 gap-3 md:gap-5">
-                    <div class="bg-white dark:bg-slate-800 p-3 md:p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col">
-                        <h3 class="text-[10px] md:text-xs font-bold text-rose-500 mb-2 md:mb-3 uppercase tracking-wider flex items-center gap-1.5 md:gap-2"><i class="fa-solid fa-arrow-trend-down"></i> <span class="truncate">Pengeluaran/Kategori</span></h3>
-                        <div class="flex-grow flex items-center justify-center relative">
-                            <div class="relative w-24 h-24 md:w-40 md:h-40">
-                                <svg id="pie-expense-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg>
-                                <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-expense-total" class="text-xs md:text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div>
-                            </div>
-                        </div>
-                        <div id="pie-expense-legend" class="mt-3 md:mt-4 space-y-1 max-h-[80px] md:max-h-[120px] overflow-y-auto pr-1 text-[10px] md:text-[11px]"></div>
+                <i class="fa-solid fa-money-bill-wave absolute -right-4 -bottom-4 text-6xl text-white opacity-20"></i>
+            </div>
+
+            <!-- Grid Pemasukan + Pengeluaran (dengan rincian kategori) -->
+            <div class="grid grid-cols-2 gap-3">
+                <!-- CARD PEMASUKAN -->
+                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="height: 320px;">
+                    <i class="fa-solid fa-wallet absolute -right-4 -bottom-4 text-7xl text-white opacity-10 transform -rotate-12 pointer-events-none"></i>
+                    <div class="relative z-10 p-3 flex flex-col h-full">
+                        <p class="text-emerald-100 text-[10px] font-bold uppercase tracking-wider mb-0.5">Total Pemasukan</p>
+                        <h3 id="fin-total-income" class="text-lg sm:text-2xl font-bold tracking-tight mb-2">Rp 0</h3>
+                        <div class="border-t border-white/20 mb-2"></div>
+                        <div id="income-breakdown" class="flex-grow overflow-y-auto scroll-fade pr-1 space-y-2"></div>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-3 md:p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col">
-                        <h3 class="text-[10px] md:text-xs font-bold text-emerald-500 mb-2 md:mb-3 uppercase tracking-wider flex items-center gap-1.5 md:gap-2"><i class="fa-solid fa-arrow-trend-up"></i> <span class="truncate">Pemasukan/Kategori</span></h3>
-                        <div class="flex-grow flex items-center justify-center relative">
-                            <div class="relative w-24 h-24 md:w-40 md:h-40">
-                                <svg id="pie-income-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg>
-                                <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-income-total" class="text-xs md:text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div>
-                            </div>
+                </div>
+
+                <!-- CARD PENGELUARAN -->
+                <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="height: 320px;">
+                    <i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-7xl text-white opacity-10 pointer-events-none"></i>
+                    <div class="relative z-10 p-3 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-0.5">
+                            <p class="text-rose-100 text-[10px] font-bold uppercase tracking-wider">Total Pengeluaran</p>
+                            <span id="fin-expense-ratio" class="text-[9px] font-bold bg-white/20 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/20">0%</span>
                         </div>
-                        <div id="pie-income-legend" class="mt-3 md:mt-4 space-y-1 max-h-[80px] md:max-h-[120px] overflow-y-auto pr-1 text-[10px] md:text-[11px]"></div>
+                        <h3 id="fin-total-expense" class="text-lg sm:text-2xl font-bold tracking-tight mb-2">Rp 0</h3>
+                        <div class="border-t border-white/20 mb-2"></div>
+                        <div id="expense-breakdown" class="flex-grow overflow-y-auto scroll-fade pr-1 space-y-2"></div>
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div id="finance-history-panel" class="lg:col-span-3 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col h-[700px]">
-                    <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
-                        <h3 class="font-bold text-lg text-slate-800 dark:text-white"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Riwayat Transaksi</h3>
-                        <button onclick="exportFinanceCSV()" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold"><i class="fa-solid fa-file-csv mr-1"></i> Export CSV</button>
-                    </div>
-                    <div class="flex gap-2 mb-4 flex-wrap">
-                        <button onclick="setFinFilter('all')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-100 text-sky-700" data-range="all">Semua</button>
-                        <button onclick="setFinFilter('today')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="today">Hari Ini</button>
-                        <button onclick="setFinFilter('week')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="week">7 Hari</button>
-                        <button onclick="setFinFilter('month')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="month">Bulan Ini</button>
-                        <button onclick="setFinFilter('custom')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="custom">Custom</button>
-                        <input type="date" id="fin-filter-from" onchange="renderFinance()" class="hidden px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
-                        <input type="date" id="fin-filter-to" onchange="renderFinance()" class="hidden px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
-                    </div>
-                    <div class="overflow-y-auto flex-grow pr-2 space-y-3" id="fin-history-list"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana</h3>
+                    <div id="fin-sources-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
                 </div>
+                <div id="fin-budget-panel" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm hidden">
+                    <h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Budget Bulan Ini</h3>
+                    <div id="fin-budgets"></div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col h-[650px]">
+                <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
+                    <h3 class="font-bold text-base text-slate-800 dark:text-white"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Riwayat Transaksi</h3>
+                    <button onclick="exportFinanceCSV()" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold"><i class="fa-solid fa-file-csv mr-1"></i> Export CSV</button>
+                </div>
+                <!-- Date Filter -->
+                <div class="flex gap-2 mb-2 flex-wrap">
+                    <button onclick="setFinFilter('all')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-100 text-sky-700" data-range="all">Semua</button>
+                    <button onclick="setFinFilter('today')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="today">Hari Ini</button>
+                    <button onclick="setFinFilter('week')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="week">7 Hari</button>
+                    <button onclick="setFinFilter('month')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="month">Bulan Ini</button>
+                    <button onclick="setFinFilter('custom')" class="fin-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-700" data-range="custom">Custom</button>
+                    <input type="date" id="fin-filter-from" onchange="renderFinance()" class="hidden px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
+                    <input type="date" id="fin-filter-to" onchange="renderFinance()" class="hidden px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
+                </div>
+                <!-- NEW: Advanced Filter -->
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                    <select id="fin-filter-type" onchange="renderFinance()" class="px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
+                        <option value="">Semua Tipe</option>
+                        <option value="Pemasukan">📥 Pemasukan</option>
+                        <option value="Pengeluaran">📤 Pengeluaran</option>
+                    </select>
+                    <select id="fin-filter-source" onchange="renderFinance()" class="px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
+                        <option value="">Semua Sumber</option>
+                    </select>
+                    <select id="fin-filter-category" onchange="renderFinance()" class="px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
+                        <option value="">Semua Kategori</option>
+                    </select>
+                </div>
+                <div class="overflow-y-auto flex-grow pr-2 space-y-2" id="fin-history-list"></div>
             </div>
         </section>
 
@@ -445,6 +483,7 @@
     </main>
     </div>
 
+    <button id="fab-sheet" onclick="openSheetModal()" class="fab hidden" title="Integrasi Spreadsheet" style="bottom: 92px; background: linear-gradient(135deg, #10b981, #14b8a6);"><i class="fa-solid fa-table-columns"></i></button>
     <button id="fab-add-task" onclick="handleFabClick()" class="fab" title="Tambah Tugas"><i class="fa-solid fa-plus"></i></button>
 
     <div id="sync-indicator" class="sync-indicator hidden">
@@ -654,6 +693,12 @@
             return res.join(' ');
         };
         const fmtRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+        const fmtRupiahShort = (num) => {
+            if (Math.abs(num) >= 1e9) return 'Rp ' + (num / 1e9).toFixed(1) + 'M';
+            if (Math.abs(num) >= 1e6) return 'Rp ' + (num / 1e6).toFixed(1) + 'jt';
+            if (Math.abs(num) >= 1e3) return 'Rp ' + (num / 1e3).toFixed(0) + 'k';
+            return 'Rp ' + num;
+        };
 
         const cacheSet = (uid, field, data) => { try { localStorage.setItem(`taskku_${uid}_${field}`, JSON.stringify(data)); } catch(e){} };
         const cacheGet = (uid, field) => { try { const r = localStorage.getItem(`taskku_${uid}_${field}`); return r ? JSON.parse(r) : null; } catch { return null; } };
@@ -1716,6 +1761,21 @@
             };
             renderChips(allSources, 'fin-source', 'fin-source-container', 'peer-checked:bg-sky-100 peer-checked:text-sky-700 peer-checked:border-sky-500 dark:peer-checked:bg-sky-900/40');
             renderChips(allCats, 'fin-category', 'fin-category-container', isIncome ? 'peer-checked:bg-emerald-100 peer-checked:text-emerald-700 peer-checked:border-emerald-500 dark:peer-checked:bg-emerald-900/40' : 'peer-checked:bg-rose-100 peer-checked:text-rose-700 peer-checked:border-rose-500 dark:peer-checked:bg-rose-900/40');
+
+            // Update advanced filter options
+            const srcFilter = document.getElementById('fin-filter-source');
+            if (srcFilter) {
+                const curr = srcFilter.value;
+                srcFilter.innerHTML = '<option value="">Semua Sumber</option>' + allSources.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+                srcFilter.value = curr;
+            }
+            const catFilter = document.getElementById('fin-filter-category');
+            if (catFilter) {
+                const curr = catFilter.value;
+                const allCatsUnion = [...new Set([...DEFAULT_CATS_INCOME, ...DEFAULT_CATS_EXPENSE, ...customCats])];
+                catFilter.innerHTML = '<option value="">Semua Kategori</option>' + allCatsUnion.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+                catFilter.value = curr;
+            }
         }
         window.formatNominal = function(input) {
             let value = input.value.replace(/[^0-9]/g, '');
@@ -1851,21 +1911,31 @@
             renderFinance();
         };
         function filterFinancesByRange(list) {
-            if (finFilter === 'all') return list;
+            let result = list;
+            // Date range filter
             if (finFilter === 'custom') {
                 const from = document.getElementById('fin-filter-from').value;
                 const to = document.getElementById('fin-filter-to').value;
-                return list.filter(f => {
+                result = result.filter(f => {
                     const d = f.datetime.slice(0,10);
                     return (!from || d >= from) && (!to || d <= to);
                 });
+            } else if (finFilter !== 'all') {
+                const now = new Date();
+                const start = new Date(now);
+                if (finFilter === 'today') start.setHours(0,0,0,0);
+                if (finFilter === 'week') start.setDate(start.getDate() - 7);
+                if (finFilter === 'month') { start.setDate(1); start.setHours(0,0,0,0); }
+                result = result.filter(f => new Date(f.datetime) >= start);
             }
-            const now = new Date();
-            const start = new Date(now);
-            if (finFilter === 'today') start.setHours(0,0,0,0);
-            if (finFilter === 'week') start.setDate(start.getDate() - 7);
-            if (finFilter === 'month') { start.setDate(1); start.setHours(0,0,0,0); }
-            return list.filter(f => new Date(f.datetime) >= start);
+            // Advanced filters
+            const fType = document.getElementById('fin-filter-type')?.value;
+            const fSource = document.getElementById('fin-filter-source')?.value;
+            const fCategory = document.getElementById('fin-filter-category')?.value;
+            if (fType) result = result.filter(f => f.type === fType);
+            if (fSource) result = result.filter(f => f.source === fSource);
+            if (fCategory) result = result.filter(f => f.category === fCategory);
+            return result;
         }
         window.exportFinanceCSV = function() {
             const rows = [["Tanggal","Tipe","Sumber","Kategori","Nominal","Catatan"]];
@@ -1884,13 +1954,22 @@
 
         function renderFinance() {
             let totalIncome = 0, totalExpense = 0;
-            const sourceBals = {}, incomeByCat = {}, expenseByCat = {};
+            const sourceBals = {}, incomeByCat = {}, expenseByCat = {}, incomeByCatCount = {}, expenseByCatCount = {};
             const listEl = document.getElementById('fin-history-list');
             if(!listEl) return;
             listEl.innerHTML = '';
             state.finances.forEach(f => {
-                if(f.type === 'Pemasukan') { totalIncome += f.amount; sourceBals[f.source] = (sourceBals[f.source]||0) + f.amount; incomeByCat[f.category] = (incomeByCat[f.category]||0) + f.amount; }
-                else { totalExpense += f.amount; sourceBals[f.source] = (sourceBals[f.source]||0) - f.amount; expenseByCat[f.category] = (expenseByCat[f.category]||0) + f.amount; }
+                if(f.type === 'Pemasukan') { 
+                    totalIncome += f.amount; 
+                    sourceBals[f.source] = (sourceBals[f.source]||0) + f.amount; 
+                    incomeByCat[f.category] = (incomeByCat[f.category]||0) + f.amount; 
+                    incomeByCatCount[f.category] = (incomeByCatCount[f.category]||0) + 1;
+                } else { 
+                    totalExpense += f.amount; 
+                    sourceBals[f.source] = (sourceBals[f.source]||0) - f.amount; 
+                    expenseByCat[f.category] = (expenseByCat[f.category]||0) + f.amount; 
+                    expenseByCatCount[f.category] = (expenseByCatCount[f.category]||0) + 1;
+                }
             });
             const filtered = filterFinancesByRange([...state.finances]).sort((a,b) => b.datetime.localeCompare(a.datetime));
             filtered.forEach(f => {
@@ -1898,27 +1977,98 @@
                 const amtColor = f.type === 'Pemasukan' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400';
                 const sign = f.type === 'Pemasukan' ? '+' : '-';
                 listEl.innerHTML += `
-                    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors border border-slate-100 dark:border-slate-700">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-white dark:bg-slate-800 p-2.5 rounded-xl shadow-sm text-lg">${icon}</div>
-                            <div class="min-w-0">
-                                <h4 class="text-sm font-bold text-slate-800 dark:text-white leading-tight truncate">${esc(f.category)} <span class="text-[10px] font-semibold text-slate-400 ml-1 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">${esc(f.source)}</span></h4>
-                                <p class="text-xs text-slate-500 mt-1 truncate">${new Date(f.datetime).toLocaleString('id-ID', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})} ${f.note ? ' · ' + esc(f.note) : ''}</p>
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700/40 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-2.5 min-w-0 flex-grow">
+                            <div class="bg-white dark:bg-slate-800 p-2 rounded-lg shadow-sm text-base shrink-0">${icon}</div>
+                            <div class="min-w-0 flex-grow">
+                                <h4 class="text-xs font-bold text-slate-800 dark:text-white leading-tight truncate">${esc(f.category)} <span class="text-[9px] font-semibold text-slate-400 ml-1 bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded">${esc(f.source)}</span></h4>
+                                <p class="text-[10px] text-slate-500 mt-0.5 truncate">${new Date(f.datetime).toLocaleString('id-ID', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})} ${f.note ? ' · ' + esc(f.note) : ''}</p>
                             </div>
                         </div>
-                        <div class="text-right shrink-0 ml-2">
-                            <span class="font-bold text-sm ${amtColor}">${sign} ${fmtRupiah(f.amount)}</span>
-                            <div class="mt-1">
-                                <button onclick="openEditFinanceModal('${f.id}')" class="text-xs text-slate-400 hover:text-sky-500 mr-2"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteFinance('${f.id}')" class="text-xs text-slate-400 hover:text-rose-500"><i class="fa-solid fa-trash"></i></button>
+                        <div class="text-right shrink-0 ml-2 flex items-center gap-2">
+                            <span class="font-bold text-xs ${amtColor}">${sign} ${fmtRupiah(f.amount)}</span>
+                            <div class="flex flex-col gap-0.5">
+                                <button onclick="openEditFinanceModal('${f.id}')" class="text-[10px] text-slate-400 hover:text-sky-500"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteFinance('${f.id}')" class="text-[10px] text-slate-400 hover:text-rose-500"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </div>
                     </div>`;
             });
             if(filtered.length === 0) listEl.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-receipt text-4xl mb-3 opacity-20"></i><p>Belum ada transaksi.</p></div>';
+
+            // Update summary
+            const totalBalance = totalIncome - totalExpense;
+            const balancePct = totalIncome > 0 ? (totalBalance / totalIncome * 100).toFixed(1) : 0;
+
             document.getElementById('fin-total-income').innerText = fmtRupiah(totalIncome);
             document.getElementById('fin-total-expense').innerText = fmtRupiah(totalExpense);
+            document.getElementById('fin-total-balance').innerText = fmtRupiah(totalBalance);
+            document.getElementById('fin-balance-pct').innerText = `${balancePct}% sisa`;
             document.getElementById('fin-expense-ratio').innerText = `${totalIncome > 0 ? (totalExpense / totalIncome * 100).toFixed(1) : 0}%`;
+
+            // Ubah warna kotak saldo kalau negatif
+            const balanceBox = document.getElementById('fin-total-balance').closest('.bg-gradient-to-br');
+            if (balanceBox) {
+                if (totalBalance < 0) {
+                    balanceBox.className = 'bg-gradient-to-br from-amber-500 to-orange-600 px-5 py-3 rounded-2xl shadow-sm text-white relative overflow-hidden';
+                } else {
+                    balanceBox.className = 'bg-gradient-to-br from-sky-500 to-indigo-600 px-5 py-3 rounded-2xl shadow-sm text-white relative overflow-hidden';
+                }
+            }
+
+            // Breakdown Pemasukan
+            const incomeBreakdown = document.getElementById('income-breakdown');
+            if (incomeBreakdown) {
+                if (Object.keys(incomeByCat).length === 0) {
+                    incomeBreakdown.innerHTML = '<p class="text-[10px] text-white/60 italic text-center py-3">Belum ada data</p>';
+                } else {
+                    const sorted = Object.entries(incomeByCat).sort((a,b) => b[1] - a[1]);
+                    incomeBreakdown.innerHTML = sorted.map(([cat, amt]) => {
+                        const pct = totalIncome > 0 ? (amt / totalIncome * 100).toFixed(1) : 0;
+                        const cnt = incomeByCatCount[cat] || 0;
+                        return `<div class="flex items-start gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white shrink-0 mt-1.5"></span>
+                            <div class="flex-grow min-w-0">
+                                <div class="flex justify-between items-center gap-1">
+                                    <span class="text-[10px] font-bold truncate">${esc(cat)}</span>
+                                    <span class="text-[10px] font-bold shrink-0">${pct}%</span>
+                                </div>
+                                <div class="flex justify-between items-center gap-1 mt-0.5">
+                                    <span class="text-[9px] text-white/80 truncate">${fmtRupiahShort(amt)} · ${cnt}x</span>
+                                </div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+
+            // Breakdown Pengeluaran
+            const expenseBreakdown = document.getElementById('expense-breakdown');
+            if (expenseBreakdown) {
+                if (Object.keys(expenseByCat).length === 0) {
+                    expenseBreakdown.innerHTML = '<p class="text-[10px] text-white/60 italic text-center py-3">Belum ada data</p>';
+                } else {
+                    const sorted = Object.entries(expenseByCat).sort((a,b) => b[1] - a[1]);
+                    expenseBreakdown.innerHTML = sorted.map(([cat, amt]) => {
+                        const pct = totalExpense > 0 ? (amt / totalExpense * 100).toFixed(1) : 0;
+                        const cnt = expenseByCatCount[cat] || 0;
+                        return `<div class="flex items-start gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white shrink-0 mt-1.5"></span>
+                            <div class="flex-grow min-w-0">
+                                <div class="flex justify-between items-center gap-1">
+                                    <span class="text-[10px] font-bold truncate">${esc(cat)}</span>
+                                    <span class="text-[10px] font-bold shrink-0">${pct}%</span>
+                                </div>
+                                <div class="flex justify-between items-center gap-1 mt-0.5">
+                                    <span class="text-[9px] text-white/80 truncate">${fmtRupiahShort(amt)} · ${cnt}x</span>
+                                </div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+
+            // Saldo Sumber Dana
             const gridEl = document.getElementById('fin-sources-grid');
             if(Object.keys(sourceBals).length === 0) gridEl.innerHTML = '<p class="text-xs text-slate-400 col-span-full">Belum ada saldo.</p>';
             else gridEl.innerHTML = Object.entries(sourceBals).map(([src, bal]) => `
@@ -1926,6 +2076,8 @@
                     <p class="text-[10px] text-slate-500 dark:text-slate-400 font-bold mb-0.5 uppercase">${esc(src)}</p>
                     <p class="text-sm font-black ${bal < 0 ? 'text-rose-500' : 'text-slate-800 dark:text-white'}">${fmtRupiah(bal)}</p>
                 </div>`).join('');
+
+            // Budget
             const budgets = state.financeLibs.filter(l => l.type === 'budget');
             const budgetPanel = document.getElementById('fin-budget-panel');
             if (budgets.length) {
@@ -1949,49 +2101,6 @@
                     </div>`;
                 }).join('');
             } else budgetPanel.classList.add('hidden');
-
-            const expenseColors = ['#f43f5e', '#fb7185', '#fda4af', '#fecdd3', '#e11d48', '#be123c'];
-            const incomeColors = ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#059669', '#047857'];
-            renderPieChart('pie-expense-svg', 'pie-expense-legend', 'pie-expense-total', expenseByCat, totalExpense, expenseColors);
-            renderPieChart('pie-income-svg', 'pie-income-legend', 'pie-income-total', incomeByCat, totalIncome, incomeColors);
-        }
-
-        function renderPieChart(containerId, legendId, totalId, dataObj, totalAmount, colors) {
-            const svg = document.getElementById(containerId);
-            const legend = document.getElementById(legendId);
-            const totalEl = document.getElementById(totalId);
-            if(!svg || !legend || !totalEl) return;
-            totalEl.innerText = fmtRupiah(totalAmount);
-            svg.innerHTML = '<circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" />';
-            legend.innerHTML = '';
-            if (totalAmount <= 0 || Object.keys(dataObj).length === 0) {
-                legend.innerHTML = '<p class="text-[10px] text-slate-400 text-center italic">Belum ada data</p>';
-                return;
-            }
-            const entries = Object.entries(dataObj).sort((a,b) => b[1] - a[1]);
-            let cum = 0;
-            entries.forEach(([label, value], index) => {
-                const percent = (value / totalAmount) * 100;
-                const color = colors[index % colors.length];
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('class', 'pie-slice');
-                circle.setAttribute('cx', '21'); circle.setAttribute('cy', '21');
-                circle.setAttribute('r', '15.9155');
-                circle.setAttribute('fill', 'none');
-                circle.setAttribute('stroke', color);
-                circle.setAttribute('stroke-width', '6');
-                circle.setAttribute('stroke-dasharray', `${percent} ${100 - percent}`);
-                circle.setAttribute('stroke-dashoffset', (-cum).toString());
-                const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-                title.textContent = `${label}: ${fmtRupiah(value)} (${percent.toFixed(1)}%)`;
-                circle.appendChild(title);
-                svg.appendChild(circle);
-                cum += percent;
-                legend.innerHTML += `<div class="flex items-center justify-between text-[10px] md:text-[11px]">
-                    <div class="flex items-center gap-1 md:gap-1.5 truncate"><span class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full shrink-0" style="background-color: ${color}"></span><span class="text-slate-600 dark:text-slate-300 font-medium truncate">${esc(label)}</span></div>
-                    <span class="font-bold text-slate-700 dark:text-slate-200 ml-1 md:ml-2 shrink-0">${percent.toFixed(1)}%</span>
-                </div>`;
-            });
         }
 
         // ==================== PERFORMANCE ====================
@@ -2369,10 +2478,24 @@
                 else b.className = iMob;
             });
             const fab = document.getElementById('fab-add-task');
+            const fabSheet = document.getElementById('fab-sheet');
             if (fab) {
-                if (tabId === 'finance') { fab.title = 'Catat Transaksi'; fab.innerHTML = '<i class="fa-solid fa-money-bill-transfer"></i>'; fab.style.background = 'linear-gradient(135deg, #10b981, #14b8a6)'; fab.style.display = 'flex'; }
-                else if (tabId === 'tasks') { fab.title = 'Tambah Tugas'; fab.innerHTML = '<i class="fa-solid fa-plus"></i>'; fab.style.background = 'linear-gradient(135deg, #0ea5e9, #6366f1)'; fab.style.display = 'flex'; }
-                else fab.style.display = 'none';
+                if (tabId === 'finance') {
+                    fab.title = 'Catat Transaksi';
+                    fab.innerHTML = '<i class="fa-solid fa-money-bill-transfer"></i>';
+                    fab.style.background = 'linear-gradient(135deg, #10b981, #14b8a6)';
+                    fab.style.display = 'flex';
+                    if (fabSheet) fabSheet.style.display = 'flex';
+                } else if (tabId === 'tasks') {
+                    fab.title = 'Tambah Tugas';
+                    fab.innerHTML = '<i class="fa-solid fa-plus"></i>';
+                    fab.style.background = 'linear-gradient(135deg, #0ea5e9, #6366f1)';
+                    fab.style.display = 'flex';
+                    if (fabSheet) fabSheet.style.display = 'none';
+                } else {
+                    fab.style.display = 'none';
+                    if (fabSheet) fabSheet.style.display = 'none';
+                }
             }
             if(tabId === 'performance') { renderPerformance(); renderPerformanceCharts(); }
             if(tabId === 'finance') renderFinance();

@@ -210,6 +210,7 @@
                 </div>
             </div>
             <nav class="hidden lg:flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                <button onclick="switchTab('home')" data-tab="home" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-house"></i> Beranda</button>
                 <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Tugas</button>
                 <button onclick="switchTab('finance')" data-tab="finance" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-wallet"></i> Keuangan</button>
                 <button onclick="switchTab('performance')" data-tab="performance" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-solid fa-chart-pie"></i> Performa</button>
@@ -226,6 +227,7 @@
             </div>
         </div>
         <div class="lg:hidden flex overflow-x-auto gap-2 mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] pb-2 hide-scrollbar">
+            <button onclick="switchTab('home')" data-tab="home" class="mob-tab min-w-[70px] p-2 flex flex-col items-center gap-1 shrink-0"><i class="fa-solid fa-house text-base"></i> Beranda</button>
             <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-tab min-w-[70px] p-2 flex flex-col items-center gap-1 shrink-0"><i class="fa-solid fa-list-check text-base"></i> Tugas</button>
             <button onclick="switchTab('finance')" data-tab="finance" class="mob-tab min-w-[70px] p-2 flex flex-col items-center gap-1 shrink-0"><i class="fa-solid fa-wallet text-base"></i> Keuangan</button>
             <button onclick="switchTab('performance')" data-tab="performance" class="mob-tab min-w-[70px] p-2 flex flex-col items-center gap-1 shrink-0"><i class="fa-solid fa-chart-pie text-base"></i> Performa</button>
@@ -237,6 +239,114 @@
     </header>
 
     <main class="flex-grow max-w-[1400px] w-full mx-auto p-4 sm:p-6 lg:p-8 pb-24 md:pb-8">
+        <section id="tab-home" class="tab-content space-y-4 md:space-y-6">
+    <div id="home-greeting-card" class="bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 rounded-2xl p-5 md:p-6 shadow-md text-white relative overflow-hidden">
+        <div class="relative z-10">
+            <h2 id="home-greeting" class="text-xl md:text-3xl font-black mb-1">Memuat...</h2>
+            <p id="home-context" class="text-sm text-white/90 mb-3">Mohon tunggu...</p>
+            <p id="home-datetime" class="text-xs text-white/75 font-mono">--</p>
+        </div>
+        <i class="fa-solid fa-sun absolute -right-6 -bottom-6 text-8xl opacity-10 pointer-events-none"></i>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <button onclick="switchTab('tasks')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-black uppercase tracking-wider text-sky-500">Tugas</span>
+                <i class="fa-solid fa-list-check text-sky-500"></i>
+            </div>
+            <p id="home-stat-tasks" class="text-2xl font-black text-slate-800 dark:text-white">0/0</p>
+            <p id="home-stat-tasks-sub" class="text-[10px] text-slate-500 mt-1">selesai hari ini</p>
+        </button>
+
+        <button onclick="switchTab('finance')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-black uppercase tracking-wider text-emerald-500">Saldo</span>
+                <i class="fa-solid fa-wallet text-emerald-500"></i>
+            </div>
+            <p id="home-stat-balance" class="text-base font-black text-slate-800 dark:text-white truncate">Rp 0</p>
+            <p id="home-stat-balance-sub" class="text-[10px] text-slate-500 mt-1">total saldo</p>
+        </button>
+
+        <button onclick="switchTab('habits')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-black uppercase tracking-wider text-amber-500">Streak</span>
+                <i class="fa-solid fa-fire text-amber-500"></i>
+            </div>
+            <p id="home-stat-streak" class="text-2xl font-black text-slate-800 dark:text-white">0</p>
+            <p id="home-stat-streak-sub" class="text-[10px] text-slate-500 mt-1 truncate">hari terbaik</p>
+        </button>
+
+        <button onclick="switchTab('pomodoro')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-black uppercase tracking-wider text-violet-500">Fokus</span>
+                <i class="fa-solid fa-clock text-violet-500"></i>
+            </div>
+            <p id="home-stat-focus" class="text-2xl font-black text-slate-800 dark:text-white">0m</p>
+            <p class="text-[10px] text-slate-500 mt-1">hari ini</p>
+        </button>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="font-bold text-sm flex items-center gap-2"><i class="fa-solid fa-list-check text-sky-500"></i> Tugas Hari Ini</h3>
+            <button onclick="switchTab('tasks')" class="text-xs font-bold text-sky-500 hover:text-sky-600">Lihat Semua →</button>
+        </div>
+        <div id="home-tasks-list" class="space-y-2"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <h3 class="font-bold text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-money-bill-wave text-emerald-500"></i> Keuangan Hari Ini</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-emerald-50 dark:bg-emerald-900/20 p-3 rounded-xl">
+                    <p class="text-[10px] font-bold text-emerald-600 uppercase">Pemasukan</p>
+                    <p id="home-fin-income" class="text-sm font-black text-emerald-700 dark:text-emerald-400">Rp 0</p>
+                </div>
+                <div class="bg-rose-50 dark:bg-rose-900/20 p-3 rounded-xl">
+                    <p class="text-[10px] font-bold text-rose-600 uppercase">Pengeluaran</p>
+                    <p id="home-fin-expense" class="text-sm font-black text-rose-700 dark:text-rose-400">Rp 0</p>
+                </div>
+            </div>
+            <div class="mt-3">
+                <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">7 Hari Terakhir</p>
+                <canvas id="home-chart-mini" height="60"></canvas>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold text-sm flex items-center gap-2"><i class="fa-solid fa-calendar-check text-amber-500"></i> Kebiasaan Hari Ini</h3>
+                <button onclick="switchTab('habits')" class="text-xs font-bold text-sky-500 hover:text-sky-600">Kelola →</button>
+            </div>
+            <div id="home-habits-list" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-900/30">
+        <h3 class="font-bold text-sm mb-3 flex items-center gap-2 text-indigo-700 dark:text-indigo-400"><i class="fa-solid fa-lightbulb"></i> Tips Hari Ini</h3>
+        <div id="home-tips-list" class="space-y-2"></div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <button onclick="openAddTaskModal()" class="bg-sky-600 hover:bg-sky-700 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
+            <i class="fa-solid fa-plus text-xl"></i>
+            <span class="text-xs font-bold">Tugas Baru</span>
+        </button>
+        <button onclick="openAddFinanceModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
+            <i class="fa-solid fa-money-bill-transfer text-xl"></i>
+            <span class="text-xs font-bold">Transaksi</span>
+        </button>
+        <button onclick="switchTab('notes'); setTimeout(() => createNewNote(), 300)" class="bg-amber-500 hover:bg-amber-600 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
+            <i class="fa-solid fa-note-sticky text-xl"></i>
+            <span class="text-xs font-bold">Catatan</span>
+        </button>
+        <button onclick="switchTab('pomodoro')" class="bg-violet-600 hover:bg-violet-700 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
+            <i class="fa-solid fa-clock text-xl"></i>
+            <span class="text-xs font-bold">Fokus</span>
+        </button>
+    </div>
+</section>
         <section id="tab-tasks" class="tab-content space-y-4 md:space-y-6">
             <div class="bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-3">
                 <div class="flex gap-2">
@@ -728,6 +838,61 @@
             return 'Rp ' + num;
         };
 
+        const GREETINGS = {
+    pagi: [
+        "Semangat pagi, {name}! ☀️",
+        "Pagi cerah, {name}! Ayo mulai! 🌅",
+        "Selamat pagi, {name}! Hari baru, semangat baru! 💪",
+        "Pagi, {name}! Siap produktif hari ini? 🚀",
+        "Selamat pagi, {name}! Kopi dulu, tugas kemudian ☕",
+        "Hai {name}, pagi yang indah untuk memulai! ✨",
+        "Bangun pagi, {name}! Kamu luar biasa! 🌄"
+    ],
+    siang: [
+        "Siang terik, {name}. Jangan lengah ya! 🌞",
+        "Hai {name}, jangan ngantuk siang-siang! ☕",
+        "Siang, {name}! Recharge energi dulu! 🔋",
+        "Semangat siang, {name}! Istirahat sebentar biar fit! 😎",
+        "{name}, siang ini butuh fokus ekstra! 💡",
+        "Tengah hari, {name}. Tetap awas & produktif! 🎯",
+        "Hai {name}, jangan biarkan kantuk menang! ⚡"
+    ],
+    sore: [
+        "Sore, {name}! Waktunya pulang & rileks 🌇",
+        "Hai {name}, kerja keras hari ini luar biasa! 👏",
+        "Sore, {name}! Refleksi hari, siap besok lebih baik 🌆",
+        "{name}, udah mau maghrib — santai dulu! 🌙",
+        "Sore yang tenang, {name}. Nikmati momen ini 🍵",
+        "Hai {name}, waktunya lepas penat sejenak 😌",
+        "Sore, {name}! Kamu sudah berjuang hari ini! 🏆"
+    ],
+    malam: [
+        "Selamat malam, {name}. Waktunya istirahat 🌙",
+        "Malam, {name}. Jangan lupa istirahat cukup! 😴",
+        "Hai {name}, malam tenang untuk recharge besok ✨",
+        "Malam, {name}. Santai, hari sudah selesai 🌌",
+        "Selamat malam, {name}. Besok hari baru! 🌛",
+        "Hai {name}, jangan begadang ya! 💤",
+        "Malam, {name}. Waktunya charging energi 🌃"
+    ]
+};
+
+function getGreeting(name) {
+    const hour = new Date().getHours();
+    let period;
+    if (hour >= 5 && hour < 11) period = 'pagi';
+    else if (hour >= 11 && hour < 15) period = 'siang';
+    else if (hour >= 15 && hour < 18) period = 'sore';
+    else period = 'malam';
+
+    const cacheKey = `greeting_${period}_${new Date().toDateString()}`;
+    let idx = localStorage.getItem(cacheKey);
+    if (idx === null) {
+        idx = Math.floor(Math.random() * GREETINGS[period].length);
+        localStorage.setItem(cacheKey, idx);
+    }
+    return GREETINGS[period][parseInt(idx)].replace('{name}', name);
+}
         const cacheSet = (uid, field, data) => { try { localStorage.setItem(`taskku_${uid}_${field}`, JSON.stringify(data)); } catch(e){} };
         const cacheGet = (uid, field) => { try { const r = localStorage.getItem(`taskku_${uid}_${field}`); return r ? JSON.parse(r) : null; } catch { return null; } };
         const sheetQueueKey = (uid) => `taskku_${uid}_sheet_queue`;
@@ -1357,9 +1522,133 @@
         }
 
         function renderAll() {
-            renderTasks(); renderPerformance(); renderFinanceDropdowns(); renderFinance();
-            renderNotesList(); renderHabits(); renderPerformanceCharts();
+    renderTasks(); renderPerformance(); renderFinanceDropdowns(); renderFinance();
+    renderNotesList(); renderHabits(); renderPerformanceCharts();
+    renderHome();
+}
+
+let homeChartMini = null;
+function renderHome() {
+    if (!state.currentUser) return;
+    const name = state.currentUser.displayName || state.currentUser.email.split('@')[0];
+
+    document.getElementById('home-greeting').innerText = getGreeting(name);
+    const now = new Date();
+    document.getElementById('home-datetime').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const todayStr = today.toISOString().slice(0,10);
+    const tasksToday = state.tasks.filter(t => t.date === todayStr || (t.status !== 'done' && t.date && new Date(t.date) <= new Date(today.getTime() + 3*24*60*60*1000)));
+    const doneToday = state.tasks.filter(t => t.status === 'done' && t.completedAt?.slice(0,10) === todayStr);
+    const overdue = state.tasks.filter(t => t.status !== 'done' && t.date && new Date(t.date) < today);
+
+    let ctx = tasksToday.length > 0 ? `${tasksToday.length} tugas menunggu hari ini` : 'Tidak ada tugas mendesak hari ini';
+    if (overdue.length > 0) ctx += `, ${overdue.length} lewat tenggat ⚠️`;
+
+    const habitsNotDone = state.habits.filter(h => {
+        const dayIdx = (new Date().getDay() || 7) - 1;
+        return !h.days[dayIdx];
+    }).length;
+    if (habitsNotDone > 0 && tasksToday.length > 0) ctx += ` · ${habitsNotDone} habit belum dicentang`;
+    document.getElementById('home-context').innerText = ctx;
+
+    const totalTasks = state.tasks.length;
+    document.getElementById('home-stat-tasks').innerText = `${doneToday.length}/${tasksToday.length || totalTasks}`;
+    document.getElementById('home-stat-tasks-sub').innerText = overdue.length > 0 ? `${overdue.length} lewat tenggat` : 'selesai hari ini';
+
+    const inc = state.finances.filter(f => f.type === 'Pemasukan').reduce((a,b) => a + b.amount, 0);
+    const exp = state.finances.filter(f => f.type === 'Pengeluaran').reduce((a,b) => a + b.amount, 0);
+    const balance = inc - exp;
+    document.getElementById('home-stat-balance').innerText = fmtRupiahShort(balance);
+
+    let bestStreak = 0, bestHabitName = '-';
+    state.habits.forEach(h => {
+        if ((h.bestStreak || 0) > bestStreak) { bestStreak = h.bestStreak; bestHabitName = h.title; }
+    });
+    document.getElementById('home-stat-streak').innerText = bestStreak;
+    document.getElementById('home-stat-streak-sub').innerText = bestHabitName;
+
+    document.getElementById('home-stat-focus').innerText = '25m';
+
+    const taskList = document.getElementById('home-tasks-list');
+    const prioOrder = { high: 0, medium: 1, low: 2 };
+    const topTasks = tasksToday.filter(t => t.status !== 'done').sort((a,b) => {
+        if (prioOrder[a.priority] !== prioOrder[b.priority]) return prioOrder[a.priority] - prioOrder[b.priority];
+        return (a.date || '9999').localeCompare(b.date || '9999');
+    }).slice(0, 5);
+
+    if (topTasks.length === 0) {
+        taskList.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">🎉 Tidak ada tugas mendesak. Santai dulu!</p>';
+    } else {
+        taskList.innerHTML = topTasks.map(t => {
+            const badge = t.priority === 'high' ? '🔴' : t.priority === 'medium' ? '🟡' : '🟢';
+            const due = t.date === todayStr ? 'Hari ini' : (t.date || '');
+            return `<div onclick="openEditTaskModal('${t.id}')" class="flex items-center gap-2 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors">
+                <span>${badge}</span>
+                <span class="flex-grow text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">${esc(t.title)}</span>
+                <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap">${due}</span>
+            </div>`;
+        }).join('');
+    }
+
+    const todayInc = state.finances.filter(f => f.type === 'Pemasukan' && f.datetime?.slice(0,10) === todayStr).reduce((a,b) => a + b.amount, 0);
+    const todayExp = state.finances.filter(f => f.type === 'Pengeluaran' && f.datetime?.slice(0,10) === todayStr).reduce((a,b) => a + b.amount, 0);
+    document.getElementById('home-fin-income').innerText = fmtRupiahShort(todayInc);
+    document.getElementById('home-fin-expense').innerText = fmtRupiahShort(todayExp);
+
+    const chartEl = document.getElementById('home-chart-mini');
+    if (chartEl && typeof Chart !== 'undefined') {
+        const labels = [], data = [];
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(); d.setDate(d.getDate() - i); d.setHours(0,0,0,0);
+            const key = d.toISOString().slice(0,10);
+            labels.push(d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }));
+            data.push(state.finances.filter(f => f.type === 'Pengeluaran' && f.datetime?.slice(0,10) === key).reduce((a,b) => a + b.amount, 0));
         }
+        if (homeChartMini) homeChartMini.destroy();
+        homeChartMini = new Chart(chartEl.getContext('2d'), {
+            type: 'bar',
+            data: { labels, datasets: [{ data, backgroundColor: '#f43f5e', borderRadius: 6 }] },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { display: false } }, x: { ticks: { font: { size: 9 } } } } }
+        });
+    }
+
+    const habitsList = document.getElementById('home-habits-list');
+    const dayIdx = (new Date().getDay() || 7) - 1;
+    if (state.habits.length === 0) {
+        habitsList.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Belum ada kebiasaan. Ayo buat!</p>';
+    } else {
+        habitsList.innerHTML = state.habits.slice(0, 5).map(h => {
+            const checked = h.days[dayIdx];
+            return `<div class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                <button onclick="toggleHabit('${h.id}', ${dayIdx}, ${!checked})" class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${checked ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-600'}">
+                    ${checked ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                </button>
+                <span class="flex-grow text-sm font-semibold ${checked ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">${esc(h.title)}</span>
+                <span class="text-[10px] text-amber-500 font-bold"><i class="fa-solid fa-fire"></i> ${h.streak || 0}</span>
+            </div>`;
+        }).join('');
+    }
+
+    const tips = [];
+    if (overdue.length > 0) tips.push(`⚠️ Ada ${overdue.length} tugas lewat tenggat, prioritaskan!`);
+    if (bestStreak > 5) tips.push(`🔥 Streak "${bestHabitName}" sudah ${bestStreak} hari, jangan putus!`);
+    const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+    const weekExp = state.finances.filter(f => f.type === 'Pengeluaran' && new Date(f.datetime) >= weekAgo).reduce((a,b) => a + b.amount, 0);
+    const prevWeekExp = state.finances.filter(f => f.type === 'Pengeluaran' && new Date(f.datetime) >= new Date(weekAgo.getTime() - 7*24*60*60*1000) && new Date(f.datetime) < weekAgo).reduce((a,b) => a + b.amount, 0);
+    if (prevWeekExp > 0 && weekExp > prevWeekExp * 1.2) {
+        const pct = Math.round((weekExp / prevWeekExp - 1) * 100);
+        tips.push(`📊 Pengeluaran naik ${pct}% minggu ini, cek budget!`);
+    }
+    if (tasksToday.filter(t => t.status !== 'done').length === 0 && overdue.length === 0) tips.push('🎉 Tidak ada tugas mendesak hari ini. Santai dulu!');
+    if (habitsNotDone > 0) tips.push(`💪 ${habitsNotDone} kebiasaan belum dicentang hari ini`);
+    const lowBalance = Object.entries(getSourceBalances()).filter(([_, v]) => v > 0 && v < 50000);
+    if (lowBalance.length > 0) tips.push(`💰 Saldo ${lowBalance[0][0]} menipis: ${fmtRupiah(lowBalance[0][1])}`);
+    if (tips.length === 0) tips.push('✨ Semua aman terkendali. Pertahankan!');
+
+    const tipsList = document.getElementById('home-tips-list');
+    tipsList.innerHTML = tips.slice(0, 5).map(t => `<p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">${t}</p>`).join('');
+}
 
         // ==================== KANBAN MOBILE TABS ====================
         window.switchKanbanTab = function(tab) {
@@ -2684,6 +2973,7 @@
                     if (fabSheet) fabSheet.style.display = 'none';
                 }
             }
+            if(tabId === 'home') renderHome();
             if(tabId === 'performance') { renderPerformance(); renderPerformanceCharts(); }
             if(tabId === 'finance') renderFinance();
             if(tabId === 'habits') renderHabits();
@@ -2729,7 +3019,7 @@
             const finlibInput = document.getElementById('finlib-name');
             if (finlibInput) finlibInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { e.preventDefault(); submitFinanceLib(); } });
         });
-        window.onload = function() { switchTab('tasks'); };
+        window.onload = function() { switchTab('home'); };
 
         // ==================== PWA INSTALL ====================
         let deferredPrompt = null;

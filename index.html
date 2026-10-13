@@ -818,11 +818,8 @@
         };
         const fmtRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
         const fmtRupiahShort = (num) => {
-            if (Math.abs(num) >= 1e9) return 'Rp ' + (num / 1e9).toFixed(1) + 'M';
-            if (Math.abs(num) >= 1e6) return 'Rp ' + (num / 1e6).toFixed(1) + 'jt';
-            if (Math.abs(num) >= 1e3) return 'Rp ' + (num / 1e3).toFixed(0) + 'k';
-            return 'Rp ' + num;
-        };
+    return 'Rp ' + new Intl.NumberFormat('id-ID').format(Math.round(num));
+};
 
         const GREETINGS = {
     pagi: [

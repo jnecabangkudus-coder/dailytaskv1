@@ -75,6 +75,14 @@
             -webkit-mask-image: linear-gradient(to bottom, black 0%, black 95%, transparent 100%);
             mask-image: linear-gradient(to bottom, black 0%, black 95%, transparent 100%);
         }
+        /* Fix v3.7: sembunyikan scrollbar untuk breakdown kategori */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Fix v3.7: fixed height card breakdown (muat 3 kategori) */
+        .breakdown-box {
+            height: 132px; /* 3 kategori × ~44px */
+            overflow-y: auto;
+        }
 
         .task-card { cursor: default; position: relative; overflow: hidden; transition: transform .15s ease, box-shadow .15s ease; }
         .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
@@ -290,17 +298,17 @@
             <!-- Grid Pemasukan + Pengeluaran (dengan rincian kategori) -->
             <div class="grid grid-cols-2 gap-3">
                 <!-- CARD PEMASUKAN -->
-                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="min-height: 180px; max-height: 280px;">
+                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-sm text-white relative overflow-hidden" style="height: 220px;">
                     <i class="fa-solid fa-wallet absolute -right-4 -bottom-4 text-7xl text-white opacity-10 transform -rotate-12 pointer-events-none"></i>
                     <div class="relative z-10 p-3 flex flex-col h-full">
                         <p class="text-emerald-100 text-[10px] font-bold uppercase tracking-wider mb-0.5">Total Pemasukan</p>
                         <h3 id="fin-total-income" class="text-lg sm:text-2xl font-bold tracking-tight mb-3">Rp 0</h3>
-                        <div id="income-breakdown" class="flex-grow overflow-y-auto scroll-fade-v2 pr-1 space-y-2.5"></div>
+                        <div id="income-breakdown" class="breakdown-box scroll-fade-v2 hide-scrollbar pr-1 space-y-2.5"></div>
                     </div>
                 </div>
 
                 <!-- CARD PENGELUARAN -->
-                <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="min-height: 180px; max-height: 280px;">
+                <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-sm text-white relative overflow-hidden" style="height: 220px;">
                     <i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-7xl text-white opacity-10 pointer-events-none"></i>
                     <div class="relative z-10 p-3 flex flex-col h-full">
                         <div class="flex justify-between items-start mb-0.5">
@@ -308,7 +316,7 @@
                             <span id="fin-expense-ratio" class="text-[9px] font-bold bg-white/20 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/20">0%</span>
                         </div>
                         <h3 id="fin-total-expense" class="text-lg sm:text-2xl font-bold tracking-tight mb-3">Rp 0</h3>
-                        <div id="expense-breakdown" class="flex-grow overflow-y-auto scroll-fade-v2 pr-1 space-y-2.5"></div>
+                        <div id="expense-breakdown" class="breakdown-box scroll-fade-v2 hide-scrollbar pr-1 space-y-2.5"></div>
                     </div>
                 </div>
             </div>

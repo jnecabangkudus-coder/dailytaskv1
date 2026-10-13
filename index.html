@@ -313,11 +313,11 @@
                 </div>
             </div>
             <div class="mt-3">
-                <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">7 Hari Terakhir</p>
-                <canvas id="home-chart-mini" height="60"></canvas>
-            </div>
-        </div>
-
+    <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">7 Hari Terakhir</p>
+    <div style="position: relative; height: 100px; width: 100%;">
+        <canvas id="home-chart-mini"></canvas>
+    </div>
+</div>
         <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
             <div class="flex justify-between items-center mb-3">
                 <h3 class="font-bold text-sm flex items-center gap-2"><i class="fa-solid fa-calendar-check text-amber-500"></i> Kebiasaan Hari Ini</h3>
@@ -1652,10 +1652,10 @@ function renderHome() {
         }
         if (homeChartMini) homeChartMini.destroy();
         homeChartMini = new Chart(chartEl.getContext('2d'), {
-            type: 'bar',
-            data: { labels, datasets: [{ data, backgroundColor: '#f43f5e', borderRadius: 6 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { display: false } }, x: { ticks: { font: { size: 9 } } } } }
-        });
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: '#f43f5e', borderRadius: 6 }] },
+    options: { responsive: true, maintainAspectRatio: false, animation: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { display: false } }, x: { ticks: { font: { size: 9 } } } } }
+});
     }
 
     // ========== LIST KEBIASAAN ==========

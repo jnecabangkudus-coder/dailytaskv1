@@ -145,43 +145,19 @@
             <form id="login-form" class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i>
-                        <input type="email" id="login-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
-                    </div>
+                    <div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i><input type="email" id="login-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div>
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i>
-                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
-                    </div>
+                    <div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" id="login-password" required placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div>
                 </div>
                 <button type="button" onclick="handleForgotPassword()" class="text-xs text-sky-500 hover:text-sky-600 font-semibold">Lupa password?</button>
                 <button type="submit" id="login-btn" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md shadow-sky-500/30 transition-all uppercase tracking-wide text-sm">Masuk</button>
             </form>
             <form id="register-form" class="space-y-4 hidden">
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Nama Lengkap</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i>
-                        <input type="text" id="register-name" required placeholder="Nama Anda" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
-                    </div>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i>
-                        <input type="email" id="register-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
-                    </div>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password (min. 6 karakter)</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i>
-                        <input type="password" id="register-password" required minlength="6" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
-                    </div>
-                </div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Nama Lengkap</label><div class="relative"><i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i><input type="text" id="register-name" required placeholder="Nama Anda" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label><div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i><input type="email" id="register-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password (min. 6 karakter)</label><div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" id="register-password" required minlength="6" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
                 <button type="submit" id="register-btn" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md shadow-emerald-500/30 transition-all uppercase tracking-wide text-sm">Daftar Sekarang</button>
             </form>
             <div id="auth-message" class="mt-4 text-sm text-center hidden"></div>
@@ -194,9 +170,7 @@
     <header class="sticky top-0 z-40 glass-panel border-b border-slate-200 dark:border-slate-800 px-4 lg:px-8 py-3">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-2.5 rounded-xl shadow-md shadow-sky-500/20">
-                    <i class="fa-solid font-bold fa-layer-group text-xl"></i>
-                </div>
+                <div class="bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-2.5 rounded-xl shadow-md shadow-sky-500/20"><i class="fa-solid font-bold fa-layer-group text-xl"></i></div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400 bg-clip-text text-transparent">Taskku By GN</h1>
                     <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider" id="user-greeting">Local Workspace</p>
@@ -212,20 +186,10 @@
                 <button onclick="switchTab('gemini')" data-tab="gemini" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-indigo-600 dark:text-indigo-400"><i class="fa-solid fa-wand-magic-sparkles"></i> AI</button>
             </nav>
             <div class="flex items-center space-x-3">
-                <div class="hidden sm:block text-right leading-tight">
-                    <div id="live-clock" class="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">--:--:--</div>
-                    <div id="live-date" class="text-[10px] text-slate-400 uppercase tracking-wide"></div>
-                </div>
-                <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
-                    <i class="fa-solid fa-moon dark:hidden"></i>
-                    <i class="fa-solid fa-sun hidden dark:block"></i>
-                </button>
-                <button id="btn-install-pwa" onclick="installPWA()" class="hidden p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 transition-colors" title="Install Aplikasi">
-                    <i class="fa-solid fa-download"></i>
-                </button>
-                <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-rose-100 dark:bg-rose-900/40 hover:bg-rose-200 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 transition-colors" title="Keluar">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </button>
+                <div class="hidden sm:block text-right leading-tight"><div id="live-clock" class="text-sm font-bold font-mono text-slate-700 dark:text-slate-200">--:--:--</div><div id="live-date" class="text-[10px] text-slate-400 uppercase tracking-wide"></div></div>
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors"><i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:block"></i></button>
+                <button id="btn-install-pwa" onclick="installPWA()" class="hidden p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 transition-colors" title="Install Aplikasi"><i class="fa-solid fa-download"></i></button>
+                <button onclick="handleLogout()" class="p-2.5 rounded-xl bg-rose-100 dark:bg-rose-900/40 hover:bg-rose-200 dark:hover:bg-rose-900/60 text-rose-600 dark:text-rose-400 transition-colors" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
             </div>
         </div>
         <div class="lg:hidden flex overflow-x-auto gap-2 mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] pb-2 hide-scrollbar">
@@ -243,21 +207,11 @@
         <section id="tab-tasks" class="tab-content space-y-4 md:space-y-6">
             <div class="bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-3">
                 <div class="flex gap-2">
-                    <div class="relative flex-grow">
-                        <i class="fa-solid fa-search absolute left-3 top-3 text-slate-400 text-sm"></i>
-                        <input type="text" id="taskSearch" placeholder="Cari tugas..." onkeyup="filterTasks()" class="pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 w-full">
-                    </div>
-                    <button onclick="openAddTaskModal()" class="hidden sm:flex px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-sky-600/20 transition-all items-center justify-center gap-2">
-                        <i class="fa-solid fa-plus"></i> Tambah
-                    </button>
+                    <div class="relative flex-grow"><i class="fa-solid fa-search absolute left-3 top-3 text-slate-400 text-sm"></i><input type="text" id="taskSearch" placeholder="Cari tugas..." onkeyup="filterTasks()" class="pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 w-full"></div>
+                    <button onclick="openAddTaskModal()" class="hidden sm:flex px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-sky-600/20 transition-all items-center justify-center gap-2"><i class="fa-solid fa-plus"></i> Tambah</button>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <select id="taskFilterPriority" onchange="filterTasks()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
-                        <option value="">Semua Prioritas</option>
-                        <option value="high">🔴 Tinggi</option>
-                        <option value="medium">🟡 Sedang</option>
-                        <option value="low">🟢 Rendah</option>
-                    </select>
+                    <select id="taskFilterPriority" onchange="filterTasks()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="">Semua Prioritas</option><option value="high">🔴 Tinggi</option><option value="medium">🟡 Sedang</option><option value="low">🟢 Rendah</option></select>
                     <input type="date" id="taskFilterDate" onchange="filterTasks()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
                     <input type="text" id="taskFilterTag" placeholder="#tag" onkeyup="filterTasks()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
                     <button onclick="clearTaskFilters()" class="px-3 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300"><i class="fa-solid fa-filter-circle-xmark mr-1"></i> Reset</button>
@@ -270,24 +224,15 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div id="kanban-col-todo" class="kanban-col bg-slate-100/70 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 flex-col h-[calc(100vh-320px)] md:h-[850px] md:flex">
-                    <div class="flex items-center justify-between mb-4 px-2">
-                        <h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 text-[15px]"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</h3>
-                        <span id="count-todo" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">0</span>
-                    </div>
+                    <div class="flex items-center justify-between mb-4 px-2"><h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 text-[15px]"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</h3><span id="count-todo" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">0</span></div>
                     <div id="col-todo" data-status="todo" class="task-group space-y-3 overflow-y-auto flex-grow pr-2 pb-10"></div>
                 </div>
                 <div id="kanban-col-inprogress" class="kanban-col bg-slate-100/70 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 flex-col h-[calc(100vh-320px)] md:h-[850px] md:flex hidden">
-                    <div class="flex items-center justify-between mb-4 px-2">
-                        <h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 text-[15px]"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</h3>
-                        <span id="count-inprogress" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">0</span>
-                    </div>
+                    <div class="flex items-center justify-between mb-4 px-2"><h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 text-[15px]"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</h3><span id="count-inprogress" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">0</span></div>
                     <div id="col-inprogress" data-status="inprogress" class="task-group space-y-3 overflow-y-auto flex-grow pr-2 pb-10"></div>
                 </div>
                 <div id="kanban-col-done" class="kanban-col bg-slate-100/70 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 flex-col h-[calc(100vh-320px)] md:h-[850px] md:flex hidden">
-                    <div class="flex items-center justify-between mb-4 px-2">
-                        <h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 text-[15px]"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</h3>
-                        <span id="count-done" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">0</span>
-                    </div>
+                    <div class="flex items-center justify-between mb-4 px-2"><h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2 text-[15px]"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</h3><span id="count-done" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">0</span></div>
                     <div id="col-done" data-status="done" class="task-group space-y-3 overflow-y-auto flex-grow pr-2 pb-10"></div>
                 </div>
             </div>
@@ -295,75 +240,21 @@
 
         <section id="tab-finance" class="tab-content hidden space-y-5">
             <div class="flex flex-wrap justify-between items-center gap-2">
-                <button onclick="openSheetModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-table-columns"></i> Integrasi Spreadsheet
-                    <span id="sheet-status-badge" class="hidden ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20">●</span>
-                </button>
-                <button onclick="openAddFinanceModal()" class="hidden md:flex px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all items-center gap-2">
-                    <i class="fa-solid fa-plus"></i> Catat Transaksi Baru
-                </button>
+                <button onclick="openSheetModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all flex items-center gap-2"><i class="fa-solid fa-table-columns"></i> Integrasi Spreadsheet<span id="sheet-status-badge" class="hidden ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20">●</span></button>
+                <button onclick="openAddFinanceModal()" class="hidden md:flex px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl shadow-md transition-all items-center gap-2"><i class="fa-solid fa-plus"></i> Catat Transaksi Baru</button>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 <div class="space-y-5">
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gradient-to-br from-emerald-500 to-teal-600 px-5 py-4 rounded-2xl shadow-sm text-white relative overflow-hidden">
-                            <div class="relative z-10">
-                                <p class="text-emerald-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Pemasukan</p>
-                                <h3 id="fin-total-income" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3>
-                            </div>
-                            <i class="fa-solid fa-wallet absolute -right-4 -bottom-4 text-6xl text-white opacity-20 transform -rotate-12"></i>
-                        </div>
-                        <div class="bg-gradient-to-br from-rose-500 to-pink-600 px-5 py-4 rounded-2xl shadow-sm text-white relative overflow-hidden">
-                            <div class="relative z-10">
-                                <div class="flex justify-between items-start">
-                                    <p class="text-rose-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Pengeluaran</p>
-                                    <span id="fin-expense-ratio" class="text-[9px] font-bold bg-white/20 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/20">0%</span>
-                                </div>
-                                <h3 id="fin-total-expense" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3>
-                            </div>
-                            <i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-6xl text-white opacity-20"></i>
-                        </div>
+                        <div class="bg-gradient-to-br from-emerald-500 to-teal-600 px-5 py-4 rounded-2xl shadow-sm text-white relative overflow-hidden"><div class="relative z-10"><p class="text-emerald-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Pemasukan</p><h3 id="fin-total-income" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3></div><i class="fa-solid fa-wallet absolute -right-4 -bottom-4 text-6xl text-white opacity-20 transform -rotate-12"></i></div>
+                        <div class="bg-gradient-to-br from-rose-500 to-pink-600 px-5 py-4 rounded-2xl shadow-sm text-white relative overflow-hidden"><div class="relative z-10"><div class="flex justify-between items-start"><p class="text-rose-100 text-[11px] font-bold uppercase tracking-wider mb-0.5">Total Pengeluaran</p><span id="fin-expense-ratio" class="text-[9px] font-bold bg-white/20 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/20">0%</span></div><h3 id="fin-total-expense" class="text-xl sm:text-2xl font-bold tracking-tight">Rp 0</h3></div><i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-6xl text-white opacity-20"></i></div>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
-                        <h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana</h3>
-                        <div id="fin-sources-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
-                    </div>
-                    <div id="fin-budget-panel" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm hidden">
-                        <h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Budget Bulan Ini</h3>
-                        <div id="fin-budgets"></div>
-                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm"><h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana</h3><div id="fin-sources-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div></div>
+                    <div id="fin-budget-panel" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm hidden"><h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Budget Bulan Ini</h3><div id="fin-budgets"></div></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col">
-                        <h3 class="text-xs font-bold text-rose-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down"></i> Pengeluaran per Kategori</h3>
-                        <div class="flex-grow flex items-center justify-center relative">
-                            <div class="relative w-40 h-40">
-                                <svg id="pie-expense-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90">
-                                    <circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" />
-                                </svg>
-                                <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
-                                    <span class="text-[10px] text-slate-400 font-bold uppercase">Total</span>
-                                    <span id="pie-expense-total" class="text-sm font-black text-slate-800 dark:text-white">Rp 0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="pie-expense-legend" class="mt-4 space-y-1.5 max-h-[120px] overflow-y-auto pr-1"></div>
-                    </div>
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col">
-                        <h3 class="text-xs font-bold text-emerald-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up"></i> Pemasukan per Kategori</h3>
-                        <div class="flex-grow flex items-center justify-center relative">
-                            <div class="relative w-40 h-40">
-                                <svg id="pie-income-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90">
-                                    <circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" />
-                                </svg>
-                                <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
-                                    <span class="text-[10px] text-slate-400 font-bold uppercase">Total</span>
-                                    <span id="pie-income-total" class="text-sm font-black text-slate-800 dark:text-white">Rp 0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="pie-income-legend" class="mt-4 space-y-1.5 max-h-[120px] overflow-y-auto pr-1"></div>
-                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col"><h3 class="text-xs font-bold text-rose-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down"></i> Pengeluaran per Kategori</h3><div class="flex-grow flex items-center justify-center relative"><div class="relative w-40 h-40"><svg id="pie-expense-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-expense-total" class="text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div></div></div><div id="pie-expense-legend" class="mt-4 space-y-1.5 max-h-[120px] overflow-y-auto pr-1"></div></div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col"><h3 class="text-xs font-bold text-emerald-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up"></i> Pemasukan per Kategori</h3><div class="flex-grow flex items-center justify-center relative"><div class="relative w-40 h-40"><svg id="pie-income-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-income-total" class="text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div></div></div><div id="pie-income-legend" class="mt-4 space-y-1.5 max-h-[120px] overflow-y-auto pr-1"></div></div>
                 </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -388,58 +279,24 @@
 
         <section id="tab-performance" class="tab-content hidden space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Total Tugas</p>
-                    <p id="perf-total" class="text-4xl font-black text-slate-800 dark:text-white">0</p>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Rata-rata Waktu</p>
-                    <p id="perf-avg-time" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">-</p>
-                    <p class="text-[10px] text-slate-400 mt-1">Dibuat → Selesai</p>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Tercepat / Terlama</p>
-                    <p id="perf-fastest-time" class="text-lg font-bold text-emerald-600 dark:text-emerald-400">-</p>
-                    <p id="perf-slowest-time" class="text-lg font-bold text-rose-600 dark:text-rose-400 mt-0.5">-</p>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Lewat Tenggat</p>
-                    <p id="perf-overdue" class="text-4xl font-black text-rose-600 dark:text-rose-400">0</p>
-                    <p class="text-[10px] text-slate-400 mt-1">Belum selesai & tenggat terlewati</p>
-                </div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Total Tugas</p><p id="perf-total" class="text-4xl font-black text-slate-800 dark:text-white">0</p></div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Rata-rata Waktu</p><p id="perf-avg-time" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">-</p><p class="text-[10px] text-slate-400 mt-1">Dibuat → Selesai</p></div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Tercepat / Terlama</p><p id="perf-fastest-time" class="text-lg font-bold text-emerald-600 dark:text-emerald-400">-</p><p id="perf-slowest-time" class="text-lg font-bold text-rose-600 dark:text-rose-400 mt-0.5">-</p></div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Lewat Tenggat</p><p id="perf-overdue" class="text-4xl font-black text-rose-600 dark:text-rose-400">0</p><p class="text-[10px] text-slate-400 mt-1">Belum selesai & tenggat terlewati</p></div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
                     <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-6">Persentase Status Tugas</h3>
-                    <div class="h-6 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden flex mb-6">
-                        <div id="bar-todo" class="h-full bg-amber-500 transition-all duration-1000" style="width:0%"></div>
-                        <div id="bar-inprogress" class="h-full bg-sky-500 transition-all duration-1000" style="width:0%"></div>
-                        <div id="bar-done" class="h-full bg-emerald-500 transition-all duration-1000" style="width:0%"></div>
-                    </div>
+                    <div class="h-6 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden flex mb-6"><div id="bar-todo" class="h-full bg-amber-500 transition-all duration-1000" style="width:0%"></div><div id="bar-inprogress" class="h-full bg-sky-500 transition-all duration-1000" style="width:0%"></div><div id="bar-done" class="h-full bg-emerald-500 transition-all duration-1000" style="width:0%"></div></div>
                     <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</span><span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div>
-                            <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-todo" class="h-full bg-amber-500" style="width:0%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</span><span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div>
-                            <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-inprogress" class="h-full bg-sky-500" style="width:0%"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div>
-                            <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-emerald-500" style="width:0%"></div></div>
-                        </div>
+                        <div><div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</span><span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-todo" class="h-full bg-amber-500" style="width:0%"></div></div></div>
+                        <div><div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</span><span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-inprogress" class="h-full bg-sky-500" style="width:0%"></div></div></div>
+                        <div><div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-emerald-500" style="width:0%"></div></div></div>
                     </div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col items-center justify-center">
                     <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-4">Tingkat Penyelesaian</h3>
-                    <div class="relative w-40 h-40">
-                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                            <path class="text-slate-100 dark:text-slate-700" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path id="donut-chart-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center flex-col"><span id="perf-done-pct" class="text-3xl font-black text-slate-800 dark:text-white">0%</span></div>
-                    </div>
+                    <div class="relative w-40 h-40"><svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36"><path class="text-slate-100 dark:text-slate-700" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /><path id="donut-chart-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col"><span id="perf-done-pct" class="text-3xl font-black text-slate-800 dark:text-white">0%</span></div></div>
                     <p class="text-xs text-slate-500 text-center mt-4">Tugas selesai dibanding total tugas</p>
                 </div>
             </div>
@@ -451,15 +308,8 @@
                     <div class="bg-emerald-50/50 dark:bg-emerald-900/10 p-5 rounded-xl border border-emerald-100 dark:border-emerald-900/30"><p class="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-3">Prioritas Rendah</p><p id="avg-prio-low" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-low" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
                 </div>
             </div>
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
-                <h3 class="font-bold text-lg mb-4">Produktivitas 30 Hari Terakhir</h3>
-                <canvas id="chart-productivity" height="100"></canvas>
-            </div>
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
-                <h3 class="font-bold text-lg mb-4">Heatmap Aktivitas (6 Bulan Terakhir)</h3>
-                <div id="heatmap-container" class="overflow-x-auto pb-2"></div>
-                <p class="text-xs text-slate-400 mt-2">Semakin hijau = semakin banyak tugas selesai</p>
-            </div>
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm"><h3 class="font-bold text-lg mb-4">Produktivitas 30 Hari Terakhir</h3><canvas id="chart-productivity" height="100"></canvas></div>
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm"><h3 class="font-bold text-lg mb-4">Heatmap Aktivitas (6 Bulan Terakhir)</h3><div id="heatmap-container" class="overflow-x-auto pb-2"></div><p class="text-xs text-slate-400 mt-2">Semakin hijau = semakin banyak tugas selesai</p></div>
         </section>
 
         <section id="tab-pomodoro" class="tab-content hidden space-y-6">
@@ -468,10 +318,7 @@
                     <button onclick="setPomoMode('work')" id="pomo-mode-work" class="px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-md transition-all">Fokus (25m)</button>
                     <button onclick="setPomoMode('shortBreak')" id="pomo-mode-short" class="px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 transition-all hover:text-slate-900 dark:hover:text-white">Istirahat (5m)</button>
                 </div>
-                <div class="relative py-8">
-                    <div class="text-6xl sm:text-8xl font-black font-mono tracking-tighter text-slate-800 dark:text-white drop-shadow-md" id="pomo-timer-display">25:00</div>
-                    <p id="pomo-status-msg" class="text-xs sm:text-sm font-semibold text-slate-400 mt-4 uppercase tracking-widest">Saatnya untuk fokus.</p>
-                </div>
+                <div class="relative py-8"><div class="text-6xl sm:text-8xl font-black font-mono tracking-tighter text-slate-800 dark:text-white drop-shadow-md" id="pomo-timer-display">25:00</div><p id="pomo-status-msg" class="text-xs sm:text-sm font-semibold text-slate-400 mt-4 uppercase tracking-widest">Saatnya untuk fokus.</p></div>
                 <div class="flex justify-center items-center space-x-4">
                     <button onclick="togglePomoTimer()" id="pomo-start-btn" class="w-40 py-4 bg-sky-600 hover:bg-sky-700 text-white font-black text-lg uppercase tracking-wide rounded-2xl shadow-lg shadow-sky-500/30 transition-transform active:scale-95">MULAI</button>
                     <button onclick="resetPomoTimer()" class="p-4 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-2xl shadow-sm transition-all text-xl"><i class="fa-solid fa-rotate-right"></i></button>
@@ -515,22 +362,13 @@
         <section id="tab-habits" class="tab-content hidden space-y-6">
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-4">
                  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800 dark:text-white">Pelacak Kebiasaan 7 Hari</h2>
-                        <p class="text-xs text-slate-500">Tandai kebiasaan positif Anda setiap harinya.</p>
-                    </div>
+                    <div><h2 class="text-xl font-bold text-slate-800 dark:text-white">Pelacak Kebiasaan 7 Hari</h2><p class="text-xs text-slate-500">Tandai kebiasaan positif Anda setiap harinya.</p></div>
                     <button onclick="openAddHabitModal()" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-sm shadow-md transition-all"><i class="fa-solid fa-plus mr-1"></i> Kebiasaan Baru</button>
                 </div>
                 <div id="habit-stats"></div>
                 <div class="overflow-x-auto mt-6">
                     <table class="w-full text-left text-sm border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-400 uppercase tracking-wider text-[11px] font-bold">
-                                <th class="pb-3 w-1/3">Nama Kebiasaan</th>
-                                <th class="pb-3 text-center">Sen</th><th class="pb-3 text-center">Sel</th><th class="pb-3 text-center">Rab</th><th class="pb-3 text-center">Kam</th><th class="pb-3 text-center">Jum</th><th class="pb-3 text-center">Sab</th><th class="pb-3 text-center">Min</th>
-                                <th class="pb-3 text-right">Aksi</th>
-                            </tr>
-                        </thead>
+                        <thead><tr class="border-b border-slate-200 dark:border-slate-700 text-slate-400 uppercase tracking-wider text-[11px] font-bold"><th class="pb-3 w-1/3">Nama Kebiasaan</th><th class="pb-3 text-center">Sen</th><th class="pb-3 text-center">Sel</th><th class="pb-3 text-center">Rab</th><th class="pb-3 text-center">Kam</th><th class="pb-3 text-center">Jum</th><th class="pb-3 text-center">Sab</th><th class="pb-3 text-center">Min</th><th class="pb-3 text-right">Aksi</th></tr></thead>
                         <tbody id="habits-table-body" class="divide-y divide-slate-100 dark:divide-slate-700/50"></tbody>
                     </table>
                 </div>
@@ -560,10 +398,7 @@
     <button id="fab-add-task" onclick="handleFabClick()" class="fab" title="Tambah Tugas"><i class="fa-solid fa-plus"></i></button>
 
     <div id="sync-indicator" class="sync-indicator hidden">
-        <div class="bg-slate-800 dark:bg-slate-700 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 text-xs font-bold">
-            <i id="sync-icon" class="fa-solid fa-cloud-arrow-up text-emerald-400"></i>
-            <span id="sync-text">Tersinkron</span>
-        </div>
+        <div class="bg-slate-800 dark:bg-slate-700 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 text-xs font-bold"><i id="sync-icon" class="fa-solid fa-cloud-arrow-up text-emerald-400"></i><span id="sync-text">Tersinkron</span></div>
     </div>
 
     <!-- MODAL: Integrasi Spreadsheet -->
@@ -585,13 +420,10 @@
                 </div>
                 <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
                     <span class="font-semibold text-sm">Auto-sync transaksi baru</span>
-                    <label class="relative inline-block w-12 h-6 cursor-pointer">
-                        <input type="checkbox" id="sheet-auto-sync" class="sr-only peer" onchange="toggleAutoSync(this.checked)">
-                        <div class="w-12 h-6 bg-slate-300 dark:bg-slate-600 peer-checked:bg-emerald-500 rounded-full transition-colors"></div>
-                        <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform peer-checked:translate-x-6"></div>
-                    </label>
+                    <label class="relative inline-block w-12 h-6 cursor-pointer"><input type="checkbox" id="sheet-auto-sync" class="sr-only peer" onchange="toggleAutoSync(this.checked)"><div class="w-12 h-6 bg-slate-300 dark:bg-slate-600 peer-checked:bg-emerald-500 rounded-full transition-colors"></div><div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform peer-checked:translate-x-6"></div></label>
                 </div>
                 <button onclick="syncAllToSheet()" id="btn-sync-all" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-all text-sm"><i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Transaksi Baru</button>
+                <button onclick="forceFlushQueue()" class="w-full py-2.5 bg-violet-100 dark:bg-violet-900/30 hover:bg-violet-200 text-violet-700 dark:text-violet-400 font-bold rounded-xl text-sm"><i class="fa-solid fa-rotate mr-2"></i> Proses Antrian Sekarang</button>
                 <button onclick="testSheetConnection()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-bold rounded-xl text-sm"><i class="fa-solid fa-vial mr-2"></i> Test Koneksi</button>
                 <button onclick="cleanupSheetDuplicates()" class="w-full py-2.5 bg-amber-100 dark:bg-amber-900/30 hover:bg-amber-200 text-amber-700 dark:text-amber-400 font-bold rounded-xl text-sm"><i class="fa-solid fa-broom mr-2"></i> Bersihkan Duplikat di Sheets</button>
                 <button onclick="disconnectSheet()" class="w-full py-2.5 bg-rose-100 dark:bg-rose-900/30 hover:bg-rose-200 text-rose-600 dark:text-rose-400 font-bold rounded-xl text-sm"><i class="fa-solid fa-plug-circle-xmark mr-2"></i> Putuskan</button>
@@ -600,15 +432,36 @@
                 <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"><i class="fa-solid fa-circle-info text-sky-500 mr-1"></i> Hubungkan OmniTask dengan Google Sheets Anda. Setiap transaksi baru akan otomatis dikirim ke spreadsheet.</p>
                 </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">URL Web App (dari Apps Script)</label>
-                    <input type="text" id="sheet-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Secret Token</label>
-                    <input type="password" id="sheet-token-input" placeholder="Token yang sama dengan Apps Script" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono">
-                </div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">URL Web App (dari Apps Script)</label><input type="text" id="sheet-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono"></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Secret Token</label><input type="password" id="sheet-token-input" placeholder="Token yang sama dengan Apps Script" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono"></div>
                 <button onclick="connectSheet()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition-all text-sm"><i class="fa-solid fa-plug mr-2"></i> Hubungkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Kelola Label -->
+    <div id="modal-manage-lib" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[72] flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-tags text-sky-500"></i> <span id="manage-lib-title">Kelola Label</span></h3>
+                <button onclick="closeModal('modal-manage-lib')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <p class="text-xs text-slate-500">Kelola label sumber dana & kategori. Tap ✏️ untuk rename, tap 🗑️ untuk hapus.</p>
+            <input type="hidden" id="manage-lib-type">
+            <div>
+                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Label Bawaan</label>
+                <div id="manage-lib-default" class="flex flex-wrap gap-2 mb-4"></div>
+            </div>
+            <div>
+                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Label Kustom Anda</label>
+                <div id="manage-lib-custom" class="space-y-2"></div>
+            </div>
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-4">
+                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tambah Label Baru</label>
+                <div class="flex gap-2">
+                    <input type="text" id="manage-lib-new-name" maxlength="40" placeholder="Nama label baru..." class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm">
+                    <button onclick="addNewLibFromManage()" class="px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold"><i class="fa-solid fa-plus"></i></button>
+                </div>
             </div>
         </div>
     </div>
@@ -629,44 +482,24 @@
     <!-- MODAL: Add Task -->
     <div id="modal-add-task" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-circle-plus text-sky-500"></i> Tambah Tugas Baru</h3>
-                <button onclick="closeAddTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-circle-plus text-sky-500"></i> Tambah Tugas Baru</h3><button onclick="closeAddTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="new-task-title" maxlength="200" placeholder="Contoh: Menyusun Laporan" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="new-task-desc" maxlength="2000" placeholder="Rincian tugas..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
             <div class="grid grid-cols-2 gap-4">
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label><select id="new-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"><option value="low">🟢 Rendah</option><option value="medium" selected>🟡 Sedang</option><option value="high">🔴 Tinggi</option></select></div>
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label><input type="date" id="new-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"></div>
             </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask (Opsional)</label>
-                <div id="new-subtask-list" class="space-y-2 mb-2"></div>
-                <div class="flex gap-2"><input id="new-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('new');}"><button type="button" onclick="addSubtaskDraft('new')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div>
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags (Opsional)</label>
-                <div id="new-tags-container" class="flex flex-wrap gap-2 mb-2"></div>
-                <input id="new-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('new');}">
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder (Opsional)</label>
-                <div class="flex gap-2"><input type="datetime-local" id="new-task-reminder" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><button type="button" onclick="requestNotifPermission()" class="px-3 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold" title="Izinkan Notifikasi"><i class="fa-solid fa-bell"></i></button></div>
-            </div>
-            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
-                <button onclick="closeAddTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm transition-colors">Batal</button>
-                <button onclick="submitNewTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button>
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask (Opsional)</label><div id="new-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="new-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('new');}"><button type="button" onclick="addSubtaskDraft('new')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags (Opsional)</label><div id="new-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="new-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('new');}"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder (Opsional)</label><div class="flex gap-2"><input type="datetime-local" id="new-task-reminder" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><button type="button" onclick="requestNotifPermission()" class="px-3 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold" title="Izinkan Notifikasi"><i class="fa-solid fa-bell"></i></button></div></div>
+            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeAddTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm transition-colors">Batal</button><button onclick="submitNewTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button></div>
         </div>
     </div>
 
     <!-- MODAL: Edit Task -->
     <div id="modal-edit-task" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Tugas</h3>
-                <button onclick="closeEditTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Tugas</h3><button onclick="closeEditTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <input type="hidden" id="edit-task-id">
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="edit-task-title" maxlength="200" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="edit-task-desc" maxlength="2000" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
@@ -674,56 +507,41 @@
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label><select id="edit-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"><option value="low">🟢 Rendah</option><option value="medium">🟡 Sedang</option><option value="high">🔴 Tinggi</option></select></div>
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label><input type="date" id="edit-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"></div>
             </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask</label>
-                <div id="edit-subtask-list" class="space-y-2 mb-2"></div>
-                <div class="flex gap-2"><input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}"><button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div>
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags</label>
-                <div id="edit-tags-container" class="flex flex-wrap gap-2 mb-2"></div>
-                <input id="edit-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('edit');}">
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask</label><div id="edit-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}"><button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags</label><div id="edit-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="edit-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('edit');}"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder</label><input type="datetime-local" id="edit-task-reminder" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
-            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
-                <button onclick="closeEditTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Batal</button>
-                <button onclick="submitEditTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button>
-            </div>
+            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeEditTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Batal</button><button onclick="submitEditTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button></div>
         </div>
     </div>
 
     <!-- MODAL: Add Finance -->
     <div id="modal-add-finance" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-sky-500"></i> Catat Transaksi</h3>
-                <button onclick="closeModal('modal-add-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-sky-500"></i> Catat Transaksi</h3><button onclick="closeModal('modal-add-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <div class="grid grid-cols-2 gap-3">
                 <label class="cursor-pointer group"><input type="radio" name="fin-type" value="Pemasukan" class="peer hidden" checked onchange="toggleCategoryType()"><div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 peer-checked:border-emerald-500 dark:peer-checked:bg-emerald-900/30 dark:peer-checked:text-emerald-400 font-semibold transition-all">Pemasukan</div></label>
                 <label class="cursor-pointer group"><input type="radio" name="fin-type" value="Pengeluaran" class="peer hidden" onchange="toggleCategoryType()"><div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-rose-50 peer-checked:text-rose-700 peer-checked:border-rose-500 dark:peer-checked:bg-rose-900/30 dark:peer-checked:text-rose-400 font-semibold transition-all">Pengeluaran</div></label>
             </div>
             <div>
                 <label class="text-xs font-semibold text-slate-500 mb-2 block uppercase tracking-wider">Sumber Dana</label>
-                <div class="flex flex-wrap items-center gap-2"><div id="fin-source-container" class="flex flex-wrap gap-2"></div><button type="button" onclick="event.preventDefault(); event.stopPropagation(); openFinanceLibModal('source');" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button></div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <div id="fin-source-container" class="flex flex-wrap gap-2"></div>
+                    <button type="button" onclick="openManageLibModal('source')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-600 dark:text-slate-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer" title="Kelola Sumber Dana"><i class="fa-solid fa-gear pointer-events-none"></i></button>
+                    <button type="button" onclick="openFinanceLibModal('source')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button>
+                </div>
             </div>
             <div>
                 <label class="text-xs font-semibold text-slate-500 mb-2 block uppercase tracking-wider">Kategori</label>
-                <div class="flex flex-wrap items-center gap-2"><div id="fin-category-container" class="flex flex-wrap gap-2"></div><button type="button" onclick="event.preventDefault(); event.stopPropagation(); openFinanceLibModal('category');" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button></div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <div id="fin-category-container" class="flex flex-wrap gap-2"></div>
+                    <button type="button" onclick="openManageLibModal('category')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-600 dark:text-slate-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer" title="Kelola Kategori"><i class="fa-solid fa-gear pointer-events-none"></i></button>
+                    <button type="button" onclick="openFinanceLibModal('category')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button>
+                </div>
             </div>
-            <div>
-                <label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label>
-                <div class="relative"><span class="absolute left-4 top-3 text-slate-400 font-bold">Rp</span><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="fin-amount" oninput="formatNominal(this)" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" placeholder="0"></div>
-            </div>
-            <div>
-                <label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Tanggal & Waktu</label>
-                <div class="flex gap-2"><input type="datetime-local" id="fin-datetime" class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium"><button onclick="setNow()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200 text-sm font-bold whitespace-nowrap shadow-sm"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Sekarang</button></div>
-            </div>
+            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label><div class="relative"><span class="absolute left-4 top-3 text-slate-400 font-bold">Rp</span><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="fin-amount" oninput="formatNominal(this)" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" placeholder="0"></div></div>
+            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Tanggal & Waktu</label><div class="flex gap-2"><input type="datetime-local" id="fin-datetime" class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium"><button onclick="setNow()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200 text-sm font-bold whitespace-nowrap shadow-sm"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Sekarang</button></div></div>
             <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Catatan (Opsional)</label><input type="text" id="fin-note" maxlength="300" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm" placeholder="Contoh: Makan siang"></div>
-            <div class="space-y-2">
-                <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" id="fin-recurring" onchange="document.getElementById('fin-recurring-interval').classList.toggle('hidden', !this.checked)" class="rounded"><span class="font-semibold">Jadikan transaksi berulang</span></label>
-                <select id="fin-recurring-interval" class="hidden w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="weekly">🔁 Mingguan</option><option value="monthly">🔁 Bulanan</option></select>
-            </div>
+            <div class="space-y-2"><label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" id="fin-recurring" onchange="document.getElementById('fin-recurring-interval').classList.toggle('hidden', !this.checked)" class="rounded"><span class="font-semibold">Jadikan transaksi berulang</span></label><select id="fin-recurring-interval" class="hidden w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="weekly">🔁 Mingguan</option><option value="monthly">🔁 Bulanan</option></select></div>
             <button onclick="submitFinance()" class="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-md transition-all text-sm uppercase tracking-wide">Simpan Transaksi</button>
         </div>
     </div>
@@ -731,38 +549,23 @@
     <!-- MODAL: Edit Finance -->
     <div id="modal-edit-finance" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Transaksi</h3>
-                <button onclick="closeModal('modal-edit-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Transaksi</h3><button onclick="closeModal('modal-edit-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <input type="hidden" id="edit-fin-id">
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tipe</label><select id="edit-fin-type" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div>
-            <div class="grid grid-cols-2 gap-3">
-                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Sumber</label><input type="text" id="edit-fin-source" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
-                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Kategori</label><input type="text" id="edit-fin-category" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
-            </div>
+            <div class="grid grid-cols-2 gap-3"><div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Sumber</label><input type="text" id="edit-fin-source" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div><div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Kategori</label><input type="text" id="edit-fin-category" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Nominal</label><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="edit-fin-amount" oninput="formatNominal(this)" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-bold"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tanggal & Waktu</label><input type="datetime-local" id="edit-fin-datetime" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Catatan</label><input type="text" id="edit-fin-note" maxlength="300" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
-            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700">
-                <button onclick="closeModal('modal-edit-finance')" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Batal</button>
-                <button onclick="submitEditFinance()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md">Simpan</button>
-            </div>
+            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeModal('modal-edit-finance')" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Batal</button><button onclick="submitEditFinance()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md">Simpan</button></div>
         </div>
     </div>
 
     <!-- MODAL: Add Habit -->
     <div id="modal-add-habit" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
-            <div class="flex justify-between items-center">
-                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Kebiasaan Baru</h3>
-                <button onclick="closeModal('modal-add-habit')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-lg font-bold text-slate-800 dark:text-white">Kebiasaan Baru</h3><button onclick="closeModal('modal-add-habit')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <input id="new-habit-name" maxlength="60" placeholder="Misal: Olahraga 30 menit" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium">
-            <div class="flex justify-end gap-3 pt-2">
-                <button onclick="closeModal('modal-add-habit')" class="px-5 py-2 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm">Batal</button>
-                <button onclick="submitNewHabit()" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-bold text-sm shadow-md">Simpan</button>
-            </div>
+            <div class="flex justify-end gap-3 pt-2"><button onclick="closeModal('modal-add-habit')" class="px-5 py-2 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm">Batal</button><button onclick="submitNewHabit()" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-bold text-sm shadow-md">Simpan</button></div>
         </div>
     </div>
 
@@ -771,10 +574,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-200">
             <div class="flex flex-col items-center text-center space-y-4">
                 <div id="confirm-icon-wrap" class="w-16 h-16 rounded-full flex items-center justify-center"><i id="confirm-icon" class="fa-solid fa-triangle-exclamation text-3xl"></i></div>
-                <div>
-                    <h3 id="confirm-title" class="text-lg font-black text-slate-800 dark:text-white">Konfirmasi</h3>
-                    <p id="confirm-message" class="text-sm text-slate-500 dark:text-slate-400 mt-1">Apakah Anda yakin?</p>
-                </div>
+                <div><h3 id="confirm-title" class="text-lg font-black text-slate-800 dark:text-white">Konfirmasi</h3><p id="confirm-message" class="text-sm text-slate-500 dark:text-slate-400 mt-1">Apakah Anda yakin?</p></div>
                 <div class="flex gap-3 w-full pt-2">
                     <button id="confirm-cancel" class="flex-1 py-3 rounded-xl font-bold text-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 transition-all">Batal</button>
                     <button id="confirm-ok" class="flex-1 py-3 rounded-xl font-bold text-sm text-white shadow-md transition-all">Ya, Hapus</button>
@@ -789,7 +589,11 @@
         const nowISO = () => new Date().toISOString();
         const LIMITS = { TASK_TITLE: 200, TASK_DESC: 2000, NOTE_TITLE: 200, NOTE_BODY: 50000, HABIT_NAME: 60, FIN_NOTE: 300, FIN_AMOUNT_MAX: 1e12, LIB_NAME: 40 };
         const sanitize = (s, max) => typeof s === 'string' ? s.trim().slice(0, max) : '';
-        
+
+        const DEFAULT_SOURCES = ['BRI', 'OVO', 'DANA', 'SEABANK', 'Tunai'];
+        const DEFAULT_CATS_INCOME = ['Gaji', 'Bonus', 'Investasi', 'Lainnya'];
+        const DEFAULT_CATS_EXPENSE = ['Konsumsi', 'BBM', 'Pulsa', 'Listrik', 'Belanja', 'Lainnya'];
+
         const formatDateTime = (isoStr) => {
             if (!isoStr) return '-';
             const d = new Date(isoStr);
@@ -815,10 +619,15 @@
             return res.join(' ');
         };
         const fmtRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
-        
+
         const cacheSet = (uid, field, data) => { try { localStorage.setItem(`omnitask_${uid}_${field}`, JSON.stringify(data)); } catch(e){} };
         const cacheGet = (uid, field) => { try { const r = localStorage.getItem(`omnitask_${uid}_${field}`); return r ? JSON.parse(r) : null; } catch { return null; } };
-        
+
+        // LocalStorage khusus untuk sheet queue (per-user)
+        const sheetQueueKey = (uid) => `omnitask_${uid}_sheet_queue`;
+        const sheetQueueSave = (uid, queue) => { try { localStorage.setItem(sheetQueueKey(uid), JSON.stringify(queue)); } catch(e){} };
+        const sheetQueueLoad = (uid) => { try { const r = localStorage.getItem(sheetQueueKey(uid)); return r ? JSON.parse(r) : { pendingDeletes: [], pendingUpdates: [] }; } catch { return { pendingDeletes: [], pendingUpdates: [] }; } };
+
         async function withRetry(fn, retries = 3, delayMs = 800) {
             let lastErr;
             for (let i = 0; i < retries; i++) {
@@ -827,7 +636,7 @@
             }
             throw lastErr;
         }
-        
+
         function toast(msg, type = 'info') {
             const el = document.createElement('div');
             el.className = `toast ${type === 'error' ? 'bg-rose-500 text-white' : type === 'success' ? 'bg-emerald-500 text-white' : 'bg-slate-800 text-white'}`;
@@ -883,7 +692,7 @@
             sheet: { url: '', token: '', connected: false, autoSync: true, syncedCount: 0, lastSync: null, syncedIds: [], pendingDeletes: [], pendingUpdates: [] }
         };
         window.__state = state;
-        
+
         let draftSubtasks = { new: [], edit: [] };
         let draftTags = { new: [], edit: [] };
         let activeKanbanTab = 'todo';
@@ -912,7 +721,33 @@
         const saveNotes = () => saveToFirebase('notes', state.notes);
         const saveHabits = () => saveToFirebase('habits', state.habits);
         const saveRecurrings = () => saveToFirebase('recurrings', state.recurrings);
-        const saveSheetConfig = () => saveToFirebase('sheet', state.sheet);
+
+        // Sheet config disimpan ke Firestore TAPI tanpa queue (queue disimpan lokal)
+        const saveSheetConfig = () => {
+            const configOnly = {
+                url: state.sheet.url,
+                token: state.sheet.token,
+                connected: state.sheet.connected,
+                autoSync: state.sheet.autoSync,
+                syncedCount: state.sheet.syncedCount,
+                lastSync: state.sheet.lastSync,
+                syncedIds: state.sheet.syncedIds
+            };
+            return saveToFirebase('sheet', configOnly);
+        };
+
+        // Save queue ke localStorage (bukan Firestore)
+        function saveSheetQueue() {
+            if (!state.currentUser) return;
+            const q = { pendingDeletes: state.sheet.pendingDeletes, pendingUpdates: state.sheet.pendingUpdates };
+            sheetQueueSave(state.currentUser.uid, q);
+        }
+        function loadSheetQueue() {
+            if (!state.currentUser) return;
+            const q = sheetQueueLoad(state.currentUser.uid);
+            state.sheet.pendingDeletes = q.pendingDeletes || [];
+            state.sheet.pendingUpdates = q.pendingUpdates || [];
+        }
 
         function enqueuePendingSync(uid, field, data) {
             const key = `pending_${uid}`;
@@ -934,8 +769,6 @@
             }
             localStorage.removeItem(key);
         }
-        window.addEventListener('online', () => { showSyncIndicator('synced'); flushPendingSync(); });
-        window.addEventListener('offline', () => showSyncIndicator('offline'));
 
         function showSyncIndicator(stateName) {
             const ind = document.getElementById('sync-indicator');
@@ -950,7 +783,12 @@
         }
 
         // ==================== SHEET INTEGRATION ====================
-        window.openSheetModal = function() { renderSheetModal(); elShow('modal-sheet'); };
+        window.openSheetModal = function() {
+            // Coba flush dulu saat buka modal
+            if (navigator.onLine && state.sheet.connected) setTimeout(() => flushSheetQueue(true), 300);
+            renderSheetModal();
+            elShow('modal-sheet');
+        };
         function renderSheetModal() {
             const connected = state.sheet.connected;
             document.getElementById('sheet-connected-view').classList.toggle('hidden', !connected);
@@ -982,6 +820,8 @@
                 saveSheetConfig();
                 renderSheetModal();
                 toast('✅ Berhasil terhubung!', 'success');
+                // Auto-flush queue kalau ada
+                setTimeout(() => flushSheetQueue(true), 500);
             }
         };
         window.testSheetConnection = async function(silent) {
@@ -1000,8 +840,7 @@
             showConfirm({
                 title: 'Putuskan Spreadsheet?',
                 message: 'Sinkronisasi otomatis akan berhenti. Data di Sheets tidak akan terhapus.',
-                variant: 'warning',
-                okText: 'Ya, Putuskan',
+                variant: 'warning', okText: 'Ya, Putuskan',
                 onConfirm: () => {
                     state.sheet.connected = false;
                     saveSheetConfig(); renderSheetModal();
@@ -1016,8 +855,7 @@
             showConfirm({
                 title: 'Bersihkan Duplikat?',
                 message: 'Semua baris dengan ID yang sama akan dihapus dari Sheets, hanya 1 yang disimpan. Data di aplikasi tidak terpengaruh.',
-                variant: 'warning',
-                okText: 'Ya, Bersihkan',
+                variant: 'warning', okText: 'Ya, Bersihkan',
                 onConfirm: async () => {
                     try {
                         await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'cleanup' }) });
@@ -1036,24 +874,25 @@
             if (!state.sheet.connected || !state.sheet.url) return;
             const syncedIds = new Set(state.sheet.syncedIds || []);
             if (!syncedIds.has(String(id))) return;
+            // Update syncedIds di memory
+            syncedIds.delete(String(id));
+            state.sheet.syncedIds = [...syncedIds];
+            state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
+            saveSheetConfig();
+            // Kalau offline → queue & simpan ke localStorage
             if (!navigator.onLine) {
                 if (!state.sheet.pendingDeletes.includes(String(id))) state.sheet.pendingDeletes.push(String(id));
-                syncedIds.delete(String(id));
-                state.sheet.syncedIds = [...syncedIds];
-                state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
-                saveSheetConfig();
+                saveSheetQueue();
                 return;
             }
             try {
                 await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'delete', id: String(id) }) });
-                syncedIds.delete(String(id));
-                state.sheet.syncedIds = [...syncedIds];
-                state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
                 state.sheet.lastSync = nowISO();
                 saveSheetConfig();
             } catch (e) {
                 console.error('Delete from sheet error:', e);
-                if (!state.sheet.pendingDeletes.includes(String(id))) { state.sheet.pendingDeletes.push(String(id)); saveSheetConfig(); }
+                if (!state.sheet.pendingDeletes.includes(String(id))) state.sheet.pendingDeletes.push(String(id));
+                saveSheetQueue();
             }
         }
 
@@ -1065,7 +904,7 @@
                 const exists = state.sheet.pendingUpdates.findIndex(u => String(u.id) === String(transaction.id));
                 if (exists >= 0) state.sheet.pendingUpdates[exists] = transaction;
                 else state.sheet.pendingUpdates.push(transaction);
-                saveSheetConfig();
+                saveSheetQueue();
                 return;
             }
             try {
@@ -1077,7 +916,7 @@
                 const exists = state.sheet.pendingUpdates.findIndex(u => String(u.id) === String(transaction.id));
                 if (exists >= 0) state.sheet.pendingUpdates[exists] = transaction;
                 else state.sheet.pendingUpdates.push(transaction);
-                saveSheetConfig();
+                saveSheetQueue();
             }
         }
 
@@ -1086,6 +925,8 @@
             if (!state.sheet.autoSync) return;
             const syncedIds = new Set(state.sheet.syncedIds || []);
             if (syncedIds.has(String(transaction.id))) return;
+            // Kalau offline, jangan append (nanti user manual sync)
+            if (!navigator.onLine) return;
             try {
                 await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'append', transaction }) });
                 syncedIds.add(String(transaction.id));
@@ -1096,10 +937,22 @@
             } catch (e) { console.error('Send to sheet error:', e); }
         }
 
-        async function flushSheetQueue() {
-            if (!state.sheet.connected || !state.sheet.url) return;
-            if (!navigator.onLine) return;
+        async function flushSheetQueue(silent = false) {
+            if (!state.sheet.connected || !state.sheet.url) {
+                if (!silent) toast('Spreadsheet belum terhubung', 'error');
+                return;
+            }
+            if (!navigator.onLine) {
+                if (!silent) toast('Sedang offline, coba lagi nanti', 'error');
+                return;
+            }
+            const total = (state.sheet.pendingDeletes?.length || 0) + (state.sheet.pendingUpdates?.length || 0);
+            if (total === 0) {
+                if (!silent) toast('Tidak ada antrian', 'info');
+                return;
+            }
             let processed = 0;
+            // Proses deletes
             if (state.sheet.pendingDeletes.length > 0) {
                 const ids = [...state.sheet.pendingDeletes];
                 const remaining = [];
@@ -1111,6 +964,7 @@
                 }
                 state.sheet.pendingDeletes = remaining;
             }
+            // Proses updates
             if (state.sheet.pendingUpdates.length > 0) {
                 const updates = [...state.sheet.pendingUpdates];
                 const remaining = [];
@@ -1122,17 +976,22 @@
                 }
                 state.sheet.pendingUpdates = remaining;
             }
+            saveSheetQueue();
             if (processed > 0) {
                 state.sheet.lastSync = nowISO();
                 saveSheetConfig(); renderSheetModal();
-                toast(`${processed} perubahan tersinkron ke Sheets`, 'success');
-            } else saveSheetConfig();
+                if (!silent) toast(`${processed} perubahan tersinkron ke Sheets`, 'success');
+            } else {
+                if (!silent) toast('Gagal memproses antrian', 'error');
+            }
         }
         window.flushSheetQueue = flushSheetQueue;
+        window.forceFlushQueue = async function() { await flushSheetQueue(false); };
 
         window.syncAllToSheet = async function() {
             if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
-            await flushSheetQueue();
+            // Proses queue dulu
+            await flushSheetQueue(true);
             if (!state.finances.length) { toast('Tidak ada transaksi', 'info'); return; }
             const syncedIds = new Set(state.sheet.syncedIds || []);
             const pending = state.finances.filter(f => !syncedIds.has(String(f.id)));
@@ -1154,6 +1013,83 @@
                         toast(`${pending.length} transaksi terkirim ke Sheets`, 'success');
                     } catch (e) { console.error(e); toast('Gagal mengirim ke Sheets', 'error'); }
                     finally { if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Sync Transaksi Baru'; } }
+                }
+            });
+        };
+
+        // ==================== MANAGE LABELS (Bug #7) ====================
+        window.openManageLibModal = function(type) {
+            document.getElementById('manage-lib-type').value = type;
+            document.getElementById('manage-lib-title').innerText = type === 'source' ? 'Kelola Sumber Dana' : 'Kelola Kategori';
+            document.getElementById('manage-lib-new-name').value = '';
+            renderManageLib();
+            elShow('modal-manage-lib');
+        };
+        function renderManageLib() {
+            const type = document.getElementById('manage-lib-type').value;
+            const isSource = type === 'source';
+            const defs = isSource ? DEFAULT_SOURCES : [...DEFAULT_CATS_INCOME, ...DEFAULT_CATS_EXPENSE].filter((v,i,a)=>a.indexOf(v)===i);
+            const customs = state.financeLibs.filter(l => l.type === type);
+            // Default labels (read-only, no delete)
+            document.getElementById('manage-lib-default').innerHTML = defs.map(d => `<span class="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-semibold text-slate-500">${esc(d)}</span>`).join('');
+            // Custom labels (bisa edit/hapus)
+            if (customs.length === 0) {
+                document.getElementById('manage-lib-custom').innerHTML = '<p class="text-xs text-slate-400 italic py-2">Belum ada label kustom. Tambahkan di bawah ⬇️</p>';
+            } else {
+                document.getElementById('manage-lib-custom').innerHTML = customs.map(l => `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <span class="font-semibold text-sm flex-grow">${esc(l.name)}</span>
+                        <div class="flex items-center gap-1">
+                            <button onclick="renameLib('${l.id}')" class="p-2 text-sky-500 hover:bg-sky-50 dark:hover:bg-sky-900/30 rounded-lg transition-colors" title="Rename"><i class="fa-solid fa-pen text-xs"></i></button>
+                            <button onclick="deleteLib('${l.id}')" class="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </div>
+                    </div>`).join('');
+            }
+        }
+        window.addNewLibFromManage = function() {
+            const type = document.getElementById('manage-lib-type').value;
+            const name = sanitize(document.getElementById('manage-lib-new-name').value, LIMITS.LIB_NAME);
+            if (!name) { toast('Nama label wajib diisi', 'error'); return; }
+            state.financeLibs.push({ id: Date.now().toString(), type, name });
+            saveFinanceLibs();
+            document.getElementById('manage-lib-new-name').value = '';
+            renderManageLib();
+            renderFinanceDropdowns();
+            toast('Label ditambahkan', 'success');
+        };
+        window.renameLib = function(id) {
+            const lib = state.financeLibs.find(l => l.id === id);
+            if (!lib) return;
+            const newName = prompt('Nama baru untuk "' + lib.name + '":', lib.name);
+            if (!newName || !newName.trim()) return;
+            const oldName = lib.name;
+            lib.name = sanitize(newName, LIMITS.LIB_NAME);
+            saveFinanceLibs();
+            renderManageLib();
+            renderFinanceDropdowns();
+            toast('Label di-rename', 'success');
+        };
+        window.deleteLib = function(id) {
+            const lib = state.financeLibs.find(l => l.id === id);
+            if (!lib) return;
+            // Hitung berapa transaksi yang pakai label ini
+            const usage = state.finances.filter(f => 
+                (lib.type === 'source' && f.source === lib.name) || 
+                (lib.type === 'category' && f.category === lib.name)
+            ).length;
+            const msg = usage > 0 
+                ? `Label "${lib.name}" sedang dipakai di ${usage} transaksi. Hapus tetap? Transaksi lama tidak akan terpengaruh.`
+                : `Hapus label "${lib.name}"?`;
+            showConfirm({
+                title: 'Hapus Label?',
+                message: msg,
+                variant: 'danger', okText: 'Ya, Hapus',
+                onConfirm: () => {
+                    state.financeLibs = state.financeLibs.filter(l => l.id !== id);
+                    saveFinanceLibs();
+                    renderManageLib();
+                    renderFinanceDropdowns();
+                    toast('Label dihapus', 'success');
                 }
             });
         };
@@ -1232,6 +1168,8 @@
                     document.getElementById('app-container').classList.remove('hidden');
                     document.getElementById('user-greeting').textContent = user.displayName || user.email.split('@')[0];
                     await loadUserData(user.uid);
+                    // Auto-flush sheet queue saat login
+                    if (navigator.onLine && state.sheet.connected) setTimeout(() => flushSheetQueue(true), 2000);
                 } else {
                     state.currentUser = null;
                     document.getElementById('auth-screen').classList.remove('hidden');
@@ -1284,6 +1222,8 @@
                 const cached = cacheGet(uid, f);
                 if (cached) state[f] = cached;
             });
+            // Load sheet queue dari localStorage
+            loadSheetQueue();
             try {
                 const snap = await getDoc(ref);
                 if (snap.exists()) {
@@ -1294,21 +1234,26 @@
                     state.notes = data.notes || [];
                     state.habits = data.habits || [];
                     state.recurrings = data.recurrings || [];
-                    if (data.sheet) state.sheet = { ...state.sheet, ...data.sheet };
+                    if (data.sheet) {
+                        // Merge: jangan timpa queue lokal
+                        const remoteSheet = data.sheet;
+                        state.sheet = {
+                            ...state.sheet,
+                            ...remoteSheet,
+                            pendingDeletes: state.sheet.pendingDeletes || [],
+                            pendingUpdates: state.sheet.pendingUpdates || []
+                        };
+                    }
                     state.isDataLoaded = true;
                     processRecurrings();
                     renderAll();
                     updateSheetBadge();
-                    // Auto-flush queue kalau online
-                    if (navigator.onLine && state.sheet.connected) {
-                        setTimeout(flushSheetQueue, 1500);
-                    }
                 } else {
                     await window.firebaseFns.setDoc(ref, { tasks: [], finances: [], financeLibs: [], notes: [], habits: [], recurrings: [], createdAt: nowISO() });
                     renderAll();
                 }
             } catch (e) { console.error('Load error:', e); renderAll(); updateSheetBadge(); }
-            
+
             if (unsubscribeSnapshot) unsubscribeSnapshot();
             unsubscribeSnapshot = onSnapshot(ref, (docSnap) => {
                 if (!docSnap.exists()) return;
@@ -1318,7 +1263,16 @@
                     const incoming = JSON.stringify(data[f] || []);
                     if (incoming !== JSON.stringify(state[f])) { state[f] = data[f] || []; changed = true; }
                 });
-                if (data.sheet) state.sheet = { ...state.sheet, ...data.sheet };
+                if (data.sheet) {
+                    const remoteSheet = data.sheet;
+                    state.sheet = {
+                        ...state.sheet,
+                        ...remoteSheet,
+                        // Jangan timpa queue lokal
+                        pendingDeletes: state.sheet.pendingDeletes || [],
+                        pendingUpdates: state.sheet.pendingUpdates || []
+                    };
+                }
                 if (changed && state.isDataLoaded) { renderAll(); showSyncIndicator('synced'); updateSheetBadge(); }
             });
         }
@@ -1713,13 +1667,10 @@
             const typeEl = document.querySelector('input[name="fin-type"]:checked');
             if(!typeEl) return;
             const isIncome = typeEl.value === 'Pemasukan';
-            const defSources = ['BRI', 'OVO', 'DANA', 'SEABANK', 'Tunai'];
-            const defCatsIncome = ['Gaji', 'Bonus', 'Investasi', 'Lainnya'];
-            const defCatsExpense = ['Konsumsi', 'BBM', 'Pulsa', 'Listrik', 'Belanja', 'Lainnya'];
             const customSources = state.financeLibs.filter(l => l.type === 'source').map(l => l.name);
             const customCats = state.financeLibs.filter(l => l.type === 'category').map(l => l.name);
-            const allSources = [...new Set([...defSources, ...customSources])];
-            const baseCats = isIncome ? defCatsIncome : defCatsExpense;
+            const allSources = [...new Set([...DEFAULT_SOURCES, ...customSources])];
+            const baseCats = isIncome ? DEFAULT_CATS_INCOME : DEFAULT_CATS_EXPENSE;
             const allCats = [...new Set([...baseCats, ...customCats])];
 
             const renderChips = (items, name, containerId, activeColorClass) => {
@@ -2428,6 +2379,13 @@
             });
         }, 60000);
 
+        // Auto-flush sheet queue setiap 30 detik kalau ada pending
+        setInterval(() => {
+            if (navigator.onLine && state.sheet.connected && ((state.sheet.pendingDeletes?.length || 0) + (state.sheet.pendingUpdates?.length || 0)) > 0) {
+                flushSheetQueue(true);
+            }
+        }, 30000);
+
         document.addEventListener('DOMContentLoaded', () => {
             const finlibInput = document.getElementById('finlib-name');
             if (finlibInput) finlibInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') { e.preventDefault(); submitFinanceLib(); } });
@@ -2480,12 +2438,15 @@
             if (installBtn) installBtn.classList.add('hidden');
         }
 
-        // ==================== SHEET QUEUE FLUSH ON ONLINE ====================
+        // ==================== ONLINE EVENT ====================
         window.addEventListener('online', () => {
+            showSyncIndicator('synced');
+            flushPendingSync();
             if (state.sheet.connected) {
-                setTimeout(() => flushSheetQueue(), 500);
+                setTimeout(() => flushSheetQueue(true), 800);
             }
         });
+        window.addEventListener('offline', () => showSyncIndicator('offline'));
     </script>
 </body>
 </html>

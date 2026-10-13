@@ -1404,8 +1404,8 @@
                     if (!task.completedAt) task.completedAt = task.createdAt || nowISO();
                     const selesai = formatDateTime(task.completedAt);
                     const durasi = calcDuration(task.createdAt, task.completedAt);
-                    extraInfoHTML = `<p class="text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-circle-check mr-1.5"></i>Selesai: ${selesai}</p>
-                                     <p class="text-indigo-500 dark:text-indigo-400 font-medium"><i class="fa-solid fa-hourglass-end mr-1.5"></i>Durasi: ${durasi}</p>`;
+                    extraInfoHTML = `<p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-circle-check mr-1.5"></i>Selesai: ${selesai}</p>
+                 <p class="text-[10px] text-indigo-500 dark:text-indigo-400 font-medium"><i class="fa-solid fa-hourglass-end mr-1.5"></i>Durasi: ${durasi}</p>`;
                 }
 
                 const statusOrder = ['todo', 'inprogress', 'done'];

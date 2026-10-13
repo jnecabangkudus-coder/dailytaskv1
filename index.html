@@ -70,10 +70,10 @@
             transition: background-color 5000s ease-in-out 0s;
         }
 
-        /* Fix v3.5: scroll fade untuk kategori */
-        .scroll-fade {
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        /* Fix v3.6: blur hanya di bawah, minimal */
+        .scroll-fade-v2 {
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 95%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 0%, black 95%, transparent 100%);
         }
 
         .task-card { cursor: default; position: relative; overflow: hidden; transition: transform .15s ease, box-shadow .15s ease; }
@@ -108,8 +108,6 @@
         .ai-output p { margin: .4rem 0; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .pie-slice { transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center; cursor: pointer; }
-        .pie-slice:hover { opacity: 0.85; transform: scale(1.03); }
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .sync-indicator { position: fixed; bottom: 20px; right: 20px; z-index: 100; transition: all 0.3s ease; }
@@ -292,27 +290,25 @@
             <!-- Grid Pemasukan + Pengeluaran (dengan rincian kategori) -->
             <div class="grid grid-cols-2 gap-3">
                 <!-- CARD PEMASUKAN -->
-                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="height: 320px;">
+                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="min-height: 180px; max-height: 280px;">
                     <i class="fa-solid fa-wallet absolute -right-4 -bottom-4 text-7xl text-white opacity-10 transform -rotate-12 pointer-events-none"></i>
                     <div class="relative z-10 p-3 flex flex-col h-full">
                         <p class="text-emerald-100 text-[10px] font-bold uppercase tracking-wider mb-0.5">Total Pemasukan</p>
-                        <h3 id="fin-total-income" class="text-lg sm:text-2xl font-bold tracking-tight mb-2">Rp 0</h3>
-                        <div class="border-t border-white/20 mb-2"></div>
-                        <div id="income-breakdown" class="flex-grow overflow-y-auto scroll-fade pr-1 space-y-2"></div>
+                        <h3 id="fin-total-income" class="text-lg sm:text-2xl font-bold tracking-tight mb-3">Rp 0</h3>
+                        <div id="income-breakdown" class="flex-grow overflow-y-auto scroll-fade-v2 pr-1 space-y-2.5"></div>
                     </div>
                 </div>
 
                 <!-- CARD PENGELUARAN -->
-                <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="height: 320px;">
+                <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-sm text-white relative overflow-hidden flex flex-col" style="min-height: 180px; max-height: 280px;">
                     <i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-7xl text-white opacity-10 pointer-events-none"></i>
                     <div class="relative z-10 p-3 flex flex-col h-full">
                         <div class="flex justify-between items-start mb-0.5">
                             <p class="text-rose-100 text-[10px] font-bold uppercase tracking-wider">Total Pengeluaran</p>
                             <span id="fin-expense-ratio" class="text-[9px] font-bold bg-white/20 px-1.5 py-0.5 rounded backdrop-blur-sm border border-white/20">0%</span>
                         </div>
-                        <h3 id="fin-total-expense" class="text-lg sm:text-2xl font-bold tracking-tight mb-2">Rp 0</h3>
-                        <div class="border-t border-white/20 mb-2"></div>
-                        <div id="expense-breakdown" class="flex-grow overflow-y-auto scroll-fade pr-1 space-y-2"></div>
+                        <h3 id="fin-total-expense" class="text-lg sm:text-2xl font-bold tracking-tight mb-3">Rp 0</h3>
+                        <div id="expense-breakdown" class="flex-grow overflow-y-auto scroll-fade-v2 pr-1 space-y-2.5"></div>
                     </div>
                 </div>
             </div>
@@ -343,7 +339,7 @@
                     <input type="date" id="fin-filter-from" onchange="renderFinance()" class="hidden px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
                     <input type="date" id="fin-filter-to" onchange="renderFinance()" class="hidden px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
                 </div>
-                <!-- NEW: Advanced Filter -->
+                <!-- Advanced Filter -->
                 <div class="grid grid-cols-3 gap-2 mb-3">
                     <select id="fin-filter-type" onchange="renderFinance()" class="px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-xs">
                         <option value="">Semua Tipe</option>
@@ -1912,7 +1908,6 @@
         };
         function filterFinancesByRange(list) {
             let result = list;
-            // Date range filter
             if (finFilter === 'custom') {
                 const from = document.getElementById('fin-filter-from').value;
                 const to = document.getElementById('fin-filter-to').value;
@@ -1928,7 +1923,6 @@
                 if (finFilter === 'month') { start.setDate(1); start.setHours(0,0,0,0); }
                 result = result.filter(f => new Date(f.datetime) >= start);
             }
-            // Advanced filters
             const fType = document.getElementById('fin-filter-type')?.value;
             const fSource = document.getElementById('fin-filter-source')?.value;
             const fCategory = document.getElementById('fin-filter-category')?.value;
@@ -1996,7 +1990,6 @@
             });
             if(filtered.length === 0) listEl.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-receipt text-4xl mb-3 opacity-20"></i><p>Belum ada transaksi.</p></div>';
 
-            // Update summary
             const totalBalance = totalIncome - totalExpense;
             const balancePct = totalIncome > 0 ? (totalBalance / totalIncome * 100).toFixed(1) : 0;
 
@@ -2006,7 +1999,6 @@
             document.getElementById('fin-balance-pct').innerText = `${balancePct}% sisa`;
             document.getElementById('fin-expense-ratio').innerText = `${totalIncome > 0 ? (totalExpense / totalIncome * 100).toFixed(1) : 0}%`;
 
-            // Ubah warna kotak saldo kalau negatif
             const balanceBox = document.getElementById('fin-total-balance').closest('.bg-gradient-to-br');
             if (balanceBox) {
                 if (totalBalance < 0) {
@@ -2020,21 +2012,21 @@
             const incomeBreakdown = document.getElementById('income-breakdown');
             if (incomeBreakdown) {
                 if (Object.keys(incomeByCat).length === 0) {
-                    incomeBreakdown.innerHTML = '<p class="text-[10px] text-white/60 italic text-center py-3">Belum ada data</p>';
+                    incomeBreakdown.innerHTML = '<p class="text-xs text-white/60 italic text-center py-3">Belum ada data</p>';
                 } else {
                     const sorted = Object.entries(incomeByCat).sort((a,b) => b[1] - a[1]);
                     incomeBreakdown.innerHTML = sorted.map(([cat, amt]) => {
                         const pct = totalIncome > 0 ? (amt / totalIncome * 100).toFixed(1) : 0;
                         const cnt = incomeByCatCount[cat] || 0;
-                        return `<div class="flex items-start gap-1.5">
+                        return `<div class="flex items-start gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-white shrink-0 mt-1.5"></span>
                             <div class="flex-grow min-w-0">
                                 <div class="flex justify-between items-center gap-1">
-                                    <span class="text-[10px] font-bold truncate">${esc(cat)}</span>
-                                    <span class="text-[10px] font-bold shrink-0">${pct}%</span>
+                                    <span class="text-xs font-bold truncate">${esc(cat)}</span>
+                                    <span class="text-xs font-bold shrink-0">${pct}%</span>
                                 </div>
                                 <div class="flex justify-between items-center gap-1 mt-0.5">
-                                    <span class="text-[9px] text-white/80 truncate">${fmtRupiahShort(amt)} · ${cnt}x</span>
+                                    <span class="text-[10px] text-white/85 truncate">${fmtRupiahShort(amt)} · ${cnt}x</span>
                                 </div>
                             </div>
                         </div>`;
@@ -2046,21 +2038,21 @@
             const expenseBreakdown = document.getElementById('expense-breakdown');
             if (expenseBreakdown) {
                 if (Object.keys(expenseByCat).length === 0) {
-                    expenseBreakdown.innerHTML = '<p class="text-[10px] text-white/60 italic text-center py-3">Belum ada data</p>';
+                    expenseBreakdown.innerHTML = '<p class="text-xs text-white/60 italic text-center py-3">Belum ada data</p>';
                 } else {
                     const sorted = Object.entries(expenseByCat).sort((a,b) => b[1] - a[1]);
                     expenseBreakdown.innerHTML = sorted.map(([cat, amt]) => {
                         const pct = totalExpense > 0 ? (amt / totalExpense * 100).toFixed(1) : 0;
                         const cnt = expenseByCatCount[cat] || 0;
-                        return `<div class="flex items-start gap-1.5">
+                        return `<div class="flex items-start gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-white shrink-0 mt-1.5"></span>
                             <div class="flex-grow min-w-0">
                                 <div class="flex justify-between items-center gap-1">
-                                    <span class="text-[10px] font-bold truncate">${esc(cat)}</span>
-                                    <span class="text-[10px] font-bold shrink-0">${pct}%</span>
+                                    <span class="text-xs font-bold truncate">${esc(cat)}</span>
+                                    <span class="text-xs font-bold shrink-0">${pct}%</span>
                                 </div>
                                 <div class="flex justify-between items-center gap-1 mt-0.5">
-                                    <span class="text-[9px] text-white/80 truncate">${fmtRupiahShort(amt)} · ${cnt}x</span>
+                                    <span class="text-[10px] text-white/85 truncate">${fmtRupiahShort(amt)} · ${cnt}x</span>
                                 </div>
                             </div>
                         </div>`;
@@ -2068,7 +2060,6 @@
                 }
             }
 
-            // Saldo Sumber Dana
             const gridEl = document.getElementById('fin-sources-grid');
             if(Object.keys(sourceBals).length === 0) gridEl.innerHTML = '<p class="text-xs text-slate-400 col-span-full">Belum ada saldo.</p>';
             else gridEl.innerHTML = Object.entries(sourceBals).map(([src, bal]) => `
@@ -2077,7 +2068,6 @@
                     <p class="text-sm font-black ${bal < 0 ? 'text-rose-500' : 'text-slate-800 dark:text-white'}">${fmtRupiah(bal)}</p>
                 </div>`).join('');
 
-            // Budget
             const budgets = state.financeLibs.filter(l => l.type === 'budget');
             const budgetPanel = document.getElementById('fin-budget-panel');
             if (budgets.length) {

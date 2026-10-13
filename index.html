@@ -61,6 +61,16 @@
         .sortable-ghost { opacity: 0.4; background-color: #f8fafc; border: 2px dashed #0ea5e9; }
         .dark .sortable-ghost { background-color: #0f172a; }
 
+        /* Fix #13: prevent autofill highlight */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+            -webkit-text-fill-color: inherit !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
         .task-card { cursor: default; position: relative; overflow: hidden; transition: transform .15s ease, box-shadow .15s ease; }
         .task-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
         .task-card:active { transform: scale(.995); }
@@ -132,9 +142,7 @@
         </div>
         <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md p-8 fade-in max-h-[95vh] overflow-y-auto">
             <div class="text-center mb-8">
-                <div class="inline-flex bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-4 rounded-2xl shadow-lg shadow-sky-500/30 mb-4">
-                    <i class="fa-solid fa-layer-group text-3xl"></i>
-                </div>
+                <div class="inline-flex bg-gradient-to-tr from-sky-500 to-indigo-600 text-white p-4 rounded-2xl shadow-lg shadow-sky-500/30 mb-4"><i class="fa-solid fa-layer-group text-3xl"></i></div>
                 <h1 class="text-3xl font-black bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">Taskku By GN</h1>
                 <p class="text-sm text-slate-500 mt-1">Kelola tugas, keuangan & produktivitas Anda</p>
             </div>
@@ -142,22 +150,16 @@
                 <button onclick="switchAuthTab('login')" id="auth-tab-login" class="flex-1 py-2.5 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-sky-600">Masuk</button>
                 <button onclick="switchAuthTab('register')" id="auth-tab-register" class="flex-1 py-2.5 rounded-lg text-sm font-bold transition-all text-slate-500">Daftar</button>
             </div>
-            <form id="login-form" class="space-y-4">
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label>
-                    <div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i><input type="email" id="login-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password</label>
-                    <div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" id="login-password" required placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div>
-                </div>
+            <form id="login-form" class="space-y-4" autocomplete="off">
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label><div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i><input type="email" id="login-email" required placeholder="nama@email.com" autocomplete="off" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password</label><div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" id="login-password" required placeholder="••••••••" autocomplete="new-password" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
                 <button type="button" onclick="handleForgotPassword()" class="text-xs text-sky-500 hover:text-sky-600 font-semibold">Lupa password?</button>
                 <button type="submit" id="login-btn" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md shadow-sky-500/30 transition-all uppercase tracking-wide text-sm">Masuk</button>
             </form>
-            <form id="register-form" class="space-y-4 hidden">
-                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Nama Lengkap</label><div class="relative"><i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i><input type="text" id="register-name" required placeholder="Nama Anda" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
-                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label><div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i><input type="email" id="register-email" required placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
-                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password (min. 6 karakter)</label><div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" id="register-password" required minlength="6" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
+            <form id="register-form" class="space-y-4 hidden" autocomplete="off">
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Nama Lengkap</label><div class="relative"><i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-400"></i><input type="text" id="register-name" required placeholder="Nama Anda" autocomplete="off" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Email</label><div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-3.5 text-slate-400"></i><input type="email" id="register-email" required placeholder="nama@email.com" autocomplete="off" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1.5 block uppercase tracking-wider">Password (min. 6 karakter)</label><div class="relative"><i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i><input type="password" id="register-password" required minlength="6" placeholder="••••••••" autocomplete="new-password" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm"></div></div>
                 <button type="submit" id="register-btn" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md shadow-emerald-500/30 transition-all uppercase tracking-wide text-sm">Daftar Sekarang</button>
             </form>
             <div id="auth-message" class="mt-4 text-sm text-center hidden"></div>
@@ -252,9 +254,28 @@
                     <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm"><h3 class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-building-columns text-sky-500"></i> Saldo Sumber Dana</h3><div id="fin-sources-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div></div>
                     <div id="fin-budget-panel" class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm hidden"><h3 class="text-xs font-bold text-amber-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-bullseye"></i> Budget Bulan Ini</h3><div id="fin-budgets"></div></div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col"><h3 class="text-xs font-bold text-rose-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down"></i> Pengeluaran per Kategori</h3><div class="flex-grow flex items-center justify-center relative"><div class="relative w-40 h-40"><svg id="pie-expense-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-expense-total" class="text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div></div></div><div id="pie-expense-legend" class="mt-4 space-y-1.5 max-h-[120px] overflow-y-auto pr-1"></div></div>
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col"><h3 class="text-xs font-bold text-emerald-500 mb-3 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up"></i> Pemasukan per Kategori</h3><div class="flex-grow flex items-center justify-center relative"><div class="relative w-40 h-40"><svg id="pie-income-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-income-total" class="text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div></div></div><div id="pie-income-legend" class="mt-4 space-y-1.5 max-h-[120px] overflow-y-auto pr-1"></div></div>
+                <!-- Fix #12: Kategori chart - 2 kolom di HP -->
+                <div class="grid grid-cols-2 gap-3 md:gap-5">
+                    <div class="bg-white dark:bg-slate-800 p-3 md:p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col">
+                        <h3 class="text-[10px] md:text-xs font-bold text-rose-500 mb-2 md:mb-3 uppercase tracking-wider flex items-center gap-1.5 md:gap-2"><i class="fa-solid fa-arrow-trend-down"></i> <span class="truncate">Pengeluaran/Kategori</span></h3>
+                        <div class="flex-grow flex items-center justify-center relative">
+                            <div class="relative w-24 h-24 md:w-40 md:h-40">
+                                <svg id="pie-expense-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-expense-total" class="text-xs md:text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div>
+                            </div>
+                        </div>
+                        <div id="pie-expense-legend" class="mt-3 md:mt-4 space-y-1 max-h-[80px] md:max-h-[120px] overflow-y-auto pr-1 text-[10px] md:text-[11px]"></div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-3 md:p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col">
+                        <h3 class="text-[10px] md:text-xs font-bold text-emerald-500 mb-2 md:mb-3 uppercase tracking-wider flex items-center gap-1.5 md:gap-2"><i class="fa-solid fa-arrow-trend-up"></i> <span class="truncate">Pemasukan/Kategori</span></h3>
+                        <div class="flex-grow flex items-center justify-center relative">
+                            <div class="relative w-24 h-24 md:w-40 md:h-40">
+                                <svg id="pie-income-svg" viewBox="0 0 42 42" class="w-full h-full transform -rotate-90"><circle class="text-slate-100 dark:text-slate-700" stroke-width="6" stroke="currentColor" fill="none" r="15.9155" cx="21" cy="21" /></svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none"><span class="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase">Total</span><span id="pie-income-total" class="text-xs md:text-sm font-black text-slate-800 dark:text-white">Rp 0</span></div>
+                            </div>
+                        </div>
+                        <div id="pie-income-legend" class="mt-3 md:mt-4 space-y-1 max-h-[80px] md:max-h-[120px] overflow-y-auto pr-1 text-[10px] md:text-[11px]"></div>
+                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -278,34 +299,37 @@
         </section>
 
         <section id="tab-performance" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Total Tugas</p><p id="perf-total" class="text-4xl font-black text-slate-800 dark:text-white">0</p></div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Rata-rata Waktu</p><p id="perf-avg-time" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">-</p><p class="text-[10px] text-slate-400 mt-1">Dibuat → Selesai</p></div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Tercepat / Terlama</p><p id="perf-fastest-time" class="text-lg font-bold text-emerald-600 dark:text-emerald-400">-</p><p id="perf-slowest-time" class="text-lg font-bold text-rose-600 dark:text-rose-400 mt-0.5">-</p></div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Lewat Tenggat</p><p id="perf-overdue" class="text-4xl font-black text-rose-600 dark:text-rose-400">0</p><p class="text-[10px] text-slate-400 mt-1">Belum selesai & tenggat terlewati</p></div>
+            <!-- Fix #9: 4 kotak statistik - 2 kolom di HP -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-1 md:mb-2">Total Tugas</p><p id="perf-total" class="text-2xl md:text-4xl font-black text-slate-800 dark:text-white">0</p></div>
+                <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-1 md:mb-2">Rata-rata Waktu</p><p id="perf-avg-time" class="text-lg md:text-2xl font-black text-indigo-600 dark:text-indigo-400">-</p><p class="text-[9px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1">Dibuat → Selesai</p></div>
+                <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-1 md:mb-2">Tercepat / Terlama</p><p id="perf-fastest-time" class="text-sm md:text-lg font-bold text-emerald-600 dark:text-emerald-400">-</p><p id="perf-slowest-time" class="text-sm md:text-lg font-bold text-rose-600 dark:text-rose-400 mt-0.5">-</p></div>
+                <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center"><p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-1 md:mb-2">Lewat Tenggat</p><p id="perf-overdue" class="text-2xl md:text-4xl font-black text-rose-600 dark:text-rose-400">0</p><p class="text-[9px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1">Belum selesai & lewat</p></div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-6">Persentase Status Tugas</h3>
-                    <div class="h-6 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden flex mb-6"><div id="bar-todo" class="h-full bg-amber-500 transition-all duration-1000" style="width:0%"></div><div id="bar-inprogress" class="h-full bg-sky-500 transition-all duration-1000" style="width:0%"></div><div id="bar-done" class="h-full bg-emerald-500 transition-all duration-1000" style="width:0%"></div></div>
-                    <div class="space-y-4">
-                        <div><div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-amber-500"></span> Akan Dikerjakan</span><span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-todo" class="h-full bg-amber-500" style="width:0%"></div></div></div>
-                        <div><div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-sky-500"></span> Sedang Dikerjakan</span><span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-inprogress" class="h-full bg-sky-500" style="width:0%"></div></div></div>
-                        <div><div class="flex justify-between text-sm mb-1"><span class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-emerald-500" style="width:0%"></div></div></div>
+            <!-- Fix #10: Persentase + Tingkat - 2 kolom di HP -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+                <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col justify-center">
+                    <h3 class="font-bold text-sm md:text-lg text-slate-800 dark:text-white mb-3 md:mb-6">Persentase Status Tugas</h3>
+                    <div class="h-4 md:h-6 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden flex mb-3 md:mb-6"><div id="bar-todo" class="h-full bg-amber-500 transition-all duration-1000" style="width:0%"></div><div id="bar-inprogress" class="h-full bg-sky-500 transition-all duration-1000" style="width:0%"></div><div id="bar-done" class="h-full bg-emerald-500 transition-all duration-1000" style="width:0%"></div></div>
+                    <div class="space-y-2 md:space-y-4">
+                        <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-amber-500"></span> Akan</span><span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-todo" class="h-full bg-amber-500" style="width:0%"></div></div></div>
+                        <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-sky-500"></span> Proses</span><span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-inprogress" class="h-full bg-sky-500" style="width:0%"></div></div></div>
+                        <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-emerald-500"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-emerald-500" style="width:0%"></div></div></div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col items-center justify-center">
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-4">Tingkat Penyelesaian</h3>
-                    <div class="relative w-40 h-40"><svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36"><path class="text-slate-100 dark:text-slate-700" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /><path id="donut-chart-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col"><span id="perf-done-pct" class="text-3xl font-black text-slate-800 dark:text-white">0%</span></div></div>
-                    <p class="text-xs text-slate-500 text-center mt-4">Tugas selesai dibanding total tugas</p>
+                <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-xs md:text-lg text-slate-800 dark:text-white mb-2 md:mb-4 text-center">Tingkat Selesai</h3>
+                    <div class="relative w-24 h-24 md:w-40 md:h-40"><svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36"><path class="text-slate-100 dark:text-slate-700" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /><path id="donut-chart-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg><div class="absolute inset-0 flex items-center justify-center flex-col"><span id="perf-done-pct" class="text-lg md:text-3xl font-black text-slate-800 dark:text-white">0%</span></div></div>
+                    <p class="text-[9px] md:text-xs text-slate-500 text-center mt-1.5 md:mt-4">Selesai / total tugas</p>
                 </div>
             </div>
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-800 dark:text-white mb-6">Rata-rata Waktu Pengerjaan per Prioritas</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-rose-50/50 dark:bg-rose-900/10 p-5 rounded-xl border border-rose-100 dark:border-rose-900/30"><p class="text-xs font-bold text-rose-500 uppercase tracking-wider mb-3">Prioritas Tinggi</p><p id="avg-prio-high" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-high" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
-                    <div class="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-xl border border-amber-100 dark:border-amber-900/30"><p class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-3">Prioritas Sedang</p><p id="avg-prio-medium" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-medium" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
-                    <div class="bg-emerald-50/50 dark:bg-emerald-900/10 p-5 rounded-xl border border-emerald-100 dark:border-emerald-900/30"><p class="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-3">Prioritas Rendah</p><p id="avg-prio-low" class="text-2xl font-black text-slate-800 dark:text-white mb-1">-</p><p id="count-prio-low" class="text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
+            <!-- Fix #11: Rata-rata per prioritas - 2 kolom di HP -->
+            <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
+                <h3 class="font-bold text-sm md:text-lg text-slate-800 dark:text-white mb-3 md:mb-6">Rata-rata Waktu per Prioritas</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                    <div class="bg-rose-50/50 dark:bg-rose-900/10 p-3 md:p-5 rounded-xl border border-rose-100 dark:border-rose-900/30"><p class="text-[10px] md:text-xs font-bold text-rose-500 uppercase tracking-wider mb-1.5 md:mb-3">Prioritas Tinggi</p><p id="avg-prio-high" class="text-lg md:text-2xl font-black text-slate-800 dark:text-white mb-0.5 md:mb-1">-</p><p id="count-prio-high" class="text-[10px] md:text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
+                    <div class="bg-amber-50/50 dark:bg-amber-900/10 p-3 md:p-5 rounded-xl border border-amber-100 dark:border-amber-900/30"><p class="text-[10px] md:text-xs font-bold text-amber-500 uppercase tracking-wider mb-1.5 md:mb-3">Prioritas Sedang</p><p id="avg-prio-medium" class="text-lg md:text-2xl font-black text-slate-800 dark:text-white mb-0.5 md:mb-1">-</p><p id="count-prio-medium" class="text-[10px] md:text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
+                    <div class="bg-emerald-50/50 dark:bg-emerald-900/10 p-3 md:p-5 rounded-xl border border-emerald-100 dark:border-emerald-900/30 col-span-2 md:col-span-1"><p class="text-[10px] md:text-xs font-bold text-emerald-500 uppercase tracking-wider mb-1.5 md:mb-3">Prioritas Rendah</p><p id="avg-prio-low" class="text-lg md:text-2xl font-black text-slate-800 dark:text-white mb-0.5 md:mb-1">-</p><p id="count-prio-low" class="text-[10px] md:text-xs text-slate-500 font-medium">0 tugas selesai</p></div>
                 </div>
             </div>
             <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm"><h3 class="font-bold text-lg mb-4">Produktivitas 30 Hari Terakhir</h3><canvas id="chart-productivity" height="100"></canvas></div>
@@ -336,7 +360,8 @@
                     <div id="notes-list" class="space-y-2 overflow-y-auto flex-grow pr-2"></div>
                 </div>
                 <div class="md:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col min-h-[500px] md:min-h-0">
-                    <input type="text" id="note-title-input" maxlength="200" placeholder="Judul Catatan..." oninput="autoSaveNote()" class="text-2xl font-black bg-transparent text-slate-800 dark:text-white focus:outline-none mb-4 w-full">
+                    <!-- Fix #13: Judul catatan diseragamkan + no autofill -->
+                    <input type="text" id="note-title-input" maxlength="200" placeholder="Judul Catatan..." oninput="autoSaveNote()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="text-lg font-bold bg-transparent text-slate-800 dark:text-white focus:outline-none mb-4 w-full pb-2 border-b border-slate-100 dark:border-slate-700">
                     <div class="flex gap-2 border-b border-slate-100 dark:border-slate-700 pb-2 mb-3 flex-wrap">
                         <button onclick="insertMd('**','**')" class="md-btn" title="Bold"><i class="fa-solid fa-bold"></i></button>
                         <button onclick="insertMd('*','*')" class="md-btn" title="Italic"><i class="fa-solid fa-italic"></i></button>
@@ -349,7 +374,7 @@
                         <button id="note-preview-toggle" onclick="toggleNotePreview()" class="md-btn ml-auto bg-sky-50 dark:bg-slate-700 text-sky-600 dark:text-sky-400"><i class="fa-solid fa-eye"></i> Preview</button>
                         <button onclick="togglePinNote()" id="note-pin-btn" class="md-btn" title="Pin"><i class="fa-solid fa-thumbtack"></i></button>
                     </div>
-                    <textarea id="note-body-input" maxlength="50000" placeholder="Mulai mengetik... (mendukung Markdown)" oninput="autoSaveNote()" class="w-full flex-grow bg-transparent text-slate-700 dark:text-slate-300 focus:outline-none resize-none leading-relaxed text-base hide-scrollbar min-h-[300px]"></textarea>
+                    <textarea id="note-body-input" maxlength="50000" placeholder="Mulai mengetik... (mendukung Markdown)" oninput="autoSaveNote()" autocomplete="off" class="w-full flex-grow bg-transparent text-slate-700 dark:text-slate-300 focus:outline-none resize-none leading-relaxed text-sm md:text-base hide-scrollbar min-h-[300px]"></textarea>
                     <div id="note-preview-area" class="hidden w-full flex-grow overflow-y-auto prose-custom text-slate-700 dark:text-slate-300 text-base"></div>
                     <div class="flex justify-between items-center mt-4 border-t border-slate-100 dark:border-slate-700 pt-3">
                          <span id="note-last-saved" class="text-xs font-medium text-slate-400 flex items-center gap-1"><i class="fa-solid fa-cloud-arrow-up"></i> Otomatis tersimpan</span>
@@ -382,7 +407,7 @@
                 <div class="space-y-4 mb-6">
                     <div>
                         <label class="text-xs font-bold text-slate-500 mb-1 block uppercase tracking-wider">Gemini API Key</label>
-                        <input type="password" id="gemini-api-key" placeholder="AIzaSy..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm">
+                        <input type="password" id="gemini-api-key" placeholder="AIzaSy..." autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm">
                         <p class="text-[10px] text-slate-400 mt-1">Dapatkan kunci gratis di <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-indigo-500 underline">Google AI Studio</a>. Key hanya disimpan di memori browser (hilang saat refresh).</p>
                     </div>
                     <button onclick="runGemini()" id="btn-run-gemini" class="w-full py-3.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:opacity-90 text-white font-bold rounded-xl shadow-md transition-all uppercase tracking-wide">Analisis Data Saya Sekarang</button>
@@ -404,10 +429,7 @@
     <!-- MODAL: Integrasi Spreadsheet -->
     <div id="modal-sheet" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[65] flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-table-columns text-emerald-500"></i> Integrasi Spreadsheet</h3>
-                <button onclick="closeModal('modal-sheet')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-table-columns text-emerald-500"></i> Integrasi Spreadsheet</h3><button onclick="closeModal('modal-sheet')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <div id="sheet-connected-view" class="hidden space-y-4">
                 <div class="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
                     <div class="flex items-center gap-2 mb-2"><span class="sheet-status-dot bg-emerald-500"></span><span class="font-bold text-emerald-700 dark:text-emerald-400 text-sm">Terhubung ke Spreadsheet</span></div>
@@ -432,8 +454,8 @@
                 <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"><i class="fa-solid fa-circle-info text-sky-500 mr-1"></i> Hubungkan OmniTask dengan Google Sheets Anda. Setiap transaksi baru akan otomatis dikirim ke spreadsheet.</p>
                 </div>
-                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">URL Web App (dari Apps Script)</label><input type="text" id="sheet-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono"></div>
-                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Secret Token</label><input type="password" id="sheet-token-input" placeholder="Token yang sama dengan Apps Script" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono"></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">URL Web App (dari Apps Script)</label><input type="text" id="sheet-url-input" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono"></div>
+                <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Secret Token</label><input type="password" id="sheet-token-input" placeholder="Token yang sama dengan Apps Script" autocomplete="off" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-emerald-500 outline-none text-xs font-mono"></div>
                 <button onclick="connectSheet()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition-all text-sm"><i class="fa-solid fa-plug mr-2"></i> Hubungkan</button>
             </div>
         </div>
@@ -442,26 +464,14 @@
     <!-- MODAL: Kelola Label -->
     <div id="modal-manage-lib" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-[72] flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-tags text-sky-500"></i> <span id="manage-lib-title">Kelola Label</span></h3>
-                <button onclick="closeModal('modal-manage-lib')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+            <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-tags text-sky-500"></i> <span id="manage-lib-title">Kelola Label</span></h3><button onclick="closeModal('modal-manage-lib')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <p class="text-xs text-slate-500">Kelola label sumber dana & kategori. Tap ✏️ untuk rename, tap 🗑️ untuk hapus.</p>
             <input type="hidden" id="manage-lib-type">
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Label Bawaan</label>
-                <div id="manage-lib-default" class="flex flex-wrap gap-2 mb-4"></div>
-            </div>
-            <div>
-                <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Label Kustom Anda</label>
-                <div id="manage-lib-custom" class="space-y-2"></div>
-            </div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Label Bawaan</label><div id="manage-lib-default" class="flex flex-wrap gap-2 mb-4"></div></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Label Kustom Anda</label><div id="manage-lib-custom" class="space-y-2"></div></div>
             <div class="border-t border-slate-100 dark:border-slate-700 pt-4">
                 <label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tambah Label Baru</label>
-                <div class="flex gap-2">
-                    <input type="text" id="manage-lib-new-name" maxlength="40" placeholder="Nama label baru..." class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm">
-                    <button onclick="addNewLibFromManage()" class="px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold"><i class="fa-solid fa-plus"></i></button>
-                </div>
+                <div class="flex gap-2"><input type="text" id="manage-lib-new-name" maxlength="40" placeholder="Nama label baru..." autocomplete="off" class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm"><button onclick="addNewLibFromManage()" class="px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold"><i class="fa-solid fa-plus"></i></button></div>
             </div>
         </div>
     </div>
@@ -471,7 +481,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 transform scale-95 transition-transform duration-300">
             <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-white" id="finlib-title">Tambah Label</h3>
             <input type="hidden" id="finlib-type">
-            <input type="text" id="finlib-name" maxlength="40" placeholder="Ketik nama label..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium">
+            <input type="text" id="finlib-name" maxlength="40" placeholder="Ketik nama label..." autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium">
             <div class="flex justify-end gap-3 mt-6">
                 <button type="button" onclick="closeFinanceLibModal()" class="px-5 py-2 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm transition-colors">Batal</button>
                 <button type="button" onclick="submitFinanceLib()" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button>
@@ -483,14 +493,14 @@
     <div id="modal-add-task" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-circle-plus text-sky-500"></i> Tambah Tugas Baru</h3><button onclick="closeAddTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="new-task-title" maxlength="200" placeholder="Contoh: Menyusun Laporan" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="new-task-desc" maxlength="2000" placeholder="Rincian tugas..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="new-task-title" maxlength="200" placeholder="Contoh: Menyusun Laporan" autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="new-task-desc" maxlength="2000" placeholder="Rincian tugas..." autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
             <div class="grid grid-cols-2 gap-4">
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label><select id="new-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"><option value="low">🟢 Rendah</option><option value="medium" selected>🟡 Sedang</option><option value="high">🔴 Tinggi</option></select></div>
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label><input type="date" id="new-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"></div>
             </div>
-            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask (Opsional)</label><div id="new-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="new-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('new');}"><button type="button" onclick="addSubtaskDraft('new')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags (Opsional)</label><div id="new-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="new-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('new');}"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask (Opsional)</label><div id="new-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="new-subtask-text" maxlength="120" placeholder="Tambah langkah..." autocomplete="off" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('new');}"><button type="button" onclick="addSubtaskDraft('new')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags (Opsional)</label><div id="new-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="new-tag" maxlength="20" placeholder="Ketik tag + Enter" autocomplete="off" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('new');}"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder (Opsional)</label><div class="flex gap-2"><input type="datetime-local" id="new-task-reminder" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><button type="button" onclick="requestNotifPermission()" class="px-3 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold" title="Izinkan Notifikasi"><i class="fa-solid fa-bell"></i></button></div></div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeAddTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm transition-colors">Batal</button><button onclick="submitNewTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button></div>
         </div>
@@ -501,14 +511,14 @@
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 md:p-8 w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Tugas</h3><button onclick="closeEditTaskModal()" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <input type="hidden" id="edit-task-id">
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="edit-task-title" maxlength="200" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="edit-task-desc" maxlength="2000" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Judul Tugas</label><input type="text" id="edit-task-title" maxlength="200" autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Deskripsi</label><textarea id="edit-task-desc" maxlength="2000" autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 h-20 resize-none"></textarea></div>
             <div class="grid grid-cols-2 gap-4">
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Prioritas</label><select id="edit-task-priority" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"><option value="low">🟢 Rendah</option><option value="medium">🟡 Sedang</option><option value="high">🔴 Tinggi</option></select></div>
                 <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tenggat</label><input type="date" id="edit-task-date" class="w-full px-3 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none font-medium"></div>
             </div>
-            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask</label><div id="edit-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}"><button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags</label><div id="edit-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="edit-tag" maxlength="20" placeholder="Ketik tag + Enter" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('edit');}"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask</label><div id="edit-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." autocomplete="off" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}"><button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags</label><div id="edit-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="edit-tag" maxlength="20" placeholder="Ketik tag + Enter" autocomplete="off" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('edit');}"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder</label><input type="datetime-local" id="edit-task-reminder" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeEditTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Batal</button><button onclick="submitEditTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button></div>
         </div>
@@ -538,9 +548,9 @@
                     <button type="button" onclick="openFinanceLibModal('category')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors text-sky-600 dark:text-sky-400 text-sm font-bold border border-transparent shadow-sm cursor-pointer"><i class="fa-solid fa-plus pointer-events-none"></i></button>
                 </div>
             </div>
-            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label><div class="relative"><span class="absolute left-4 top-3 text-slate-400 font-bold">Rp</span><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="fin-amount" oninput="formatNominal(this)" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" placeholder="0"></div></div>
+            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Nominal (Rp)</label><div class="relative"><span class="absolute left-4 top-3 text-slate-400 font-bold">Rp</span><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="fin-amount" oninput="formatNominal(this)" autocomplete="off" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" placeholder="0"></div></div>
             <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Tanggal & Waktu</label><div class="flex gap-2"><input type="datetime-local" id="fin-datetime" class="flex-grow px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium"><button onclick="setNow()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-xl transition-colors text-slate-700 dark:text-slate-200 text-sm font-bold whitespace-nowrap shadow-sm"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Sekarang</button></div></div>
-            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Catatan (Opsional)</label><input type="text" id="fin-note" maxlength="300" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm" placeholder="Contoh: Makan siang"></div>
+            <div><label class="text-xs font-semibold text-slate-500 mb-1 block uppercase tracking-wider">Catatan (Opsional)</label><input type="text" id="fin-note" maxlength="300" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm" placeholder="Contoh: Makan siang"></div>
             <div class="space-y-2"><label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" id="fin-recurring" onchange="document.getElementById('fin-recurring-interval').classList.toggle('hidden', !this.checked)" class="rounded"><span class="font-semibold">Jadikan transaksi berulang</span></label><select id="fin-recurring-interval" class="hidden w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="weekly">🔁 Mingguan</option><option value="monthly">🔁 Bulanan</option></select></div>
             <button onclick="submitFinance()" class="w-full py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-md transition-all text-sm uppercase tracking-wide">Simpan Transaksi</button>
         </div>
@@ -552,10 +562,10 @@
             <div class="flex justify-between items-center"><h3 class="text-xl font-black text-slate-800 dark:text-white flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-sky-500"></i> Edit Transaksi</h3><button onclick="closeModal('modal-edit-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
             <input type="hidden" id="edit-fin-id">
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tipe</label><select id="edit-fin-type" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div>
-            <div class="grid grid-cols-2 gap-3"><div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Sumber</label><input type="text" id="edit-fin-source" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div><div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Kategori</label><input type="text" id="edit-fin-category" maxlength="40" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Nominal</label><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="edit-fin-amount" oninput="formatNominal(this)" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-bold"></div>
+            <div class="grid grid-cols-2 gap-3"><div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Sumber</label><input type="text" id="edit-fin-source" maxlength="40" autocomplete="off" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div><div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Kategori</label><input type="text" id="edit-fin-category" maxlength="40" autocomplete="off" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Nominal</label><input type="text" inputmode="numeric" pattern="[0-9.,]*" id="edit-fin-amount" oninput="formatNominal(this)" autocomplete="off" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-bold"></div>
             <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Tanggal & Waktu</label><input type="datetime-local" id="edit-fin-datetime" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Catatan</label><input type="text" id="edit-fin-note" maxlength="300" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
+            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Catatan</label><input type="text" id="edit-fin-note" maxlength="300" autocomplete="off" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeModal('modal-edit-finance')" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700">Batal</button><button onclick="submitEditFinance()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md">Simpan</button></div>
         </div>
     </div>
@@ -564,7 +574,7 @@
     <div id="modal-add-habit" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
             <div class="flex justify-between items-center"><h3 class="text-lg font-bold text-slate-800 dark:text-white">Kebiasaan Baru</h3><button onclick="closeModal('modal-add-habit')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-            <input id="new-habit-name" maxlength="60" placeholder="Misal: Olahraga 30 menit" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium">
+            <input id="new-habit-name" maxlength="60" placeholder="Misal: Olahraga 30 menit" autocomplete="off" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-sky-500 outline-none text-sm font-medium">
             <div class="flex justify-end gap-3 pt-2"><button onclick="closeModal('modal-add-habit')" class="px-5 py-2 rounded-xl text-slate-500 font-bold hover:bg-slate-100 dark:hover:bg-slate-700 text-sm">Batal</button><button onclick="submitNewHabit()" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-bold text-sm shadow-md">Simpan</button></div>
         </div>
     </div>
@@ -622,8 +632,6 @@
 
         const cacheSet = (uid, field, data) => { try { localStorage.setItem(`omnitask_${uid}_${field}`, JSON.stringify(data)); } catch(e){} };
         const cacheGet = (uid, field) => { try { const r = localStorage.getItem(`omnitask_${uid}_${field}`); return r ? JSON.parse(r) : null; } catch { return null; } };
-
-        // LocalStorage khusus untuk sheet queue (per-user)
         const sheetQueueKey = (uid) => `omnitask_${uid}_sheet_queue`;
         const sheetQueueSave = (uid, queue) => { try { localStorage.setItem(sheetQueueKey(uid), JSON.stringify(queue)); } catch(e){} };
         const sheetQueueLoad = (uid) => { try { const r = localStorage.getItem(sheetQueueKey(uid)); return r ? JSON.parse(r) : { pendingDeletes: [], pendingUpdates: [] }; } catch { return { pendingDeletes: [], pendingUpdates: [] }; } };
@@ -721,22 +729,11 @@
         const saveNotes = () => saveToFirebase('notes', state.notes);
         const saveHabits = () => saveToFirebase('habits', state.habits);
         const saveRecurrings = () => saveToFirebase('recurrings', state.recurrings);
-
-        // Sheet config disimpan ke Firestore TAPI tanpa queue (queue disimpan lokal)
         const saveSheetConfig = () => {
-            const configOnly = {
-                url: state.sheet.url,
-                token: state.sheet.token,
-                connected: state.sheet.connected,
-                autoSync: state.sheet.autoSync,
-                syncedCount: state.sheet.syncedCount,
-                lastSync: state.sheet.lastSync,
-                syncedIds: state.sheet.syncedIds
-            };
+            const configOnly = { url: state.sheet.url, token: state.sheet.token, connected: state.sheet.connected, autoSync: state.sheet.autoSync, syncedCount: state.sheet.syncedCount, lastSync: state.sheet.lastSync, syncedIds: state.sheet.syncedIds };
             return saveToFirebase('sheet', configOnly);
         };
 
-        // Save queue ke localStorage (bukan Firestore)
         function saveSheetQueue() {
             if (!state.currentUser) return;
             const q = { pendingDeletes: state.sheet.pendingDeletes, pendingUpdates: state.sheet.pendingUpdates };
@@ -784,7 +781,6 @@
 
         // ==================== SHEET INTEGRATION ====================
         window.openSheetModal = function() {
-            // Coba flush dulu saat buka modal
             if (navigator.onLine && state.sheet.connected) setTimeout(() => flushSheetQueue(true), 300);
             renderSheetModal();
             elShow('modal-sheet');
@@ -820,7 +816,6 @@
                 saveSheetConfig();
                 renderSheetModal();
                 toast('✅ Berhasil terhubung!', 'success');
-                // Auto-flush queue kalau ada
                 setTimeout(() => flushSheetQueue(true), 500);
             }
         };
@@ -874,12 +869,10 @@
             if (!state.sheet.connected || !state.sheet.url) return;
             const syncedIds = new Set(state.sheet.syncedIds || []);
             if (!syncedIds.has(String(id))) return;
-            // Update syncedIds di memory
             syncedIds.delete(String(id));
             state.sheet.syncedIds = [...syncedIds];
             state.sheet.syncedCount = Math.max(0, (state.sheet.syncedCount || 1) - 1);
             saveSheetConfig();
-            // Kalau offline → queue & simpan ke localStorage
             if (!navigator.onLine) {
                 if (!state.sheet.pendingDeletes.includes(String(id))) state.sheet.pendingDeletes.push(String(id));
                 saveSheetQueue();
@@ -925,7 +918,6 @@
             if (!state.sheet.autoSync) return;
             const syncedIds = new Set(state.sheet.syncedIds || []);
             if (syncedIds.has(String(transaction.id))) return;
-            // Kalau offline, jangan append (nanti user manual sync)
             if (!navigator.onLine) return;
             try {
                 await fetch(state.sheet.url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: state.sheet.token, action: 'append', transaction }) });
@@ -938,21 +930,11 @@
         }
 
         async function flushSheetQueue(silent = false) {
-            if (!state.sheet.connected || !state.sheet.url) {
-                if (!silent) toast('Spreadsheet belum terhubung', 'error');
-                return;
-            }
-            if (!navigator.onLine) {
-                if (!silent) toast('Sedang offline, coba lagi nanti', 'error');
-                return;
-            }
+            if (!state.sheet.connected || !state.sheet.url) { if (!silent) toast('Spreadsheet belum terhubung', 'error'); return; }
+            if (!navigator.onLine) { if (!silent) toast('Sedang offline, coba lagi nanti', 'error'); return; }
             const total = (state.sheet.pendingDeletes?.length || 0) + (state.sheet.pendingUpdates?.length || 0);
-            if (total === 0) {
-                if (!silent) toast('Tidak ada antrian', 'info');
-                return;
-            }
+            if (total === 0) { if (!silent) toast('Tidak ada antrian', 'info'); return; }
             let processed = 0;
-            // Proses deletes
             if (state.sheet.pendingDeletes.length > 0) {
                 const ids = [...state.sheet.pendingDeletes];
                 const remaining = [];
@@ -964,7 +946,6 @@
                 }
                 state.sheet.pendingDeletes = remaining;
             }
-            // Proses updates
             if (state.sheet.pendingUpdates.length > 0) {
                 const updates = [...state.sheet.pendingUpdates];
                 const remaining = [];
@@ -990,7 +971,6 @@
 
         window.syncAllToSheet = async function() {
             if (!state.sheet.connected) { toast('Belum terhubung', 'error'); return; }
-            // Proses queue dulu
             await flushSheetQueue(true);
             if (!state.finances.length) { toast('Tidak ada transaksi', 'info'); return; }
             const syncedIds = new Set(state.sheet.syncedIds || []);
@@ -1017,7 +997,7 @@
             });
         };
 
-        // ==================== MANAGE LABELS (Bug #7) ====================
+        // ==================== MANAGE LABELS ====================
         window.openManageLibModal = function(type) {
             document.getElementById('manage-lib-type').value = type;
             document.getElementById('manage-lib-title').innerText = type === 'source' ? 'Kelola Sumber Dana' : 'Kelola Kategori';
@@ -1030,9 +1010,7 @@
             const isSource = type === 'source';
             const defs = isSource ? DEFAULT_SOURCES : [...DEFAULT_CATS_INCOME, ...DEFAULT_CATS_EXPENSE].filter((v,i,a)=>a.indexOf(v)===i);
             const customs = state.financeLibs.filter(l => l.type === type);
-            // Default labels (read-only, no delete)
             document.getElementById('manage-lib-default').innerHTML = defs.map(d => `<span class="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-semibold text-slate-500">${esc(d)}</span>`).join('');
-            // Custom labels (bisa edit/hapus)
             if (customs.length === 0) {
                 document.getElementById('manage-lib-custom').innerHTML = '<p class="text-xs text-slate-400 italic py-2">Belum ada label kustom. Tambahkan di bawah ⬇️</p>';
             } else {
@@ -1062,7 +1040,6 @@
             if (!lib) return;
             const newName = prompt('Nama baru untuk "' + lib.name + '":', lib.name);
             if (!newName || !newName.trim()) return;
-            const oldName = lib.name;
             lib.name = sanitize(newName, LIMITS.LIB_NAME);
             saveFinanceLibs();
             renderManageLib();
@@ -1072,7 +1049,6 @@
         window.deleteLib = function(id) {
             const lib = state.financeLibs.find(l => l.id === id);
             if (!lib) return;
-            // Hitung berapa transaksi yang pakai label ini
             const usage = state.finances.filter(f => 
                 (lib.type === 'source' && f.source === lib.name) || 
                 (lib.type === 'category' && f.category === lib.name)
@@ -1168,7 +1144,6 @@
                     document.getElementById('app-container').classList.remove('hidden');
                     document.getElementById('user-greeting').textContent = user.displayName || user.email.split('@')[0];
                     await loadUserData(user.uid);
-                    // Auto-flush sheet queue saat login
                     if (navigator.onLine && state.sheet.connected) setTimeout(() => flushSheetQueue(true), 2000);
                 } else {
                     state.currentUser = null;
@@ -1222,7 +1197,6 @@
                 const cached = cacheGet(uid, f);
                 if (cached) state[f] = cached;
             });
-            // Load sheet queue dari localStorage
             loadSheetQueue();
             try {
                 const snap = await getDoc(ref);
@@ -1235,16 +1209,22 @@
                     state.habits = data.habits || [];
                     state.recurrings = data.recurrings || [];
                     if (data.sheet) {
-                        // Merge: jangan timpa queue lokal
                         const remoteSheet = data.sheet;
-                        state.sheet = {
-                            ...state.sheet,
-                            ...remoteSheet,
-                            pendingDeletes: state.sheet.pendingDeletes || [],
-                            pendingUpdates: state.sheet.pendingUpdates || []
-                        };
+                        state.sheet = { ...state.sheet, ...remoteSheet, pendingDeletes: state.sheet.pendingDeletes || [], pendingUpdates: state.sheet.pendingUpdates || [] };
                     }
                     state.isDataLoaded = true;
+                    // Fix #8: Auto-recover completedAt untuk task done yang null
+                    let fixedCount = 0;
+                    state.tasks.forEach(t => {
+                        if (t.status === 'done' && !t.completedAt) {
+                            t.completedAt = t.createdAt || nowISO();
+                            fixedCount++;
+                        }
+                    });
+                    if (fixedCount > 0) {
+                        console.log(`🔧 Auto-fixed ${fixedCount} task(s) with missing completedAt`);
+                        setTimeout(() => saveTasks(), 500);
+                    }
                     processRecurrings();
                     renderAll();
                     updateSheetBadge();
@@ -1265,14 +1245,17 @@
                 });
                 if (data.sheet) {
                     const remoteSheet = data.sheet;
-                    state.sheet = {
-                        ...state.sheet,
-                        ...remoteSheet,
-                        // Jangan timpa queue lokal
-                        pendingDeletes: state.sheet.pendingDeletes || [],
-                        pendingUpdates: state.sheet.pendingUpdates || []
-                    };
+                    state.sheet = { ...state.sheet, ...remoteSheet, pendingDeletes: state.sheet.pendingDeletes || [], pendingUpdates: state.sheet.pendingUpdates || [] };
                 }
+                // Fix #8: Auto-recover setelah snapshot
+                let fixedCount = 0;
+                state.tasks.forEach(t => {
+                    if (t.status === 'done' && !t.completedAt) {
+                        t.completedAt = t.createdAt || nowISO();
+                        fixedCount++;
+                    }
+                });
+                if (fixedCount > 0) setTimeout(() => saveTasks(), 500);
                 if (changed && state.isDataLoaded) { renderAll(); showSyncIndicator('synced'); updateSheetBadge(); }
             });
         }
@@ -1347,7 +1330,9 @@
                             if(t) {
                                 if (t.id === taskId && status !== oldStatus) {
                                     t.status = status;
-                                    t.completedAt = status === 'done' ? nowISO() : null;
+                                    // Fix #8: preserve completedAt kalau ada, set baru kalau done
+                                    if (status === 'done') t.completedAt = t.completedAt || nowISO();
+                                    else t.completedAt = null;
                                 }
                                 newOrder.push(t);
                             }
@@ -1412,6 +1397,17 @@
                     ? `<span class="text-[10px] text-amber-500" title="Reminder: ${formatDateTime(task.reminderAt)}"><i class="fa-solid fa-bell"></i></span>`
                     : '';
 
+                // Fix #8: extraInfoHTML untuk task done
+                let extraInfoHTML = '';
+                if (task.status === 'done') {
+                    // Auto-fix kalau completedAt null
+                    if (!task.completedAt) task.completedAt = task.createdAt || nowISO();
+                    const selesai = formatDateTime(task.completedAt);
+                    const durasi = calcDuration(task.createdAt, task.completedAt);
+                    extraInfoHTML = `<p class="text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-circle-check mr-1.5"></i>Selesai: ${selesai}</p>
+                                     <p class="text-indigo-500 dark:text-indigo-400 font-medium"><i class="fa-solid fa-hourglass-end mr-1.5"></i>Durasi: ${durasi}</p>`;
+                }
+
                 const statusOrder = ['todo', 'inprogress', 'done'];
                 const idx = statusOrder.indexOf(task.status);
                 const prevBtn = idx > 0
@@ -1434,7 +1430,7 @@
                     ${tagsHTML}
                     ${subtaskBar}
                     <div class="flex items-center justify-between gap-2 pt-2 mt-1 border-t border-slate-100 dark:border-slate-700/60">
-                        <div class="flex flex-col gap-1 min-w-0 flex-grow">${dueHTML}${createdHTML}${reminderIcon}</div>
+                        <div class="flex flex-col gap-1 min-w-0 flex-grow">${dueHTML}${createdHTML}${reminderIcon}${extraInfoHTML}</div>
                         <div class="flex items-center gap-1.5 shrink-0">${prevBtn}${nextBtn}</div>
                     </div>`;
                 cols[task.status].appendChild(card);
@@ -1461,7 +1457,9 @@
             if (newIdx < 0 || newIdx >= order.length) return;
             const newStatus = order[newIdx];
             t.status = newStatus;
-            t.completedAt = newStatus === 'done' ? nowISO() : null;
+            // Fix #8: preserve completedAt
+            if (newStatus === 'done') t.completedAt = t.completedAt || nowISO();
+            else t.completedAt = null;
             state.tasks = state.tasks.filter(x => x.id !== taskId);
             state.tasks.unshift(t);
             saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
@@ -1957,9 +1955,9 @@
                 circle.appendChild(title);
                 svg.appendChild(circle);
                 cum += percent;
-                legend.innerHTML += `<div class="flex items-center justify-between text-[11px]">
-                    <div class="flex items-center gap-1.5 truncate"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${color}"></span><span class="text-slate-600 dark:text-slate-300 font-medium truncate">${esc(label)}</span></div>
-                    <span class="font-bold text-slate-700 dark:text-slate-200 ml-2 shrink-0">${percent.toFixed(1)}%</span>
+                legend.innerHTML += `<div class="flex items-center justify-between text-[10px] md:text-[11px]">
+                    <div class="flex items-center gap-1 md:gap-1.5 truncate"><span class="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full shrink-0" style="background-color: ${color}"></span><span class="text-slate-600 dark:text-slate-300 font-medium truncate">${esc(label)}</span></div>
+                    <span class="font-bold text-slate-700 dark:text-slate-200 ml-1 md:ml-2 shrink-0">${percent.toFixed(1)}%</span>
                 </div>`;
             });
         }
@@ -2127,7 +2125,7 @@
         };
         window.createNewNote = function() {
             const id = Date.now().toString();
-            state.notes.unshift({ id, title: 'Catatan Baru', body: '', updatedAt: Date.now(), pinned: false });
+            state.notes.unshift({ id, title: '', body: '', updatedAt: Date.now(), pinned: false });
             saveNotes(); currentNoteId = id; loadNote(id);
         };
         let noteTimer;
@@ -2152,7 +2150,7 @@
             const n = state.notes.find(x => x.id === currentNoteId);
             showConfirm({
                 title: 'Hapus Catatan?',
-                message: `Catatan "${n ? n.title : 'ini'}" akan dihapus permanen.`,
+                message: `Catatan "${n ? (n.title || 'tanpa judul') : 'ini'}" akan dihapus permanen.`,
                 variant: 'danger', okText: 'Ya, Hapus',
                 onConfirm: () => {
                     state.notes = state.notes.filter(x => x.id !== currentNoteId);
@@ -2379,7 +2377,6 @@
             });
         }, 60000);
 
-        // Auto-flush sheet queue setiap 30 detik kalau ada pending
         setInterval(() => {
             if (navigator.onLine && state.sheet.connected && ((state.sheet.pendingDeletes?.length || 0) + (state.sheet.pendingUpdates?.length || 0)) > 0) {
                 flushSheetQueue(true);
@@ -2442,9 +2439,7 @@
         window.addEventListener('online', () => {
             showSyncIndicator('synced');
             flushPendingSync();
-            if (state.sheet.connected) {
-                setTimeout(() => flushSheetQueue(true), 800);
-            }
+            if (state.sheet.connected) setTimeout(() => flushSheetQueue(true), 800);
         });
         window.addEventListener('offline', () => showSyncIndicator('offline'));
     </script>

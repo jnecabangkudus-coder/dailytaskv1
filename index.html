@@ -373,7 +373,7 @@
                     <div class="space-y-2 md:space-y-4">
                         <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-sky-400 to-sky-500"></span> Akan</span><span id="txt-todo" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-todo" class="h-full bg-gradient-to-r from-sky-400 to-sky-500" style="width:0%"></div></div></div>
                         <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-sky-500 to-blue-600"></span> Proses</span><span id="txt-inprogress" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-inprogress" class="h-full bg-gradient-to-r from-sky-500 to-blue-600" style="width:0%"></div></div></div>
-                        <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-gradient-to-r from-blue-600 to-indigo-700" style="width:0%"></div></div></div>
+                        <div><div class="flex justify-between text-[10px] md:text-sm mb-0.5 md:mb-1"><span class="flex items-center gap-1.5 md:gap-2 text-slate-600 dark:text-slate-300 font-medium"><span class="w-2 h-2 md:w-3 md:h-3 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700"></span> Selesai</span><span id="txt-done" class="font-bold text-slate-700 dark:text-slate-200">0% (0)</span></div><div class="h-1.5 md:h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden"><div id="sub-bar-done" class="h-full bg-gradient-to-r from-blue-600 to-indigo-700" style="width:0%"></div></div></div>
                     </div>
                 </div>
                 <div class="bg-white dark:bg-slate-800 p-3 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm flex flex-col items-center justify-center">
@@ -590,24 +590,14 @@
                 <button onclick="closeModal('modal-add-finance')" class="text-slate-400 hover:text-rose-500 p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             <!-- Tab Switcher -->
-            <div class="flex p-1 bg-slate-100 dark:bg-slate-700 rounded-xl gap-1">
-                <button type="button" id="fin-tab-income" onclick="switchFinanceTab('income')" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all">Pemasukan</button>
-                <button type="button" id="fin-tab-expense" onclick="switchFinanceTab('expense')" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all">Pengeluaran</button>
-                <button type="button" id="fin-tab-transfer" onclick="switchFinanceTab('transfer')" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all">Transfer</button>
+            <div class="grid grid-cols-3 gap-2">
+                <button type="button" id="fin-tab-income" onclick="switchFinanceTab('income')" class="py-2.5 rounded-xl border-2 text-sm font-bold transition-all">Pemasukan</button>
+                <button type="button" id="fin-tab-expense" onclick="switchFinanceTab('expense')" class="py-2.5 rounded-xl border-2 text-sm font-bold transition-all">Pengeluaran</button>
+                <button type="button" id="fin-tab-transfer" onclick="switchFinanceTab('transfer')" class="py-2.5 rounded-xl border-2 text-sm font-bold transition-all">Transfer</button>
             </div>
 
             <!-- TAB: PEMASUKAN / PENGELUARAN -->
             <div id="fin-form-normal" class="space-y-4">
-                <div class="grid grid-cols-2 gap-3">
-                    <label class="cursor-pointer group">
-                        <input type="radio" name="fin-type" value="Pemasukan" class="peer hidden" checked onchange="toggleCategoryType()">
-                        <div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 peer-checked:border-emerald-500 dark:peer-checked:bg-emerald-900/30 dark:peer-checked:text-emerald-400 font-semibold transition-all">Pemasukan</div>
-                    </label>
-                    <label class="cursor-pointer group">
-                        <input type="radio" name="fin-type" value="Pengeluaran" class="peer hidden" onchange="toggleCategoryType()">
-                        <div class="text-center py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 peer-checked:bg-rose-50 peer-checked:text-rose-700 peer-checked:border-rose-500 dark:peer-checked:bg-rose-900/30 dark:peer-checked:text-rose-400 font-semibold transition-all">Pengeluaran</div>
-                    </label>
-                </div>
                 <div>
                     <label class="text-xs font-semibold text-slate-500 mb-2 block uppercase tracking-wider">Sumber Dana</label>
                     <div class="flex flex-wrap items-center gap-2">
@@ -1616,13 +1606,10 @@
             else openAddTaskModal();
         };
         window.openAddFinanceModal = function() {
-            // Reset form normal
             document.getElementById('fin-amount').value = '';
             document.getElementById('fin-note').value = '';
             document.getElementById('fin-recurring').checked = false;
             document.getElementById('fin-recurring-interval').classList.add('hidden');
-            document.querySelector('input[name="fin-type"][value="Pemasukan"]').checked = true;
-            // Reset form transfer
             document.getElementById('transfer-source').value = '';
             document.getElementById('transfer-target').value = '';
             document.getElementById('transfer-amount').value = '';
@@ -1642,15 +1629,15 @@
         window.switchFinanceTab = function(tab) {
             activeFinanceTab = tab;
             const tabs = ['income', 'expense', 'transfer'];
+            const inactiveClass = 'py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-sm font-bold transition-all hover:border-slate-300 dark:hover:border-slate-600';
+            const activeClasses = {
+                income: 'py-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-bold transition-all shadow-sm',
+                expense: 'py-2.5 rounded-xl border-2 border-rose-500 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 text-sm font-bold transition-all shadow-sm',
+                transfer: 'py-2.5 rounded-xl border-2 border-violet-500 bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400 text-sm font-bold transition-all shadow-sm'
+            };
             tabs.forEach(t => {
                 const btn = document.getElementById('fin-tab-' + t);
-                if (t === tab) {
-                    if (t === 'income') btn.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-white shadow-sm';
-                    else if (t === 'expense') btn.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-rose-500 text-white shadow-sm';
-                    else btn.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-violet-500 text-white shadow-sm';
-                } else {
-                    btn.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate-500 dark:text-slate-400';
-                }
+                if (btn) btn.className = (t === tab) ? activeClasses[t] : inactiveClass;
             });
             document.getElementById('fin-form-normal').classList.toggle('hidden', tab === 'transfer');
             document.getElementById('fin-form-transfer').classList.toggle('hidden', tab !== 'transfer');
@@ -1661,14 +1648,11 @@
                 updateTransferTargets();
             } else {
                 titleEl.innerHTML = '<i class="fa-solid fa-money-bill-transfer text-sky-500"></i> Catat Transaksi';
-                // Set radio
-                const radio = document.querySelector(`input[name="fin-type"][value="${tab === 'income' ? 'Pemasukan' : 'Pengeluaran'}"]`);
-                if (radio) radio.checked = true;
                 renderFinanceDropdowns();
             }
         };
 
-        // ==================== TRANSFER DOMESTIC ====================
+        // ==================== TRANSFER ====================
         function getSourceBalances() {
             const balances = {};
             state.finances.forEach(f => {
@@ -1688,7 +1672,6 @@
             const balances = getSourceBalances();
             const customSources = state.financeLibs.filter(l => l.type === 'source').map(l => l.name);
             const allSources = [...new Set([...DEFAULT_SOURCES, ...customSources])];
-            // Hanya tampilkan yang punya saldo > 0 atau pernah dipakai
             const activeSources = allSources.filter(s => balances[s] !== undefined);
             const srcSelect = document.getElementById('transfer-source');
             const prev = srcSelect.value;
@@ -1712,7 +1695,6 @@
                 ).join('');
             if (prev && prev !== srcVal) tgtSelect.value = prev;
 
-            // Update balance display
             const srcBalanceEl = document.getElementById('transfer-source-balance');
             srcBalanceEl.textContent = srcVal ? `Saldo saat ini: ${fmtRupiah(balances[srcVal] || 0)}` : '';
 
@@ -1720,7 +1702,6 @@
             const tgtVal = tgtSelect.value;
             tgtBalanceEl.textContent = tgtVal ? `Saldo saat ini: ${fmtRupiah(balances[tgtVal] || 0)}` : '';
 
-            // Update warning
             updateTransferWarning();
         };
 
@@ -1772,7 +1753,6 @@
             toast(`✅ ${fmtRupiah(amount)} dipindah dari ${source} ke ${target}`, 'success');
         };
 
-        // Bind amount oninput untuk warning
         document.addEventListener('DOMContentLoaded', () => {
             const transferAmt = document.getElementById('transfer-amount');
             if (transferAmt) transferAmt.addEventListener('input', updateTransferWarning);
@@ -1928,12 +1908,9 @@
             state.financeLibs.push({ id: Date.now().toString(), type, name });
             saveFinanceLibs(); renderFinanceDropdowns(); closeFinanceLibModal();
         };
-        window.toggleCategoryType = function() { renderFinanceDropdowns(); };
 
         function renderFinanceDropdowns() {
-            const typeEl = document.querySelector('input[name="fin-type"]:checked');
-            if(!typeEl) return;
-            const isIncome = typeEl.value === 'Pemasukan';
+            const isIncome = (activeFinanceTab === 'income');
             const customSources = state.financeLibs.filter(l => l.type === 'source').map(l => l.name);
             const customCats = state.financeLibs.filter(l => l.type === 'category').map(l => l.name);
             const allSources = [...new Set([...DEFAULT_SOURCES, ...customSources])];
@@ -1980,10 +1957,9 @@
         };
 
         window.submitFinance = function() {
-            const typeEl = document.querySelector('input[name="fin-type"]:checked');
             const sourceEl = document.querySelector('input[name="fin-source"]:checked');
             const categoryEl = document.querySelector('input[name="fin-category"]:checked');
-            if(!typeEl || !sourceEl || !categoryEl) return;
+            if(!sourceEl || !categoryEl) { toast('Pilih sumber dana & kategori', 'error'); return; }
             const rawAmount = document.getElementById('fin-amount').value.replace(/[^0-9]/g, '');
             const amount = parseFloat(rawAmount);
             if (isNaN(amount) || amount <= 0) { toast('Nominal harus lebih dari 0', 'error'); return; }
@@ -1995,7 +1971,8 @@
             }
             const f = {
                 id: Date.now().toString(),
-                type: typeEl.value, source: sourceEl.value, category: categoryEl.value,
+                type: activeFinanceTab === 'income' ? 'Pemasukan' : 'Pengeluaran',
+                source: sourceEl.value, category: categoryEl.value,
                 amount, datetime,
                 note: sanitize(document.getElementById('fin-note').value, LIMITS.FIN_NOTE),
                 createdAt: nowISO(),

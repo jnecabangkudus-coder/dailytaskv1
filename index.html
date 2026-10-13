@@ -246,7 +246,7 @@
             <p id="home-context" class="text-sm text-white/90 mb-3">Mohon tunggu...</p>
             <p id="home-datetime" class="text-xs text-white/75 font-mono">--</p>
         </div>
-        <i class="fa-solid fa-sun absolute -right-6 -bottom-6 text-8xl opacity-10 pointer-events-none"></i>
+        <i id="home-greeting-icon" class="fa-solid fa-sun absolute -right-6 -bottom-6 text-8xl opacity-10 pointer-events-none"></i>
     </div>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -860,7 +860,47 @@
     ]
 };
 
+const GREETINGS_ALL_DONE = [
+    "🎉 Semua beres, {name}! Kamu luar biasa hari ini!",
+    "🏆 Mantap {name}! Tugas & kebiasaan tuntas semua!",
+    "✨ Kerja bagus, {name}! Hari ini produktif banget!",
+    "🌟 Hebat {name}! Semua target hari ini tercapai!",
+    "🎯 Perfect, {name}! Tidak ada yang tertinggal!",
+    "💪 Keren {name}! Disiplin kamu patut diacungi jempol!",
+    "🔥 {name}, hari ini kamu on fire! Semua selesai!",
+    "👏 Salut {name}! Semua tugas & habit kelar!",
+    "🚀 Luar biasa {name}! Produktivitas maksimal!",
+    "⭐ Bintang hari ini: {name}! Semua tuntas!"
+];
+
+function isAllDoneToday() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+    const doneToday = state.tasks.filter(t => t.status === 'done' && t.completedAt && t.completedAt.slice(0,10) === todayStr);
+    const activeTasks = state.tasks.filter(t => t.status !== 'done');
+    if (doneToday.length === 0) return false;
+    if (activeTasks.length > 0) return false;
+    if (state.habits.length > 0) {
+        const dayIdx = (new Date().getDay() || 7) - 1;
+        const habitsNotDone = state.habits.filter(h => !h.days[dayIdx]).length;
+        if (habitsNotDone > 0) return false;
+    }
+    return true;
+}
+
 function getGreeting(name) {
+    const todayKey = new Date().toDateString();
+
+    if (isAllDoneToday()) {
+        const cacheKey = `greeting_alldone_${todayKey}`;
+        let idx = localStorage.getItem(cacheKey);
+        if (idx === null) {
+            idx = Math.floor(Math.random() * GREETINGS_ALL_DONE.length);
+            localStorage.setItem(cacheKey, idx);
+        }
+        return GREETINGS_ALL_DONE[parseInt(idx)].replace('{name}', name);
+    }
+
     const hour = new Date().getHours();
     let period;
     if (hour >= 5 && hour < 11) period = 'pagi';
@@ -868,7 +908,7 @@ function getGreeting(name) {
     else if (hour >= 15 && hour < 18) period = 'sore';
     else period = 'malam';
 
-    const cacheKey = `greeting_${period}_${new Date().toDateString()}`;
+    const cacheKey = `greeting_${period}_${todayKey}`;
     let idx = localStorage.getItem(cacheKey);
     if (idx === null) {
         idx = Math.floor(Math.random() * GREETINGS[period].length);
@@ -1518,8 +1558,26 @@ function renderHome() {
 
     // ========== SAPAAN ==========
     const greetingEl = document.getElementById('home-greeting');
-    if (greetingEl) greetingEl.innerText = getGreeting(name);
+if (greetingEl) greetingEl.innerText = getGreeting(name);
 
+// Ubah warna kartu saat all done
+const cardEl = document.getElementById('home-greeting-card');
+if (cardEl) {
+    if (isAllDoneToday()) {
+        cardEl.className = 'bg-gradient-to-br from-emerald-500 via-teal-500 to-green-600 rounded-2xl p-5 md:p-6 shadow-md text-white relative overflow-hidden';
+    } else {
+        cardEl.className = 'bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 rounded-2xl p-5 md:p-6 shadow-md text-white relative overflow-hidden';
+    }
+}
+    // Ubah icon saat all done
+const iconEl = document.getElementById('home-greeting-icon');
+if (iconEl) {
+    if (isAllDoneToday()) {
+        iconEl.className = 'fa-solid fa-trophy absolute -right-6 -bottom-6 text-8xl opacity-10 pointer-events-none';
+    } else {
+        iconEl.className = 'fa-solid fa-sun absolute -right-6 -bottom-6 text-8xl opacity-10 pointer-events-none';
+    }
+}
     const now = new Date();
     const dtEl = document.getElementById('home-datetime');
     if (dtEl) dtEl.innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });

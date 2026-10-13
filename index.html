@@ -249,41 +249,45 @@
         <i class="fa-solid fa-sun absolute -right-6 -bottom-6 text-8xl opacity-10 pointer-events-none"></i>
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <button onclick="switchTab('tasks')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-2">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <button onclick="openAddTaskModal()" class="bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all active:scale-95">
+            <div class="flex items-center justify-between mb-1.5">
                 <span class="text-[10px] font-black uppercase tracking-wider text-sky-500">Tugas</span>
                 <i class="fa-solid fa-list-check text-sky-500"></i>
             </div>
-            <p id="home-stat-tasks" class="text-2xl font-black text-slate-800 dark:text-white">0/0</p>
-            <p id="home-stat-tasks-sub" class="text-[10px] text-slate-500 mt-1">selesai hari ini</p>
+            <p id="home-stat-tasks" class="text-xl font-black text-slate-800 dark:text-white">0/0</p>
+            <p class="text-[9px] text-slate-400 mt-0.5">selesai hari ini</p>
+            <p class="text-[10px] font-bold text-sky-500 mt-1.5"><i class="fa-solid fa-plus text-[8px]"></i> Tambah</p>
         </button>
 
-        <button onclick="switchTab('finance')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-2">
+        <button onclick="openAddFinanceModal()" class="bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all active:scale-95">
+            <div class="flex items-center justify-between mb-1.5">
                 <span class="text-[10px] font-black uppercase tracking-wider text-emerald-500">Saldo</span>
                 <i class="fa-solid fa-wallet text-emerald-500"></i>
             </div>
             <p id="home-stat-balance" class="text-base font-black text-slate-800 dark:text-white truncate">Rp 0</p>
-            <p id="home-stat-balance-sub" class="text-[10px] text-slate-500 mt-1">total saldo</p>
+            <p class="text-[9px] text-slate-400 mt-0.5">total saldo</p>
+            <p class="text-[10px] font-bold text-emerald-500 mt-1.5"><i class="fa-solid fa-plus text-[8px]"></i> Catat</p>
         </button>
 
-        <button onclick="switchTab('habits')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-2">
+        <button onclick="switchTab('habits')" class="bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all active:scale-95">
+            <div class="flex items-center justify-between mb-1.5">
                 <span class="text-[10px] font-black uppercase tracking-wider text-amber-500">Streak</span>
                 <i class="fa-solid fa-fire text-amber-500"></i>
             </div>
-            <p id="home-stat-streak" class="text-2xl font-black text-slate-800 dark:text-white">0</p>
-            <p id="home-stat-streak-sub" class="text-[10px] text-slate-500 mt-1 truncate">hari terbaik</p>
+            <p id="home-stat-streak" class="text-xl font-black text-slate-800 dark:text-white">0</p>
+            <p id="home-stat-streak-sub" class="text-[9px] text-slate-400 mt-0.5 truncate">hari terbaik</p>
+            <p class="text-[10px] font-bold text-amber-500 mt-1.5">Lihat <i class="fa-solid fa-arrow-right text-[8px]"></i></p>
         </button>
 
-        <button onclick="switchTab('pomodoro')" class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all">
-            <div class="flex items-center justify-between mb-2">
+        <button onclick="switchTab('pomodoro')" class="bg-white dark:bg-slate-800 p-3 rounded-2xl border border-slate-200 dark:border-slate-700 text-left hover:shadow-md transition-all active:scale-95">
+            <div class="flex items-center justify-between mb-1.5">
                 <span class="text-[10px] font-black uppercase tracking-wider text-violet-500">Fokus</span>
                 <i class="fa-solid fa-clock text-violet-500"></i>
             </div>
-            <p id="home-stat-focus" class="text-2xl font-black text-slate-800 dark:text-white">0m</p>
-            <p class="text-[10px] text-slate-500 mt-1">hari ini</p>
+            <p id="home-stat-focus" class="text-xl font-black text-slate-800 dark:text-white">25m</p>
+            <p class="text-[9px] text-slate-400 mt-0.5">hari ini</p>
+            <p class="text-[10px] font-bold text-violet-500 mt-1.5">Mulai <i class="fa-solid fa-arrow-right text-[8px]"></i></p>
         </button>
     </div>
 

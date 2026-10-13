@@ -1529,7 +1529,7 @@ function renderHome() {
 
     // ========== HITUNG DATA ==========
     const today = new Date(); today.setHours(0,0,0,0);
-    const todayStr = today.toISOString().slice(0,10);
+const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
     const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
     const next3Days = new Date(today.getTime() + 3*24*60*60*1000);
 
@@ -1633,8 +1633,14 @@ function renderHome() {
     }
 
     // ========== KEUANGAN HARI INI ==========
-    const todayInc = state.finances.filter(f => f.type === 'Pemasukan' && f.datetime?.slice(0,10) === todayStr).reduce((a,b) => a + b.amount, 0);
-    const todayExp = state.finances.filter(f => f.type === 'Pengeluaran' && f.datetime?.slice(0,10) === todayStr).reduce((a,b) => a + b.amount, 0);
+    const todayInc = state.finances.filter(f => {
+    if (f.type !== 'Pemasukan' || !f.datetime) return false;
+    return f.datetime.slice(0,10) === todayStr;
+}).reduce((a,b) => a + b.amount, 0);
+const todayExp = state.finances.filter(f => {
+    if (f.type !== 'Pengeluaran' || !f.datetime) return false;
+    return f.datetime.slice(0,10) === todayStr;
+}).reduce((a,b) => a + b.amount, 0);
     const incEl = document.getElementById('home-fin-income');
     const expEl = document.getElementById('home-fin-expense');
     if (incEl) incEl.innerText = fmtRupiahShort(todayInc);

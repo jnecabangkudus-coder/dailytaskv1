@@ -332,24 +332,6 @@
         <div id="home-tips-list" class="space-y-2"></div>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <button onclick="openAddTaskModal()" class="bg-sky-600 hover:bg-sky-700 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
-            <i class="fa-solid fa-plus text-xl"></i>
-            <span class="text-xs font-bold">Tugas Baru</span>
-        </button>
-        <button onclick="openAddFinanceModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
-            <i class="fa-solid fa-money-bill-transfer text-xl"></i>
-            <span class="text-xs font-bold">Transaksi</span>
-        </button>
-        <button onclick="switchTab('notes'); setTimeout(() => createNewNote(), 300)" class="bg-amber-500 hover:bg-amber-600 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
-            <i class="fa-solid fa-note-sticky text-xl"></i>
-            <span class="text-xs font-bold">Catatan</span>
-        </button>
-        <button onclick="switchTab('pomodoro')" class="bg-violet-600 hover:bg-violet-700 text-white p-4 rounded-2xl shadow-md transition-all flex flex-col items-center gap-2">
-            <i class="fa-solid fa-clock text-xl"></i>
-            <span class="text-xs font-bold">Fokus</span>
-        </button>
-    </div>
 </section>
         <section id="tab-tasks" class="tab-content space-y-4 md:space-y-6">
             <div class="bg-white dark:bg-slate-800 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm space-y-3">
@@ -1490,6 +1472,7 @@ function getGreeting(name) {
                     if (fixedCount > 0) { console.log(`🔧 Auto-fixed ${fixedCount} task(s)`); setTimeout(() => saveTasks(), 500); }
                     processRecurrings();
                     renderAll();
+                    if (state.currentUser) setTimeout(() => renderHome(), 200);
                     updateSheetBadge();
                 } else {
                     await window.firebaseFns.setDoc(ref, { tasks: [], finances: [], financeLibs: [], notes: [], habits: [], recurrings: [], createdAt: nowISO() });
@@ -1532,74 +1515,133 @@ function getGreeting(name) {
 }
 
 let homeChartMini = null;
+let homeChartMini = null;
 function renderHome() {
     if (!state.currentUser) return;
     const name = state.currentUser.displayName || state.currentUser.email.split('@')[0];
 
-    document.getElementById('home-greeting').innerText = getGreeting(name);
-    const now = new Date();
-    document.getElementById('home-datetime').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    // ========== SAPAAN ==========
+    const greetingEl = document.getElementById('home-greeting');
+    if (greetingEl) greetingEl.innerText = getGreeting(name);
 
+    const now = new Date();
+    const dtEl = document.getElementById('home-datetime');
+    if (dtEl) dtEl.innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ' · ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+    // ========== HITUNG DATA ==========
     const today = new Date(); today.setHours(0,0,0,0);
     const todayStr = today.toISOString().slice(0,10);
-    const tasksToday = state.tasks.filter(t => t.date === todayStr || (t.status !== 'done' && t.date && new Date(t.date) <= new Date(today.getTime() + 3*24*60*60*1000)));
-    const doneToday = state.tasks.filter(t => t.status === 'done' && t.completedAt?.slice(0,10) === todayStr);
-    const overdue = state.tasks.filter(t => t.status !== 'done' && t.date && new Date(t.date) < today);
+    const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
+    const next3Days = new Date(today.getTime() + 3*24*60*60*1000);
 
-    let ctx = tasksToday.length > 0 ? `${tasksToday.length} tugas menunggu hari ini` : 'Tidak ada tugas mendesak hari ini';
+    // Tugas yang relevan: belum done & (tanpa tanggal / deadline ≤ 3 hari / lewat tenggat)
+    const activeTasks = state.tasks.filter(t => t.status !== 'done');
+    const tasksToday = activeTasks.filter(t => {
+        if (!t.date) return true; // tanpa tanggal tetap masuk
+        const d = new Date(t.date); d.setHours(0,0,0,0);
+        return d <= next3Days;
+    });
+    const doneToday = state.tasks.filter(t => t.status === 'done' && t.completedAt?.slice(0,10) === todayStr);
+    const overdue = activeTasks.filter(t => t.date && new Date(t.date) < today);
+
+    // Task yang deadline dalam 24 jam
+    const urgentTasks = activeTasks.filter(t => {
+        if (!t.date) return false;
+        const d = new Date(t.date); d.setHours(23,59,59,999);
+        return d.getTime() - now.getTime() <= 24*60*60*1000 && d.getTime() >= now.getTime();
+    });
+
+    // ========== SUB-TEKS KONTEKS ==========
+    let ctx = '';
+    if (urgentTasks.length > 0) {
+        ctx = `⚠️ ${urgentTasks.length} tugas segera deadline! `;
+    }
+    if (tasksToday.length > 0) {
+        ctx += `${tasksToday.length} tugas aktif hari ini`;
+    } else {
+        ctx += 'Tidak ada tugas mendesak';
+    }
     if (overdue.length > 0) ctx += `, ${overdue.length} lewat tenggat ⚠️`;
 
     const habitsNotDone = state.habits.filter(h => {
         const dayIdx = (new Date().getDay() || 7) - 1;
         return !h.days[dayIdx];
     }).length;
-    if (habitsNotDone > 0 && tasksToday.length > 0) ctx += ` · ${habitsNotDone} habit belum dicentang`;
-    document.getElementById('home-context').innerText = ctx;
+    if (habitsNotDone > 0) ctx += ` · ${habitsNotDone} habit belum dicentang`;
+    const ctxEl = document.getElementById('home-context');
+    if (ctxEl) ctxEl.innerText = ctx;
 
-    const totalTasks = state.tasks.length;
-    document.getElementById('home-stat-tasks').innerText = `${doneToday.length}/${tasksToday.length || totalTasks}`;
-    document.getElementById('home-stat-tasks-sub').innerText = overdue.length > 0 ? `${overdue.length} lewat tenggat` : 'selesai hari ini';
+    // ========== STATS: TUGAS ==========
+    const statTasksEl = document.getElementById('home-stat-tasks');
+    if (statTasksEl) statTasksEl.innerText = `${doneToday.length}/${tasksToday.length + doneToday.length}`;
 
+    // ========== STATS: SALDO ==========
     const inc = state.finances.filter(f => f.type === 'Pemasukan').reduce((a,b) => a + b.amount, 0);
     const exp = state.finances.filter(f => f.type === 'Pengeluaran').reduce((a,b) => a + b.amount, 0);
     const balance = inc - exp;
-    document.getElementById('home-stat-balance').innerText = fmtRupiahShort(balance);
+    const statBalEl = document.getElementById('home-stat-balance');
+    if (statBalEl) statBalEl.innerText = fmtRupiahShort(balance);
 
+    // ========== STATS: STREAK ==========
     let bestStreak = 0, bestHabitName = '-';
     state.habits.forEach(h => {
-        if ((h.bestStreak || 0) > bestStreak) { bestStreak = h.bestStreak; bestHabitName = h.title; }
+        const s = h.bestStreak || h.streak || 0;
+        if (s > bestStreak) { bestStreak = s; bestHabitName = h.title; }
     });
-    document.getElementById('home-stat-streak').innerText = bestStreak;
-    document.getElementById('home-stat-streak-sub').innerText = bestHabitName;
+    const statStreakEl = document.getElementById('home-stat-streak');
+    if (statStreakEl) statStreakEl.innerText = bestStreak;
+    const statStreakSubEl = document.getElementById('home-stat-streak-sub');
+    if (statStreakSubEl) statStreakSubEl.innerText = bestStreak > 0 ? bestHabitName : 'belum ada';
 
-    document.getElementById('home-stat-focus').innerText = '25m';
+    // ========== STATS: FOKUS ==========
+    const statFocusEl = document.getElementById('home-stat-focus');
+    if (statFocusEl) statFocusEl.innerText = '25m';
 
+    // ========== LIST TUGAS HARI INI ==========
     const taskList = document.getElementById('home-tasks-list');
-    const prioOrder = { high: 0, medium: 1, low: 2 };
-    const topTasks = tasksToday.filter(t => t.status !== 'done').sort((a,b) => {
-        if (prioOrder[a.priority] !== prioOrder[b.priority]) return prioOrder[a.priority] - prioOrder[b.priority];
-        return (a.date || '9999').localeCompare(b.date || '9999');
-    }).slice(0, 5);
+    if (taskList) {
+        const prioOrder = { high: 0, medium: 1, low: 2 };
+        const topTasks = tasksToday.sort((a,b) => {
+            if (prioOrder[a.priority] !== prioOrder[b.priority]) return prioOrder[a.priority] - prioOrder[b.priority];
+            return (a.date || '9999').localeCompare(b.date || '9999');
+        }).slice(0, 5);
 
-    if (topTasks.length === 0) {
-        taskList.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">🎉 Tidak ada tugas mendesak. Santai dulu!</p>';
-    } else {
-        taskList.innerHTML = topTasks.map(t => {
-            const badge = t.priority === 'high' ? '🔴' : t.priority === 'medium' ? '🟡' : '🟢';
-            const due = t.date === todayStr ? 'Hari ini' : (t.date || '');
-            return `<div onclick="openEditTaskModal('${t.id}')" class="flex items-center gap-2 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors">
-                <span>${badge}</span>
-                <span class="flex-grow text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">${esc(t.title)}</span>
-                <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap">${due}</span>
-            </div>`;
-        }).join('');
+        if (topTasks.length === 0) {
+            taskList.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">🎉 Tidak ada tugas mendesak. Santai dulu!</p>';
+        } else {
+            taskList.innerHTML = topTasks.map(t => {
+                const badge = t.priority === 'high' ? '🔴' : t.priority === 'medium' ? '🟡' : '🟢';
+                let due = '';
+                if (t.date) {
+                    const d = new Date(t.date); d.setHours(0,0,0,0);
+                    const diffDays = Math.round((d - today) / (24*60*60*1000));
+                    if (diffDays < 0) due = '⚠️ Lewat';
+                    else if (diffDays === 0) due = 'Hari ini';
+                    else if (diffDays === 1) due = 'Besok';
+                    else due = `${diffDays} hari`;
+                } else {
+                    due = 'Tanpa tenggat';
+                }
+                const statusBadge = t.status === 'inprogress' ? '<span class="text-[9px] bg-sky-100 dark:bg-sky-900/40 text-sky-600 px-1.5 py-0.5 rounded">Proses</span>' : '';
+                return `<div onclick="openEditTaskModal('${t.id}')" class="flex items-center gap-2 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors">
+                    <span>${badge}</span>
+                    <span class="flex-grow text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">${esc(t.title)}</span>
+                    ${statusBadge}
+                    <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap">${due}</span>
+                </div>`;
+            }).join('');
+        }
     }
 
+    // ========== KEUANGAN HARI INI ==========
     const todayInc = state.finances.filter(f => f.type === 'Pemasukan' && f.datetime?.slice(0,10) === todayStr).reduce((a,b) => a + b.amount, 0);
     const todayExp = state.finances.filter(f => f.type === 'Pengeluaran' && f.datetime?.slice(0,10) === todayStr).reduce((a,b) => a + b.amount, 0);
-    document.getElementById('home-fin-income').innerText = fmtRupiahShort(todayInc);
-    document.getElementById('home-fin-expense').innerText = fmtRupiahShort(todayExp);
+    const incEl = document.getElementById('home-fin-income');
+    const expEl = document.getElementById('home-fin-expense');
+    if (incEl) incEl.innerText = fmtRupiahShort(todayInc);
+    if (expEl) expEl.innerText = fmtRupiahShort(todayExp);
 
+    // ========== CHART MINI 7 HARI ==========
     const chartEl = document.getElementById('home-chart-mini');
     if (chartEl && typeof Chart !== 'undefined') {
         const labels = [], data = [];
@@ -1613,30 +1655,36 @@ function renderHome() {
         homeChartMini = new Chart(chartEl.getContext('2d'), {
             type: 'bar',
             data: { labels, datasets: [{ data, backgroundColor: '#f43f5e', borderRadius: 6 }] },
-            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { display: false } }, x: { ticks: { font: { size: 9 } } } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { display: false } }, x: { ticks: { font: { size: 9 } } } } }
         });
     }
 
+    // ========== LIST KEBIASAAN ==========
     const habitsList = document.getElementById('home-habits-list');
-    const dayIdx = (new Date().getDay() || 7) - 1;
-    if (state.habits.length === 0) {
-        habitsList.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Belum ada kebiasaan. Ayo buat!</p>';
-    } else {
-        habitsList.innerHTML = state.habits.slice(0, 5).map(h => {
-            const checked = h.days[dayIdx];
-            return `<div class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-900/50">
-                <button onclick="toggleHabit('${h.id}', ${dayIdx}, ${!checked})" class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${checked ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-600'}">
-                    ${checked ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
-                </button>
-                <span class="flex-grow text-sm font-semibold ${checked ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">${esc(h.title)}</span>
-                <span class="text-[10px] text-amber-500 font-bold"><i class="fa-solid fa-fire"></i> ${h.streak || 0}</span>
-            </div>`;
-        }).join('');
+    if (habitsList) {
+        const dayIdx = (new Date().getDay() || 7) - 1;
+        if (state.habits.length === 0) {
+            habitsList.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Belum ada kebiasaan. Ayo buat!</p>';
+        } else {
+            habitsList.innerHTML = state.habits.slice(0, 5).map(h => {
+                const checked = h.days[dayIdx];
+                return `<div class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+                    <button onclick="toggleHabit('${h.id}', ${dayIdx}, ${!checked})" class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${checked ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-600'}">
+                        ${checked ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                    </button>
+                    <span class="flex-grow text-sm font-semibold ${checked ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">${esc(h.title)}</span>
+                    <span class="text-[10px] text-amber-500 font-bold"><i class="fa-solid fa-fire"></i> ${h.streak || 0}</span>
+                </div>`;
+            }).join('');
+        }
     }
 
+    // ========== TIPS ==========
     const tips = [];
-    if (overdue.length > 0) tips.push(`⚠️ Ada ${overdue.length} tugas lewat tenggat, prioritaskan!`);
+    if (urgentTasks.length > 0) tips.push(`⏰ ${urgentTasks.length} tugas segera deadline dalam 24 jam! Prioritaskan sekarang.`);
+    if (overdue.length > 0) tips.push(`⚠️ Ada ${overdue.length} tugas lewat tenggat, segera selesaikan!`);
     if (bestStreak > 5) tips.push(`🔥 Streak "${bestHabitName}" sudah ${bestStreak} hari, jangan putus!`);
+
     const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
     const weekExp = state.finances.filter(f => f.type === 'Pengeluaran' && new Date(f.datetime) >= weekAgo).reduce((a,b) => a + b.amount, 0);
     const prevWeekExp = state.finances.filter(f => f.type === 'Pengeluaran' && new Date(f.datetime) >= new Date(weekAgo.getTime() - 7*24*60*60*1000) && new Date(f.datetime) < weekAgo).reduce((a,b) => a + b.amount, 0);
@@ -1644,14 +1692,14 @@ function renderHome() {
         const pct = Math.round((weekExp / prevWeekExp - 1) * 100);
         tips.push(`📊 Pengeluaran naik ${pct}% minggu ini, cek budget!`);
     }
-    if (tasksToday.filter(t => t.status !== 'done').length === 0 && overdue.length === 0) tips.push('🎉 Tidak ada tugas mendesak hari ini. Santai dulu!');
+    if (tasksToday.length === 0 && overdue.length === 0) tips.push('🎉 Tidak ada tugas mendesak hari ini. Santai dulu!');
     if (habitsNotDone > 0) tips.push(`💪 ${habitsNotDone} kebiasaan belum dicentang hari ini`);
     const lowBalance = Object.entries(getSourceBalances()).filter(([_, v]) => v > 0 && v < 50000);
     if (lowBalance.length > 0) tips.push(`💰 Saldo ${lowBalance[0][0]} menipis: ${fmtRupiah(lowBalance[0][1])}`);
     if (tips.length === 0) tips.push('✨ Semua aman terkendali. Pertahankan!');
 
     const tipsList = document.getElementById('home-tips-list');
-    tipsList.innerHTML = tips.slice(0, 5).map(t => `<p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">${t}</p>`).join('');
+    if (tipsList) tipsList.innerHTML = tips.slice(0, 5).map(t => `<p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">${t}</p>`).join('');
 }
 
         // ==================== KANBAN MOBILE TABS ====================
@@ -2978,6 +3026,7 @@ function renderHome() {
                 }
             }
             if(tabId === 'home') renderHome();
+            if(tabId === 'home') setTimeout(() => renderHome(), 100);
             if(tabId === 'performance') { renderPerformance(); renderPerformanceCharts(); }
             if(tabId === 'finance') renderFinance();
             if(tabId === 'habits') renderHabits();

@@ -673,7 +673,20 @@
             </div>
             <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Subtask</label><div id="edit-subtask-list" class="space-y-2 mb-2"></div><div class="flex gap-2"><input id="edit-subtask-text" maxlength="120" placeholder="Tambah langkah..." autocomplete="off" class="flex-grow px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskDraft('edit');}"><button type="button" onclick="addSubtaskDraft('edit')" class="px-3 py-2 bg-sky-600 text-white rounded-xl text-sm font-bold">+</button></div></div>
             <div><label class="text-xs font-bold text-slate-500 mb-2 block uppercase">Tags</label><div id="edit-tags-container" class="flex flex-wrap gap-2 mb-2"></div><input id="edit-tag" maxlength="20" placeholder="Ketik tag + Enter" autocomplete="off" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" onkeypress="if(event.key==='Enter'){event.preventDefault();addTagDraft('edit');}"></div>
-            <div><label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder</label><input type="datetime-local" id="edit-task-reminder" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm"></div>
+            <div>
+    <label class="text-xs font-bold text-slate-500 mb-1 block uppercase">Reminder</label>
+    <input type="datetime-local" id="edit-task-reminder" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm">
+    <div class="flex items-center justify-between mt-2 p-2 bg-slate-50 dark:bg-slate-900/50 rounded-xl">
+        <label class="flex items-center gap-2 cursor-pointer text-sm font-semibold text-slate-600 dark:text-slate-300">
+            <input type="checkbox" id="edit-task-sync-calendar" class="rounded" checked>
+            <i class="fa-regular fa-calendar-check text-sky-500"></i> Sync ke Google Calendar
+        </label>
+        <button type="button" onclick="syncTaskToCalendarManual()" class="px-3 py-1.5 bg-sky-100 hover:bg-sky-200 dark:bg-sky-900/40 dark:hover:bg-sky-900/60 text-sky-600 dark:text-sky-400 rounded-lg text-xs font-bold transition-colors">
+            <i class="fa-solid fa-cloud-arrow-up text-[10px]"></i> Sync Sekarang
+        </button>
+    </div>
+    <p class="text-[10px] text-slate-400 mt-1.5"><i class="fa-solid fa-circle-info mr-1"></i>Event dibuat otomatis di kalender <b>"Taskku By GN"</b> saat ada reminder/tenggat.</p>
+</div>
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700"><button onclick="closeEditTaskModal()" class="px-5 py-2.5 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Batal</button><button onclick="submitEditTask()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold shadow-md transition-colors">Simpan</button></div>
         </div>
     </div>
@@ -1838,8 +1851,17 @@ const todayExp = state.finances.filter(f => {
                         });
                     });
                     state.tasks = newOrder;
-                    saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
-                    if (window.innerWidth < 768) {
+saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
+// 📅 Sync perubahan status ke Calendar
+const draggedTask = state.tasks.find(x => x.id === taskId);
+if (draggedTask) {
+    if (draggedTask.status === 'done') {
+        deleteTaskFromCalendar(draggedTask.id);
+    } else if (draggedTask.reminderAt || draggedTask.date) {
+        sendTaskToCalendar(draggedTask);
+    }
+}
+if (window.innerWidth < 768) {
                         const newStatus = state.tasks.find(t => t.id === taskId)?.status;
                         if (newStatus && newStatus !== oldStatus) switchKanbanTab(newStatus);
                     }
@@ -1970,7 +1992,13 @@ const todayExp = state.finances.filter(f => {
             state.tasks = state.tasks.filter(x => x.id !== taskId);
             state.tasks.unshift(t);
             saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
-            const label = { todo: 'Akan Dikerjakan', inprogress: 'Proses', done: 'Selesai' }[newStatus];
+// 📅 Kalau task selesai → hapus event Calendar. Kalau dipindah balik → sync ulang
+if (newStatus === 'done') {
+    deleteTaskFromCalendar(taskId);
+} else if ((newStatus === 'inprogress' || newStatus === 'todo') && (t.reminderAt || t.date)) {
+    sendTaskToCalendar(t);
+}
+const label = { todo: 'Akan Dikerjakan', inprogress: 'Proses', done: 'Selesai' }[newStatus];
             toast(`✅ Dipindah ke "${label}"`, 'success');
             if (window.innerWidth < 768) switchKanbanTab(newStatus);
         };
@@ -2242,9 +2270,13 @@ const todayExp = state.finances.filter(f => {
                 reminderAt: document.getElementById('new-task-reminder').value || null, remindedAt: null,
             };
             state.tasks.unshift(task);
-            saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
-            closeAddTaskModal();
-            toast('Tugas berhasil ditambahkan', 'success');
+saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
+// 📅 Sync ke Calendar kalau ada reminder/tanggal
+if (task.reminderAt || task.date) {
+    sendTaskToCalendar(task);
+}
+closeAddTaskModal();
+toast('Tugas berhasil ditambahkan', 'success');
         };
 
         window.openEditTaskModal = function(id) {
@@ -2276,8 +2308,16 @@ const todayExp = state.finances.filter(f => {
             t.tags = [...draftTags.edit];
             t.reminderAt = document.getElementById('edit-task-reminder').value || null;
             saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
-            closeEditTaskModal();
-            toast('Perubahan tersimpan', 'success');
+// 📅 Sync ke Calendar kalau dicentang & ada reminder/tanggal
+const syncCalendar = document.getElementById('edit-task-sync-calendar')?.checked;
+if (syncCalendar && (t.reminderAt || t.date)) {
+    sendTaskToCalendar(t);
+} else if (syncCalendar && !t.reminderAt && !t.date) {
+    // Kalau tidak ada reminder/tanggal → hapus event lama
+    deleteTaskFromCalendar(t.id);
+}
+closeEditTaskModal();
+toast('Perubahan tersimpan', 'success');
         };
         window.deleteTask = function(id) {
             const t = state.tasks.find(x => x.id === id);
@@ -2286,10 +2326,12 @@ const todayExp = state.finances.filter(f => {
                 message: `"${t ? t.title : 'Tugas'}" akan dihapus permanen dan tidak bisa dikembalikan.`,
                 variant: 'danger', okText: 'Ya, Hapus',
                 onConfirm: () => {
-                    state.tasks = state.tasks.filter(x => x.id !== id);
-                    saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
-                    toast('Tugas dihapus', 'success');
-                }
+    // 📅 Hapus event di Calendar dulu (sebelum task hilang)
+    deleteTaskFromCalendar(id);
+    state.tasks = state.tasks.filter(x => x.id !== id);
+    saveTasks(); renderTasks(); renderPerformance(); renderPerformanceCharts();
+    toast('Tugas dihapus', 'success');
+}
             });
         };
 
@@ -3004,7 +3046,70 @@ const todayExp = state.finances.filter(f => {
                 }
             });
         };
+// ==================== GOOGLE CALENDAR SYNC ====================
+async function sendTaskToCalendar(task) {
+    if (!state.sheet.connected || !state.sheet.url) return;
+    if (!navigator.onLine) return;
+    
+    try {
+        await fetch(state.sheet.url, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+                token: state.sheet.token,
+                action: 'calendarSync',
+                task: {
+                    id: task.id,
+                    title: task.title,
+                    desc: task.desc || '',
+                    priority: task.priority,
+                    date: task.date || '',
+                    status: task.status,
+                    reminderAt: task.reminderAt || '',
+                    tags: task.tags || [],
+                    subtasks: task.subtasks || []
+                }
+            })
+        });
+        console.log('📅 Task dikirim ke Calendar:', task.title);
+    } catch (e) {
+        console.error('Calendar sync error:', e);
+    }
+}
 
+async function deleteTaskFromCalendar(taskId) {
+    if (!state.sheet.connected || !state.sheet.url) return;
+    if (!navigator.onLine) return;
+    
+    try {
+        await fetch(state.sheet.url, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+                token: state.sheet.token,
+                action: 'calendarDelete',
+                taskId: String(taskId)
+            })
+        });
+        console.log('📅 Task dihapus dari Calendar:', taskId);
+    } catch (e) {
+        console.error('Calendar delete error:', e);
+    }
+}
+
+window.syncTaskToCalendarManual = function() {
+    const id = document.getElementById('edit-task-id').value;
+    const t = state.tasks.find(x => x.id === id);
+    if (!t) return;
+    if (!state.sheet.connected || !state.sheet.url) {
+        toast('Spreadsheet belum terhubung. Hubungkan dulu di tab Keuangan.', 'error');
+        return;
+    }
+    sendTaskToCalendar(t);
+    toast('📅 Task dikirim ke Google Calendar', 'success');
+};
         // ==================== GEMINI AI ====================
         window.runGemini = async function() {
             const key = document.getElementById('gemini-api-key').value.trim();
